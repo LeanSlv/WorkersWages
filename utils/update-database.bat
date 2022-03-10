@@ -1,6 +1,5 @@
-cd ../
+cd ../WorkersWages.API
 dotnet restore
 dotnet tool restore
-cd utils/
-dotnet ef database update -p ../WorkersWages.API
+dotnet ef database update
 PAUSE
