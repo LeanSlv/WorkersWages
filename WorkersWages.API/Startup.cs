@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace WorkersWages.API
 {
@@ -63,8 +66,39 @@ namespace WorkersWages.API
                 .AddEntityFrameworkStores<DataContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddCors();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.Authority = Configuration.GetSection("AuthOptions").GetValue<string>("Authority");
+                        options.RequireHttpsMetadata = true;
+                        options.SaveToken = true;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            // укзывает, будет ли валидироваться издатель при валидации токена
+                            ValidateIssuer = false,
+                            // строка, представляющая издателя
+                            ValidIssuer = Configuration.GetSection("AuthOptions").GetValue<string>("Issuer"),
+
+                            // будет ли валидироваться потребитель токена
+                            ValidateAudience = false,
+                            // установка потребителя токена
+                            ValidAudience = Configuration.GetSection("AuthOptions").GetValue<string>("Audience"),
+                            // будет ли валидироваться время существования
+                            ValidateLifetime = false,
+
+                            // установка ключа безопасности
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AuthOptions").GetValue<string>("SecretKey"))),
+                            // валидация ключа безопасности
+                            ValidateIssuerSigningKey = false
+                        };
+                    });
+
             // DB
             services.AddDbContext<DataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DataContext"), x => x.MigrationsAssembly(typeof(DataContext).Assembly.FullName)));
+
+            services.AddTransient<UserManager<User>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,6 +115,12 @@ namespace WorkersWages.API
 
             app.UseRouting();
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
