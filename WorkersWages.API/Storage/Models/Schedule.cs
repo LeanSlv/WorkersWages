@@ -21,6 +21,12 @@ namespace WorkersWages.API.Storage.Models
         public int ManufactoryId { get; set; }
 
         /// <summary>
+        /// Цех.
+        /// </summary>
+        [Required]
+        public virtual Manufactory Manufactory { get; set; }
+
+        /// <summary>
         /// День недели.
         /// </summary>
         [Required]

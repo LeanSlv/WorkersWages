@@ -21,6 +21,12 @@ namespace WorkersWages.API.Storage.Models
         public int WageId { get; set; }
 
         /// <summary>
+        /// Заработная плата.
+        /// </summary>
+        [Required]
+        public virtual Wage Wage { get; set; }
+
+        /// <summary>
         /// Наименование.
         /// </summary>
         public string Name { get; set; }

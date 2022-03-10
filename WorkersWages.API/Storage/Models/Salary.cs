@@ -21,6 +21,12 @@ namespace WorkersWages.API.Storage.Models
         public int ProfessionId { get; set; }
 
         /// <summary>
+        /// Профессия.
+        /// </summary>
+        [Required]
+        public virtual Profession Profession { get; set; }
+
+        /// <summary>
         /// Разряд.
         /// </summary>
         [Required]
