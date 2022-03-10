@@ -1,4 +1,6 @@
-﻿namespace WorkersWages.API.Models
+﻿using System.Collections.Generic;
+
+namespace WorkersWages.API.Models
 {
     /// <summary>
     /// Бизнесовая ошибка от API.

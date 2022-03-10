@@ -6,6 +6,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using WorkersWages.API.Interfaces;
 
+#nullable enable
+
 namespace WorkersWages.API.Services
 {
     /// <summary>

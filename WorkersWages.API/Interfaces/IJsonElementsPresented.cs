@@ -1,5 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
+#nullable enable
+
 namespace WorkersWages.API.Interfaces
 {
     /// <summary>
