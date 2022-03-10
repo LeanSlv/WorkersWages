@@ -35,7 +35,12 @@ namespace WorkersWages.API.Storage.Models
         /// <summary>
         /// ИД фотографии начальника.
         /// </summary>
-        public int? PhotoId { get; set; }
+        public int? HeadPhotoId { get; set; }
+
+        /// <summary>
+        /// Фотография начальника.
+        /// </summary>
+        public virtual File HeadPhoto { get; set; }
 
         /// <summary>
         /// Дата и время создания записи.
