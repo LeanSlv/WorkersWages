@@ -6,6 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using WorkersWages.API.Storage;
+using WorkersWages.API.Storage.Models;
+using Microsoft.AspNetCore.Identity;
+using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using System.Text.Json.Serialization;
 
 namespace WorkersWages.API
 {
@@ -27,6 +34,34 @@ namespace WorkersWages.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WorkersWages.API", Version = "v1" });
             });
+
+            services
+                .AddControllers(options =>
+                {
+                    options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status200OK));
+                    options.Filters.Add(new ProducesResponseTypeAttribute(typeof(Models.ApiErrorResponse), StatusCodes.Status400BadRequest));
+                    options.Filters.Add(new Models.ApiErrorResponseFilter());
+                    options.OutputFormatters.RemoveType<StringOutputFormatter>();
+                })
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    options.JsonSerializerOptions.Converters.Add(new Services.JsonElementsPresentedConverterFactory());
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                });
+
+            services.AddIdentity<User, UserRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
+            })
+                .AddEntityFrameworkStores<DataContext>()
+                .AddDefaultTokenProviders();
 
             // DB
             services.AddDbContext<DataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DataContext"), x => x.MigrationsAssembly(typeof(DataContext).Assembly.FullName)));
