@@ -16,6 +16,7 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WorkersWages.API.Models;
 
 namespace WorkersWages.API
 {
@@ -36,6 +37,15 @@ namespace WorkersWages.API
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WorkersWages.API", Version = "v1" });
+
+                c.AddSecurityDefinition("jwt", new OpenApiSecurityScheme()
+                {
+                    Name = "JWT token",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    Description = "Аутентификация от имени пользователя",
+                    BearerFormat = "JWT"
+                });
             });
 
             services
@@ -66,39 +76,36 @@ namespace WorkersWages.API
                 .AddEntityFrameworkStores<DataContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddCors();
+            // Adding Authentication  
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
-                    {
-                        options.Authority = Configuration.GetSection("AuthOptions").GetValue<string>("Authority");
-                        options.RequireHttpsMetadata = true;
-                        options.SaveToken = true;
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            // укзывает, будет ли валидироваться издатель при валидации токена
-                            ValidateIssuer = false,
-                            // строка, представляющая издателя
-                            ValidIssuer = Configuration.GetSection("AuthOptions").GetValue<string>("Issuer"),
-
-                            // будет ли валидироваться потребитель токена
-                            ValidateAudience = false,
-                            // установка потребителя токена
-                            ValidAudience = Configuration.GetSection("AuthOptions").GetValue<string>("Audience"),
-                            // будет ли валидироваться время существования
-                            ValidateLifetime = false,
-
-                            // установка ключа безопасности
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AuthOptions").GetValue<string>("SecretKey"))),
-                            // валидация ключа безопасности
-                            ValidateIssuerSigningKey = false
-                        };
-                    });
+            // Adding Jwt Bearer  
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["AuthOptions:Audience"],
+                    ValidIssuer = Configuration["AuthOptions:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthOptions:SecretKey"]))
+                };
+            });
 
             // DB
             services.AddDbContext<DataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DataContext"), x => x.MigrationsAssembly(typeof(DataContext).Assembly.FullName)));
 
+            services.Configure<AuthOptions>(Configuration.GetSection("AuthOptions"));
+
             services.AddTransient<UserManager<User>>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
