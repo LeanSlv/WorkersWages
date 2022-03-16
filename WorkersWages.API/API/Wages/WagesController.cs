@@ -115,6 +115,10 @@ namespace WorkersWages.API.API.Wages
             if (_dataContext.Wages.Any(i => i.WorkerLastName == request.WorkerLastName))
                 throw new ApiException($"Заработная плата для сотрудника \"{request.WorkerLastName}\" уже существует.", "WorkerLastName");
 
+            var salaryAmount = _dataContext.Salaries.FirstOrDefault(i => i.ProfessionId == request.ProfessionId && i.Rank == request.Rank);
+            if (salaryAmount == default)
+                throw new ApiException("Для выбранных профессии и разряда не существует оклада.");
+
             var now = DateTimeOffset.Now;
             var wage = new Wage
             {
@@ -122,7 +126,7 @@ namespace WorkersWages.API.API.Wages
                 ManufactoryId = request.ManufactoryId,
                 ProfessionId = request.ProfessionId,
                 Rank = request.Rank,
-                Amount = request.Amount,
+                Amount = salaryAmount.Amount,
                 Created = now,
                 Updated = now
             };
@@ -148,11 +152,21 @@ namespace WorkersWages.API.API.Wages
             if (wage == default)
                 return NotFound($"Заработной платы с ИД \"{id}\" не существует.");
 
+            var amount = wage.Amount;
+            if(wage.ProfessionId != request.ProfessionId || wage.Rank != request.Rank)
+            {
+                var salaryAmount = _dataContext.Salaries.FirstOrDefault(i => i.ProfessionId == request.ProfessionId && i.Rank == request.Rank);
+                if (salaryAmount == default)
+                    throw new ApiException("Для выбранных профессии и разряда не существует оклада.");
+
+                amount = salaryAmount.Amount;
+            }
+
             wage.WorkerLastName = request.WorkerLastName;
             wage.ManufactoryId = request.ManufactoryId;
             wage.ProfessionId = request.ProfessionId;
             wage.Rank = request.Rank;
-            wage.Amount = request.Amount;
+            wage.Amount = amount;
             wage.Updated = DateTimeOffset.Now;
 
             _dataContext.Wages.Update(wage);
@@ -171,6 +185,9 @@ namespace WorkersWages.API.API.Wages
             var wage = _dataContext.Wages.FirstOrDefault(i => i.Id == id);
             if (wage == default)
                 return NotFound($"Заработной платы с ИД \"{id}\" не существует.");
+
+            var allowences = _dataContext.Allowances.Where(i => i.WageId == wage.Id).ToList();
+            _dataContext.Allowances.RemoveRange(allowences);
 
             _dataContext.Wages.Remove(wage);
             await _dataContext.SaveChangesAsync();

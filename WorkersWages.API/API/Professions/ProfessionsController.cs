@@ -44,7 +44,7 @@ namespace WorkersWages.API.API.Professions
 
             var totalCount = list.Count();
 
-            list = list.Skip(request.Offset).Take(request.Limit);
+            list = list.OrderBy(i => i.Name).Skip(request.Offset).Take(request.Limit);
 
             return new ProfessionListResponse
             {
@@ -65,7 +65,7 @@ namespace WorkersWages.API.API.Professions
                 throw new ApiException();
 
             if (_dataContext.Professions.Any(i => i.Name == request.Name))
-                throw new ApiException("Профессия с таким названием уже существует.");
+                throw new ApiException("Профессия с таким названием уже существует.", "Name");
 
             var now = DateTimeOffset.Now;
             var profession = new Profession
@@ -96,6 +96,9 @@ namespace WorkersWages.API.API.Professions
 
             if (profession == default)
                 return NotFound($"Профессия с ИД \"{id}\" не существует.");
+
+            if (_dataContext.Professions.Any(i => i.Id != id && i.Name == request.Name))
+                throw new ApiException("Профессия с таким названием уже существует.", "Name");
 
             profession.Name = request.Name;
             profession.Updated = DateTimeOffset.Now;

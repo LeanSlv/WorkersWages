@@ -8,7 +8,7 @@
         /// <summary>
         /// Название профессии.
         /// </summary>
-        public string ProfessionName { get; set; }
+        public int? ProfessionId { get; set; }
 
         /// <summary>
         /// Разряд.

@@ -30,11 +30,5 @@ namespace WorkersWages.API.API.Wages
         /// </summary>
         [Required]
         public int Rank { get; set; }
-
-        /// <summary>
-        /// Размер зп.
-        /// </summary>
-        [Required]
-        public double Amount { get; set; }
     }
 }

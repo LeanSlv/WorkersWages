@@ -10,13 +10,11 @@ namespace WorkersWages.API.API.Manufactories
         /// <summary>
         /// Название.
         /// </summary>
-        [Required]
         public string Name { get; set; }
 
         /// <summary>
         /// Номер.
         /// </summary>
-        [Required]
         public string Number { get; set; }
     }
 }
