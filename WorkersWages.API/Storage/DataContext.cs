@@ -30,6 +30,7 @@ namespace WorkersWages.API.Storage
             modelBuilder.Entity<Manufactory>().HasIndex(i => new { i.Number }).IsUnique();
             modelBuilder.Entity<Wage>().HasIndex(i => new { i.WorkerLastName }).IsUnique();
             modelBuilder.Entity<Schedule>().HasIndex(i => new { i.ManufactoryId, i.WeekDay }).IsUnique();
+            modelBuilder.Entity<Salary>().HasIndex(i => new { i.ProfessionId, i.Rank }).IsUnique();
 
             _Seed(modelBuilder);
         }
