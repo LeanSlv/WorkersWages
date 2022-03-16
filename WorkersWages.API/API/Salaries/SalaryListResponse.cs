@@ -9,10 +9,10 @@ namespace WorkersWages.API.API.Salaries
     public class SalaryListResponse
     {
         /// <summary>
-        /// Список профессий.
+        /// Список окладов.
         /// </summary>
         [Required]
-        public SalaryInfo[] Professions { get; set; }
+        public SalaryInfo[] Salaries { get; set; }
 
         /// <summary>
         /// Общее количество записей.
@@ -22,7 +22,7 @@ namespace WorkersWages.API.API.Salaries
     }
 
     /// <summary>
-    /// Информация об окладах.
+    /// Информация об окладе.
     /// </summary>
     public class SalaryInfo
     {

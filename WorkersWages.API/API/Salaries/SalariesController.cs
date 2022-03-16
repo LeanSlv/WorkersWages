@@ -31,7 +31,18 @@ namespace WorkersWages.API.API.Salaries
         [HttpGet]
         public SalaryListResponse List([Required][FromQuery] SalaryListRequest request)
         {
-            var list = _dataContext.Salaries.Select(i => new SalaryInfo
+            var list = _dataContext.Salaries.AsQueryable();
+
+            if (request.ProfessionId.HasValue)
+                list = list.Where(i => i.ProfessionId == request.ProfessionId.Value);
+            if(request.Rank.HasValue)
+                list = list.Where(i => i.Rank == request.Rank.Value);
+
+            var totalCount = list.Count();
+
+            list = list.OrderBy(i => i.Profession.Name).Skip(request.Offset).Take(request.Limit);
+
+            var salaries = list.Select(i => new SalaryInfo
             {
                 Id = i.Id,
                 ProfessionName = i.Profession.Name,
@@ -41,19 +52,9 @@ namespace WorkersWages.API.API.Salaries
                 Updated = i.Updated
             });
 
-            if (!string.IsNullOrEmpty(request.ProfessionName))
-                list = list.Where(i => i.ProfessionName.Contains(request.ProfessionName));
-
-            if(request.Rank.HasValue)
-                list = list.Where(i => i.Rank == request.Rank.Value);
-
-            var totalCount = list.Count();
-
-            list = list.Skip(request.Offset).Take(request.Limit);
-
             return new SalaryListResponse
             {
-                Professions = list.ToArray(),
+                Salaries = salaries.ToArray(),
                 TotalCount = totalCount
             };
         }

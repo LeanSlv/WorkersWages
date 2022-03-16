@@ -47,7 +47,7 @@ namespace WorkersWages.API.API.Manufactories
 
             var totalCount = list.Count();
 
-            list = list.Skip(request.Offset).Take(request.Limit);
+            list = list.OrderBy(i => i.Name).Skip(request.Offset).Take(request.Limit);
 
             return new ManufactoryListResponse
             {
@@ -122,6 +122,9 @@ namespace WorkersWages.API.API.Manufactories
             var manufactory = _dataContext.Manufactories.FirstOrDefault(i => i.Id == id);
             if (manufactory == default)
                 return NotFound($"Цех с ИД \"{id}\" не существует.");
+
+            if (_dataContext.Manufactories.Any(i => i.Id != id && i.Number == request.Number))
+                throw new ApiException("Цех с таким номером уже существует.", "Number");
 
             manufactory.Name = request.Name;
             manufactory.Number = request.Number;

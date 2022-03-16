@@ -102,7 +102,7 @@ namespace WorkersWages.API.API.Schedules
             if (schedule == default)
                 return NotFound($"Графика работы для цеха с ИД \"{id}\" не существует.");
 
-            if (_dataContext.Schedules.Any(i => i.ManufactoryId == request.ManufactoryId && i.WeekDay == request.WeekDay))
+            if (_dataContext.Schedules.Any(i => i.Id != id && i.ManufactoryId == request.ManufactoryId && i.WeekDay == request.WeekDay))
                 throw new ApiException($"График работы для цеха с ИД \"{request.ManufactoryId}\" для дня недели \"{request.WeekDay}\" уже существует.");
 
             schedule.ManufactoryId = request.ManufactoryId;
