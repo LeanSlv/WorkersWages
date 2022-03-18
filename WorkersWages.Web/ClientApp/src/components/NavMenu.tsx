@@ -22,8 +22,8 @@ export const NavMenu = () => {
                     title={'Справочники'}
                 >
                     <AisNavDropdownItem to="/professions">Профессии</AisNavDropdownItem>
-                    <AisNavDropdownItem to="/Salaries">Оклады</AisNavDropdownItem>
-                    <AisNavDropdownItem to="/Schedules">Графики работы цехов</AisNavDropdownItem>
+                    <AisNavDropdownItem to="/salaries">Оклады</AisNavDropdownItem>
+                    <AisNavDropdownItem to="/schedules">Графики работы цехов</AisNavDropdownItem>
                 </AisNavDropdown>
             </BSNav>
         </AisNavbar>
