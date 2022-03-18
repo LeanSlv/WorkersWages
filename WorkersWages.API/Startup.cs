@@ -36,7 +36,7 @@ namespace WorkersWages.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WorkersWages.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WorkersWagesAPI", Version = "v1" });
 
                 c.AddSecurityDefinition("jwt", new OpenApiSecurityScheme()
                 {
@@ -115,7 +115,7 @@ namespace WorkersWages.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WorkersWages.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WorkersWagesAPI v1"));
             }
 
             app.UseHttpsRedirection();
