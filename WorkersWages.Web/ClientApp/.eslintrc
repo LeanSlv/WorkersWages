@@ -1,0 +1,24 @@
+﻿{
+  "extends": [ "react-app", "prettier" ],
+  "plugins": [ "prettier" ],
+  "rules": {
+    "unicode-bom": "off",
+    "prettier/prettier": "warn",
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "react",
+            "importNames": [ "default" ],
+            "message": "Импортируйте конкретные объекты, а не весь React."
+          }
+        ]
+      }
+    ]
+  }
+}
