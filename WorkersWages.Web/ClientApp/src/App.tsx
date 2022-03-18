@@ -1,8 +1,8 @@
-import React from 'react';
-import './custom.css'
+import { Layout } from './components/Layout';
+import './App.scss';
 
 function App() {
-    return (<>Главная страница.</>);
+    return (<Layout isLoading={false}>Главная страница.</Layout>);
 }
 
 export default App;
