@@ -12,17 +12,22 @@
   <ItemGroup>
     <PackageReference Include="IdentityModel.AspNetCore" Version="4.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.23" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.19" />
     <PackageReference Include="NSwag.MSBuild" Version="13.15.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.0" />
     <PackageReference Include="Yarp.ReverseProxy" Version="1.0.0" />
   </ItemGroup>
 	
   <Target Name="NSwag" BeforeTargets="BeforeBuild" Condition=" '$(CI)' != 'true' ">
     <!-- Generate API clients -->
-    <Exec Command="$(NSwagExe_Net60) openapi2tsclient /input:OpenAPIs/WorkersWagesAPI.json /className:WorkersWagesApiClient /output:ClientApp/src/services/WorkersWagesApiClient.ts" />
+    <Exec Command="$(NSwagExe_Core31) openapi2tsclient /OperationGenerationMode:SingleClientFromOperationId /input:OpenAPIs/WorkersWagesAPI.json /className:WorkersWagesApiClient /output:ClientApp/src/services/WorkersWagesApiClient.ts" />
+    <Exec Command="$(NSwagExe_Core31) openapi2tsclient /OperationGenerationMode:SingleClientFromOperationId /input:OpenAPIs/WorkersWagesWebLocalApi.json /className:WorkersWagesWebLocalApiClient /output:ClientApp/src/services/WorkersWagesWebLocalApiClient.ts" />
+    <Exec Command="$(NSwagExe_Core31) openapi2csclient /OperationGenerationMode:SingleClientFromOperationId /input:OpenAPIs/WorkersWagesAPI.json /className:WorkersWagesApiClient /namespace:WorkersWages.Web.Services /output:Services/WorkersWagesApiClient.cs" />
   </Target>
 
   <ItemGroup>
@@ -34,6 +39,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\services\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 	<Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
