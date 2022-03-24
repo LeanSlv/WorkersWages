@@ -42,6 +42,7 @@ namespace WorkersWages.Web.API.Authorization
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, identity, new AuthenticationProperties { AllowRefresh = true });
             await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Session.SetString("access_token", response.Token);
+            return;
         }
 
         /// <summary>
@@ -65,6 +66,7 @@ namespace WorkersWages.Web.API.Authorization
         public async Task Logout()
         {
             await HttpContext.SignOutAsync();
+            return;
         }
     }
 }
