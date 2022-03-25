@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using System;
 using System.Net;
 using System.Net.Http;
 using Yarp.ReverseProxy.Forwarder;
@@ -34,38 +37,33 @@ namespace WorkersWages.Web
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services
-            .AddAuthentication(options =>
+            // Adding Authentication  
+            services.AddAuthentication(options =>
             {
-                options.DefaultScheme = "Cookies";
-                options.DefaultChallengeScheme = "oidc";
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             })
-            .AddCookie("Cookies")
-            .AddOpenIdConnect("oidc", options =>
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+            // Adding Jwt Bearer  
+            .AddJwtBearer(options =>
             {
                 options.Authority = Configuration.GetValue<string>("Auth:Authority");
+                options.Audience = Configuration.GetValue<string>("Auth:Audience");
+                options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
-
-                options.ClientId = Configuration.GetValue<string>("Auth:ClientId");
-                options.ClientSecret = Configuration.GetValue<string>("Auth:ClientSecret");
-                options.ResponseType = "code";
-
-                options.SaveTokens = true;
-                options.GetClaimsFromUserInfoEndpoint = true;
-                options.ClaimActions.MapUniqueJsonKey("middle_name", "middle_name");
-
-                options.Scope.Clear();
-                options.Scope.Add("openid");
-                options.Scope.Add("profile");
-                options.Scope.Add("email");
-
-                options.TokenValidationParameters.NameClaimType = "name";
-                options.TokenValidationParameters.RoleClaimType = "role";
+            });
+            services.AddAccessTokenManagement();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.IsEssential = true;
             });
 
-            services.AddAccessTokenManagement();
-
             services.AddHttpForwarder();
+
+            services.AddHttpContextAccessor();
+            services.AddHttpClient("api_client")
+                .AddUserAccessTokenHandler();
 
             // reverse proxy config
             services.Configure<ForwardedHeadersOptions>(options =>
@@ -74,6 +72,12 @@ namespace WorkersWages.Web
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
                 options.KnownNetworks.Clear();
                 options.KnownProxies.Clear();
+            });
+
+            // Register the Swagger generator
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WorkersWages.Web local API", Version = "v1" });
             });
         }
 
@@ -100,6 +104,13 @@ namespace WorkersWages.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseSession();
+
+            app.UseSwagger(c =>
+            {
+                c.RouteTemplate = "/swagger/{documentName}/WorkersWagesWebLocalApi.json";
+            });
+
             // Configure our own HttpMessageInvoker for outbound calls for proxy operations
             var httpMessageInvoker = new HttpMessageInvoker(new SocketsHttpHandler()
             {
@@ -118,7 +129,7 @@ namespace WorkersWages.Web
 
                 endpoints.Map("/extapi/{**catch-all}", async httpContext =>
                 {
-                    var token = await httpContext.GetUserAccessTokenAsync();
+                    var token = httpContext.Session.GetString("access_token");
                     httpContext.Request.Cookies = null;
                     httpContext.Request.Headers.Add("Authorization", $"Bearer {token}");
                     httpContext.Request.Path = new PathString("/" + httpContext.Request.RouteValues["catch-all"].ToString());
