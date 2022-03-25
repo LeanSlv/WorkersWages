@@ -2,6 +2,7 @@
 import { BSNav, AisNavbar, AisNavDropdown, AisNavDropdownItem } from '@ais-gorod/react-ui';
 import { useCallback, useEffect, useState } from 'react';
 import { AuthorizationUserInfoResponse, WorkersWagesWebLocalApiClient } from '../services/WorkersWagesWebLocalApiClient';
+import { MdOutlineAccountCircle, MdOutlineExitToApp, MdOutlineLogin } from 'react-icons/md';
 
 const apiClient = new WorkersWagesWebLocalApiClient();
 
@@ -45,15 +46,15 @@ export const NavMenu = () => {
                 {userInfo?.displayName ? (
                     <>
                         <AisNavbar.Text>
-                            {userInfo.displayName}
+                            <MdOutlineAccountCircle /> {userInfo.displayName}
                         </AisNavbar.Text>
                         <BSNav.Link onClick={handleLogout}>
-                            Выйти
+                            <MdOutlineExitToApp /> Выйти
                         </BSNav.Link>
                     </>
                 ) : (
                     <BSNav.Link as={NavLink} to="/login">
-                        Войти
+                        <MdOutlineLogin /> Войти
                     </BSNav.Link>
                 )}
             </BSNav>
