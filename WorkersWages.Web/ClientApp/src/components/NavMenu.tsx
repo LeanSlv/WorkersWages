@@ -13,7 +13,7 @@ export const NavMenu = () => {
     }, []);
 
     useEffect(() => {
-        apiClient.authorization().then(r => setUserInfo(r));
+        apiClient.userInfo().then(r => setUserInfo(r));
     }, []);
 
     return (

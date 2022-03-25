@@ -58,8 +58,45 @@ export class WorkersWagesWebLocalApiClient {
     /**
      * @return Success
      */
-    authorization(): Promise<AuthorizationUserInfoResponse> {
-        let url_ = this.baseUrl + "/api/Authorization";
+    register(body: AccountRegisterRequest): Promise<void> {
+        let url_ = this.baseUrl + "/api/Authorization/Register";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processRegister(_response);
+        });
+    }
+
+    protected processRegister(response: Response): Promise<void> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            return;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<void>(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    userInfo(): Promise<AuthorizationUserInfoResponse> {
+        let url_ = this.baseUrl + "/api/Authorization/UserInfo";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {
@@ -70,11 +107,11 @@ export class WorkersWagesWebLocalApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAuthorization(_response);
+            return this.processUserInfo(_response);
         });
     }
 
-    protected processAuthorization(response: Response): Promise<AuthorizationUserInfoResponse> {
+    protected processUserInfo(response: Response): Promise<AuthorizationUserInfoResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -162,6 +199,62 @@ export class AccountLoginRequest implements IAccountLoginRequest {
 }
 
 export interface IAccountLoginRequest {
+    userName: string;
+    password: string;
+}
+
+export class AccountRegisterRequest implements IAccountRegisterRequest {
+    firstName!: string;
+    middleName?: string | undefined;
+    lastName!: string;
+    email?: string | undefined;
+    userName!: string;
+    password!: string;
+
+    constructor(data?: IAccountRegisterRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.firstName = _data["firstName"];
+            this.middleName = _data["middleName"];
+            this.lastName = _data["lastName"];
+            this.email = _data["email"];
+            this.userName = _data["userName"];
+            this.password = _data["password"];
+        }
+    }
+
+    static fromJS(data: any): AccountRegisterRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new AccountRegisterRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["firstName"] = this.firstName;
+        data["middleName"] = this.middleName;
+        data["lastName"] = this.lastName;
+        data["email"] = this.email;
+        data["userName"] = this.userName;
+        data["password"] = this.password;
+        return data;
+    }
+}
+
+export interface IAccountRegisterRequest {
+    firstName: string;
+    middleName?: string | undefined;
+    lastName: string;
+    email?: string | undefined;
     userName: string;
     password: string;
 }

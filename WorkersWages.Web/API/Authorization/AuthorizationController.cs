@@ -46,9 +46,36 @@ namespace WorkersWages.Web.API.Authorization
         }
 
         /// <summary>
+        /// Регистрация в системе.
+        /// </summary>
+        /// <param name="request">Данные для регистрации пользователя в системе.</param>
+        [HttpPost("Register")]
+        public async Task Register([Required][FromBody] Services.AccountRegisterRequest request)
+        {
+            HttpClient httpClient = _httpClientFactory.CreateClient("api_client");
+            var workersWagesApiClient = new Services.WorkersWagesApiClient(_configuration.GetValue<string>("API"), httpClient);
+            await workersWagesApiClient.RegisterAsync(request);
+
+            var loginRequest = new Services.AccountLoginRequest
+            {
+                UserName = request.UserName,
+                Password = request.Password
+            };
+            var response = await workersWagesApiClient.LoginAsync(loginRequest);
+            var token = new JwtSecurityTokenHandler().ReadJwtToken(response.Token);
+            var identity = new ClaimsPrincipal(new ClaimsIdentity(token.Claims, CookieAuthenticationDefaults.AuthenticationScheme));
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, identity, new AuthenticationProperties { AllowRefresh = true });
+            await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.SetString("access_token", response.Token);
+            return;
+        }
+
+        /// <summary>
         /// Получение информации об авторизованном пользователе.
         /// </summary>
-        [HttpGet]
+        [HttpGet("UserInfo")]
+        [Authorize]
         public AuthorizationUserInfoResponse UserInfo()
         {
             return new AuthorizationUserInfoResponse

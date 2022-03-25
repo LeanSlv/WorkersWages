@@ -2,7 +2,6 @@
 import { AisForm, AisFormField, AisButton, AisCard, AisGrid } from '@ais-gorod/react-ui';
 import { useHistory, Link } from 'react-router-dom';
 import { AccountLoginRequest, WorkersWagesWebLocalApiClient } from '../../services/WorkersWagesWebLocalApiClient';
-import './LoginPage.scss';
 
 export const LoginPage = () => {
     const history = useHistory();
@@ -18,7 +17,7 @@ export const LoginPage = () => {
                     <AisForm onSubmit={handleSubmit}>
                         <AisFormField.Text label="Логин" name="userName" />
                         <AisFormField.Text label="Пароль" name="password" type="password" />
-                        <AisButton type="submit" variant="primary" className="btn-block">
+                        <AisButton type="submit" variant="primary">
                             Войти
                         </AisButton>
                         {'  '}
