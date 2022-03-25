@@ -1,7 +1,12 @@
 ﻿import { useCallback } from 'react';
-import { AisForm, AisFormField, AisButton, AisCard, AisGrid } from '@ais-gorod/react-ui';
+import { AisForm, AisFormField, AisButton, AisCard, AisGrid, Yup } from '@ais-gorod/react-ui';
 import { useHistory, Link } from 'react-router-dom';
 import { AccountLoginRequest, WorkersWagesWebLocalApiClient } from '../../services/WorkersWagesWebLocalApiClient';
+
+const FormValuesSchema = Yup.object().shape({
+    userName: Yup.string().required(),
+    password: Yup.string().required()
+});
 
 export const LoginPage = () => {
     const history = useHistory();
@@ -14,7 +19,7 @@ export const LoginPage = () => {
         <AisGrid.Row id="flexContainer">
             <AisGrid.Col md={8} lg={4}>
                 <AisCard header="Вход в систему" headerClassName="text-center">
-                    <AisForm onSubmit={handleSubmit}>
+                    <AisForm onSubmit={handleSubmit} validationSchema={FormValuesSchema}>
                         <AisFormField.Text label="Логин" name="userName" />
                         <AisFormField.Text label="Пароль" name="password" type="password" />
                         <AisButton type="submit" variant="primary">

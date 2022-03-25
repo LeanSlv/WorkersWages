@@ -17,6 +17,7 @@ const FormValuesSchema = Yup.object().shape({
     firstName: Yup.string().required(),
     lastName: Yup.string().required(),
     email: Yup.string().email().required(),
+    userName: Yup.string.required(),
     password: Yup.string().required(),
     confirmPassword: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Пароли не совпадают.')
