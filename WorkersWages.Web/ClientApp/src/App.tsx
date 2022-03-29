@@ -10,6 +10,7 @@ import { LoginPage } from './components/Account/LoginPage';
 import { RegisterPage } from './components/Account/RegisterPage';
 import { ProfessionsContainer } from './components/Professions/ProfessionsContainer';
 import { SalariesContainer } from './components/Salaries/SalariesContainer';
+import { SchedulesContainer } from './components/Schedules/SchedulesContainer';
 
 import './App.scss';
 
@@ -30,6 +31,7 @@ function App() {
 
                 <Route path="/professions" exact component={ProfessionsContainer} />
                 <Route path="/salaries" exact component={SalariesContainer} />
+                <Route path="/schedules" exact component={SchedulesContainer} />
             </Layout>
         </UserInfoContext.Provider>
     );

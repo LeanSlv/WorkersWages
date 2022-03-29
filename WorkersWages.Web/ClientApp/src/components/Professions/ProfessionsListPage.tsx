@@ -38,7 +38,6 @@ export const ProfessionsListPage = (props: Props) => {
                                 <br />
                                 <small>Обновлено</small>
                             </th>
-                            <th></th>
                         </tr>
                     </>
                 }
