@@ -28,7 +28,7 @@ export const ManufactoriesContainer = () => {
 
     return (
         <>
-            <Route path="/manufactories/details/:id">
+            <Route path="/manufactories/details/:id" exact>
                 <ManufactoriesDetailsModal />
             </Route>
             <ManufactoriesListPage

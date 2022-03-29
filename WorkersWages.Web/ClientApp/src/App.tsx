@@ -12,6 +12,7 @@ import { ProfessionsContainer } from './components/Professions/ProfessionsContai
 import { SalariesContainer } from './components/Salaries/SalariesContainer';
 import { SchedulesContainer } from './components/Schedules/SchedulesContainer';
 import { ManufactoriesContainer } from './components/Manufactories/ManufactoriesContainer';
+import { WagesContainer } from './components/Wages/WagesContainer';
 
 import './App.scss';
 
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/salaries" component={SalariesContainer} />
                 <Route path="/schedules" component={SchedulesContainer} />
                 <Route path="/manufactories" component={ManufactoriesContainer} />
+                <Route path="/wages" component={WagesContainer} />
             </Layout>
         </UserInfoContext.Provider>
     );
