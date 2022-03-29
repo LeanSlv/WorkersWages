@@ -25,9 +25,6 @@ export const NavMenu = () => {
                         <BSNav.Link as={NavLink} to="/manufactories">
                             Цеха
                         </BSNav.Link>
-                        <BSNav.Link as={NavLink} to="/users">
-                            Пользователи
-                        </BSNav.Link>
                         <BSNav.Link as={NavLink} to="/wages">
                             Заработные платы
                         </BSNav.Link>

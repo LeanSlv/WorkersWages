@@ -40,7 +40,7 @@ namespace WorkersWages.API.API.Professions
             });
 
             if (!string.IsNullOrEmpty(request.Name))
-                list.Where(i => i.Name.Contains(request.Name));
+                list = list.Where(i => i.Name.Contains(request.Name));
 
             var totalCount = list.Count();
 

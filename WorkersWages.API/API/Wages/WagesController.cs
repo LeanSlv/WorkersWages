@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace WorkersWages.API.API.Wages
                 Amount = i.Amount,
                 Created = i.Created,
                 Updated = i.Updated,
-            });
+            }).ToList();
 
             foreach (var wage in wages)
                 wage.AmountWithAllowances = CalculateWageAmountWithAllowances(wage.Id, wage.Amount);
@@ -76,7 +77,10 @@ namespace WorkersWages.API.API.Wages
         [HttpGet("{id}")]
         public ActionResult<WageDetailsResponse> Details([Required][FromQuery] int id)
         {
-            var wage = _dataContext.Wages.FirstOrDefault(i => i.Id == id);
+            var wage = _dataContext.Wages
+                .Include(i => i.Manufactory)
+                .Include(i => i.Profession)
+                .FirstOrDefault(i => i.Id == id);
             if (wage == default)
                 return NotFound($"Заработной платы с ИД \"{id}\" не существует.");
 
@@ -87,7 +91,7 @@ namespace WorkersWages.API.API.Wages
                     Id = i.Id,
                     Name = i.Name,
                     Amount = i.Amount
-                });
+                }).ToArray();
 
             return new WageDetailsResponse
             {
@@ -97,7 +101,7 @@ namespace WorkersWages.API.API.Wages
                 Rank = wage.Rank,
                 Amount = wage.Amount,
                 AmountWithAllowances = CalculateWageAmountWithAllowances(wage.Id, wage.Amount),
-                Allowances = allowances.ToArray()
+                Allowances = allowances
             };
         }
 
@@ -307,6 +311,9 @@ namespace WorkersWages.API.API.Wages
         {
             if (!_dataContext.Wages.Any(i => i.Id == wageId))
                 throw new ApiException($"Вычисление размера ЗП: заработной платы с ИД \"{wageId}\" не существует.");
+
+            if (!_dataContext.Allowances.Any(i => i.WageId == wageId))
+                return 0.0;
 
             var allowancesAmount = _dataContext.Allowances.Where(i => i.WageId == wageId).Select(i => i.Amount).Sum();
             return wageAmount + allowancesAmount;
