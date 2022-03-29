@@ -9,6 +9,7 @@ import { MainPage } from './components/MainPage/MainPage';
 import { LoginPage } from './components/Account/LoginPage';
 import { RegisterPage } from './components/Account/RegisterPage';
 import { ProfessionsContainer } from './components/Professions/ProfessionsContainer';
+import { SalariesContainer } from './components/Salaries/SalariesContainer';
 
 import './App.scss';
 
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/register" exact component={RegisterPage} />
 
                 <Route path="/professions" exact component={ProfessionsContainer} />
+                <Route path="/salaries" exact component={SalariesContainer} />
             </Layout>
         </UserInfoContext.Provider>
     );
