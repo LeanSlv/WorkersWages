@@ -12,7 +12,7 @@ export const ManufactoriesDetailsModal = () => {
     const [manufacoryInfo, setManufacoryInfo] = useState<ManufactoryDetailsResponse>();
     useEffect(() => {
         const apiClient = new WorkersWagesApiClient('/extapi');
-        apiClient.manufactoriesDetails(+id, "id").then((r) => setManufacoryInfo(r));
+        apiClient.manufactoriesDetails(+id).then((r) => setManufacoryInfo(r));
     }, []);
 
     if (!manufacoryInfo) return null;

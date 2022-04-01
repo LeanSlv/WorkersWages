@@ -27,7 +27,7 @@ const validationSchema = Yup.object().shape({
 
 const manufactoryIdOptions = async (inputValue: string, value: string | number | undefined, callback: (options: AisSelectOption<number>[]) => void) => {
     const apiClient = new WorkersWagesApiClient('/extapi');
-    const data = await apiClient.manufactoriesGET(inputValue, undefined, 20, 0);
+    const data = await apiClient.manufactoriesList(inputValue, undefined, 20, 0);
     const options = data.manufactories?.map((item) => {
         return { value: item.id ?? 0, label: item.name };
     });

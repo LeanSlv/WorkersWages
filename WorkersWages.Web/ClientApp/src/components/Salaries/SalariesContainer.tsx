@@ -29,7 +29,7 @@ export const SalariesContainer = () => {
     });
 
     const handleDelete = useCallback(async (id: number) => {
-        await apiClient.salariesDelete(id, "id").then((_) => reloadData());
+        await apiClient.salariesDelete(id).then((_) => reloadData());
     }, [reloadData]);
 
     return (

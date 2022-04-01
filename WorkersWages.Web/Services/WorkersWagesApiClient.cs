@@ -446,34 +446,29 @@ namespace WorkersWages.Web.Services
         /// <summary>
         /// ����������� � ����.
         /// </summary>
-        /// <param name="idQuery">�� ����.</param>
+        /// <param name="id">�� ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ManufactoryDetailsResponse> ManufactoriesDetailsAsync(int idQuery, string idPath)
+        public virtual System.Threading.Tasks.Task<ManufactoryDetailsResponse> ManufactoriesDetailsAsync(int id)
         {
-            return ManufactoriesDetailsAsync(idQuery, idPath, System.Threading.CancellationToken.None);
+            return ManufactoriesDetailsAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// ����������� � ����.
         /// </summary>
-        /// <param name="idQuery">�� ����.</param>
+        /// <param name="id">�� ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ManufactoryDetailsResponse> ManufactoriesDetailsAsync(int idQuery, string idPath, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ManufactoryDetailsResponse> ManufactoriesDetailsAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
-            if (idPath == null)
-                throw new System.ArgumentNullException("idPath");
-
-            if (idQuery == null)
-                throw new System.ArgumentNullException("idQuery");
+            if (id == null)
+                throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Manufactories/{id}?");
-            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(idPath, System.Globalization.CultureInfo.InvariantCulture)));
-            urlBuilder_.Append(System.Uri.EscapeDataString("id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(idQuery, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Manufactories/{id}");
+            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1331,39 +1326,34 @@ namespace WorkersWages.Web.Services
         /// <summary>
         /// �������������� ������.
         /// </summary>
-        /// <param name="idQuery">�� ������.</param>
+        /// <param name="id">�� ������.</param>
         /// <param name="body">������ �� �������������� ������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SalariesEditAsync(int idQuery, string idPath, SalaryEditRequest body)
+        public virtual System.Threading.Tasks.Task SalariesEditAsync(int id, SalaryEditRequest body)
         {
-            return SalariesEditAsync(idQuery, idPath, body, System.Threading.CancellationToken.None);
+            return SalariesEditAsync(id, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// �������������� ������.
         /// </summary>
-        /// <param name="idQuery">�� ������.</param>
+        /// <param name="id">�� ������.</param>
         /// <param name="body">������ �� �������������� ������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SalariesEditAsync(int idQuery, string idPath, SalaryEditRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SalariesEditAsync(int id, SalaryEditRequest body, System.Threading.CancellationToken cancellationToken)
         {
-            if (idPath == null)
-                throw new System.ArgumentNullException("idPath");
-
-            if (idQuery == null)
-                throw new System.ArgumentNullException("idQuery");
+            if (id == null)
+                throw new System.ArgumentNullException("id");
 
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Salaries/{id}?");
-            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(idPath, System.Globalization.CultureInfo.InvariantCulture)));
-            urlBuilder_.Append(System.Uri.EscapeDataString("id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(idQuery, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Salaries/{id}");
+            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1434,34 +1424,29 @@ namespace WorkersWages.Web.Services
         /// <summary>
         /// �������� ������.
         /// </summary>
-        /// <param name="idQuery">�� ������.</param>
+        /// <param name="id">�� ������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SalariesDeleteAsync(int idQuery, string idPath)
+        public virtual System.Threading.Tasks.Task SalariesDeleteAsync(int id)
         {
-            return SalariesDeleteAsync(idQuery, idPath, System.Threading.CancellationToken.None);
+            return SalariesDeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// �������� ������.
         /// </summary>
-        /// <param name="idQuery">�� ������.</param>
+        /// <param name="id">�� ������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SalariesDeleteAsync(int idQuery, string idPath, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SalariesDeleteAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
-            if (idPath == null)
-                throw new System.ArgumentNullException("idPath");
-
-            if (idQuery == null)
-                throw new System.ArgumentNullException("idQuery");
+            if (id == null)
+                throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Salaries/{id}?");
-            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(idPath, System.Globalization.CultureInfo.InvariantCulture)));
-            urlBuilder_.Append(System.Uri.EscapeDataString("id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(idQuery, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Salaries/{id}");
+            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -2143,34 +2128,29 @@ namespace WorkersWages.Web.Services
         /// <summary>
         /// ��������� ������������ � ���������� �����.
         /// </summary>
-        /// <param name="idQuery">�� ���������� �����.</param>
+        /// <param name="id">�� ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<WageDetailsResponse> WagesDetailsAsync(int idQuery, string idPath)
+        public virtual System.Threading.Tasks.Task<WageDetailsResponse> WagesDetailsAsync(int id)
         {
-            return WagesDetailsAsync(idQuery, idPath, System.Threading.CancellationToken.None);
+            return WagesDetailsAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// ��������� ������������ � ���������� �����.
         /// </summary>
-        /// <param name="idQuery">�� ���������� �����.</param>
+        /// <param name="id">�� ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<WageDetailsResponse> WagesDetailsAsync(int idQuery, string idPath, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<WageDetailsResponse> WagesDetailsAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
-            if (idPath == null)
-                throw new System.ArgumentNullException("idPath");
-
-            if (idQuery == null)
-                throw new System.ArgumentNullException("idQuery");
+            if (id == null)
+                throw new System.ArgumentNullException("id");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Wages/{id}?");
-            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(idPath, System.Globalization.CultureInfo.InvariantCulture)));
-            urlBuilder_.Append(System.Uri.EscapeDataString("id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(idQuery, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Wages/{id}");
+            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
             var disposeClient_ = false;

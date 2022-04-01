@@ -25,7 +25,7 @@ export const SalariesEditModal = (props: Props) => {
     const handleSubmit = useCallback(async (data: SalaryEditRequest) => {
         if (!id) return;
 
-        await apiClient.salariesEdit(+id, "id", data).then((_) => {
+        await apiClient.salariesEdit(+id, data).then((_) => {
             history.goBack();
             propsOnDataChanged();
         });

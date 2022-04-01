@@ -223,18 +223,14 @@ export class WorkersWagesApiClient {
 
     /**
      * ����������� � ����.
-     * @param idQuery �� ����.
+     * @param id �� ����.
      * @return Success
      */
-    manufactoriesDetails(idQuery: number, idPath: string): Promise<ManufactoryDetailsResponse> {
-        let url_ = this.baseUrl + "/api/Manufactories/{id}?";
-        if (idPath === undefined || idPath === null)
-            throw new Error("The parameter 'idPath' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + idPath));
-        if (idQuery === undefined || idQuery === null)
-            throw new Error("The parameter 'idQuery' must be defined and cannot be null.");
-        else
-            url_ += "id=" + encodeURIComponent("" + idQuery) + "&";
+    manufactoriesDetails(id: number): Promise<ManufactoryDetailsResponse> {
+        let url_ = this.baseUrl + "/api/Manufactories/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {
@@ -677,19 +673,15 @@ export class WorkersWagesApiClient {
 
     /**
      * �������������� ������.
-     * @param idQuery �� ������.
+     * @param id �� ������.
      * @param body ������ �� �������������� ������.
      * @return Success
      */
-    salariesEdit(idQuery: number, idPath: string, body: SalaryEditRequest): Promise<void> {
-        let url_ = this.baseUrl + "/api/Salaries/{id}?";
-        if (idPath === undefined || idPath === null)
-            throw new Error("The parameter 'idPath' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + idPath));
-        if (idQuery === undefined || idQuery === null)
-            throw new Error("The parameter 'idQuery' must be defined and cannot be null.");
-        else
-            url_ += "id=" + encodeURIComponent("" + idQuery) + "&";
+    salariesEdit(id: number, body: SalaryEditRequest): Promise<void> {
+        let url_ = this.baseUrl + "/api/Salaries/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -731,18 +723,14 @@ export class WorkersWagesApiClient {
 
     /**
      * �������� ������.
-     * @param idQuery �� ������.
+     * @param id �� ������.
      * @return Success
      */
-    salariesDelete(idQuery: number, idPath: string): Promise<void> {
-        let url_ = this.baseUrl + "/api/Salaries/{id}?";
-        if (idPath === undefined || idPath === null)
-            throw new Error("The parameter 'idPath' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + idPath));
-        if (idQuery === undefined || idQuery === null)
-            throw new Error("The parameter 'idQuery' must be defined and cannot be null.");
-        else
-            url_ += "id=" + encodeURIComponent("" + idQuery) + "&";
+    salariesDelete(id: number): Promise<void> {
+        let url_ = this.baseUrl + "/api/Salaries/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {
@@ -1097,18 +1085,14 @@ export class WorkersWagesApiClient {
 
     /**
      * ��������� ������������ � ���������� �����.
-     * @param idQuery �� ���������� �����.
+     * @param id �� ���������� �����.
      * @return Success
      */
-    wagesDetails(idQuery: number, idPath: string): Promise<WageDetailsResponse> {
-        let url_ = this.baseUrl + "/api/Wages/{id}?";
-        if (idPath === undefined || idPath === null)
-            throw new Error("The parameter 'idPath' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + idPath));
-        if (idQuery === undefined || idQuery === null)
-            throw new Error("The parameter 'idQuery' must be defined and cannot be null.");
-        else
-            url_ += "id=" + encodeURIComponent("" + idQuery) + "&";
+    wagesDetails(id: number): Promise<WageDetailsResponse> {
+        let url_ = this.baseUrl + "/api/Wages/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {
