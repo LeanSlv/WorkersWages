@@ -1,5 +1,5 @@
 ﻿import { AisButton, AisForm, AisFormField, Yup, AisSelectOption, AisGrid } from "@ais-gorod/react-ui";
-import { ScheduleEditRequest, WeekDays, WorkersWagesApiClient } from "../../services/WorkersWagesApiClient";
+import { WeekDays, WorkersWagesApiClient } from "../../services/WorkersWagesApiClient";
 import { FormFieldTimePicker } from '../TimePicker/FormFieldTimePicker';
 
 export interface FormValues {

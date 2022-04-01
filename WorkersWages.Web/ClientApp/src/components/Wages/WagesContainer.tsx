@@ -37,7 +37,7 @@ export const WagesContainer = () => {
 
     return (
         <>
-            <Route path="/wages">
+            <Route path="/wages" exact>
                 <Route path="/wages/add" exact>
                     <WagesCreateModal onDataChanged={reloadData} />
                 </Route>
@@ -53,7 +53,7 @@ export const WagesContainer = () => {
                     handleDelete={handleDelete}
                 />
             </Route>
-            <Route path="/wages/details/:id" exact>
+            <Route path="/wages/details/:id">
                 <WagesDetailsPage />
             </Route>
         </>
