@@ -30,7 +30,7 @@ export const ManufactoriesContainer = () => {
     });
 
     const handleDelete = useCallback(async (id: number) => {
-        await apiClient.salariesDelete(id).then((_) => reloadData());
+        await apiClient.manufactoriesDelete(id).then((_) => reloadData());
     }, [reloadData]);
 
     return (
