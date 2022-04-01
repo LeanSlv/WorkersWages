@@ -1,7 +1,8 @@
-﻿import { AisTablePagination, AisTable, AisPageHeader, AisDisplay } from '@ais-gorod/react-ui';
+﻿import { AisTablePagination, AisTable, AisPageHeader, AisDisplay, AisButton, AisIcon, AisConfirmModal } from '@ais-gorod/react-ui';
 import { ScheduleInfo, TimeSpan, WeekDays } from '../../services/WorkersWagesApiClient';
 import { SchedulesListFilter, FilterData } from './SchedulesListFilter';
 import { Link } from 'react-router-dom';
+import { useCallback, useState } from 'react';
 
 interface Props {
     data: ScheduleInfo[] | undefined;
@@ -9,6 +10,7 @@ interface Props {
     pagination?: AisTablePagination;
     filterData?: FilterData;
     setFilter: (filter: FilterData) => void;
+    handleDelete: (id: number) => void;
 }
 
 const timeSpanFormat = (time: TimeSpan | undefined) => {
@@ -32,10 +34,27 @@ const WeekDayFormat = (weekDay: WeekDays) => {
 };
 
 export const SchedulesListPage = (props: Props) => {
+    const [deleteId, setDeleteId] = useState<number>();
+
+    const handleDelete = useCallback(() => {
+        if (deleteId === undefined) return;
+
+        props.handleDelete(deleteId);
+        setDeleteId(undefined);
+    }, [deleteId, setDeleteId]);
+
     return (
         <>
+            <AisConfirmModal show={!!deleteId} title="Удаление графика работы цеха" onConfirm={handleDelete} onCancel={() => setDeleteId(undefined)}>
+                <>Вы действительно хотите удалить <strong>этот</strong> график работы цеха?</>
+            </AisConfirmModal>
             <AisPageHeader title="Графики работы цехов" />
             <AisTable
+                actionButtons={
+                    <Link to={(l) => ({ ...l, pathname: '/schedules/add' })}>
+                        <AisButton>Добавить</AisButton>
+                    </Link>
+                }
                 filter={
                     <SchedulesListFilter
                         data={props.filterData}
@@ -52,6 +71,7 @@ export const SchedulesListPage = (props: Props) => {
                 thead={
                     <>
                         <tr>
+                            <th></th>
                             <th>ИД</th>
                             <th>Цех</th>
                             <th>День недели</th>
@@ -75,6 +95,16 @@ export const SchedulesListPage = (props: Props) => {
                 }
                 row={(item) => (
                     <tr key={item.id}>
+                        <td className="w-min">
+                            <Link to={(l) => ({ ...l, pathname: `/schedules/edit/${item.id}` })}>
+                                <AisButton variant="action" size="sm">
+                                    <AisIcon type="edit" />
+                                </AisButton>
+                            </Link>
+                            <AisButton variant="action" size="sm" onClick={() => setDeleteId(item.id)}>
+                                <AisIcon type="delete" />
+                            </AisButton>
+                        </td>
                         <td>{item.id}</td>
                         <td>
                             <Link to={(l) => ({ ...l, pathname: `/manufactories/details/${item.manufactoryId}`})}>{item.manufactoryDisplayName}</Link>
