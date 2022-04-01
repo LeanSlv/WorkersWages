@@ -4,7 +4,7 @@ import { WageListResponse, WorkersWagesApiClient } from '../../services/WorkersW
 import { FilterData } from './WagesListFilter';
 import { WagesListPage } from './WagesListPage';
 import { Route } from 'react-router-dom';
-import { WagesDetailsModal } from './WagesDetailsModal';
+import { WagesDetailsPage } from './WagesDetailsPage';
 import { WagesCreateModal } from './WagesCreateModal';
 import { WagesEditModal } from './WagesEditModal';
 
@@ -37,23 +37,25 @@ export const WagesContainer = () => {
 
     return (
         <>
+            <Route path="/wages">
+                <Route path="/wages/add" exact>
+                    <WagesCreateModal onDataChanged={reloadData} />
+                </Route>
+                <Route path="/wages/edit/:id" exact>
+                    <WagesEditModal onDataChanged={reloadData} />
+                </Route>
+                <WagesListPage
+                    data={data?.wages}
+                    dataTotalCount={data?.totalCount}
+                    filterData={filter}
+                    setFilter={setFilter}
+                    pagination={pagination}
+                    handleDelete={handleDelete}
+                />
+            </Route>
             <Route path="/wages/details/:id" exact>
-                <WagesDetailsModal />
+                <WagesDetailsPage />
             </Route>
-            <Route path="/wages/add" exact>
-                <WagesCreateModal onDataChanged={reloadData} />
-            </Route>
-            <Route path="/wages/edit/:id" exact>
-                <WagesEditModal onDataChanged={reloadData} />
-            </Route>
-            <WagesListPage
-                data={data?.wages}
-                dataTotalCount={data?.totalCount}
-                filterData={filter}
-                setFilter={setFilter}
-                pagination={pagination}
-                handleDelete={handleDelete}
-            />
         </>
     );
 };

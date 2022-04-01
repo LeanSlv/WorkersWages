@@ -1,10 +1,9 @@
-﻿import { AisModal, AisTable, AisGrid } from "@ais-gorod/react-ui";
+﻿import { AisTable, AisGrid, AisPageHeader } from "@ais-gorod/react-ui";
 import { useEffect, useState } from "react";
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { WorkersWagesApiClient, WageDetailsResponse } from '../../services/WorkersWagesApiClient';
 
-export const WagesDetailsModal = () => {
-    const history = useHistory();
+export const WagesDetailsPage = () => {
     const { id } = useParams() as {
         id: string;
     };
@@ -18,7 +17,8 @@ export const WagesDetailsModal = () => {
     if (!wageInfo) return null;
 
     return (
-        <AisModal show={true} onHide={() => history.goBack()} title="Подробности заработной платы" size="lg">
+        <>
+            <AisPageHeader title="Подробности заработной платы" />
             <AisGrid.Row>
                 <AisGrid.Col>
                     <AisTable vertical>
@@ -67,8 +67,8 @@ export const WagesDetailsModal = () => {
                     />
                 </AisGrid.Col>
             </AisGrid.Row>
-        </AisModal>
+        </>
     );
 };
 
-WagesDetailsModal.displayName = 'WagesDetailsModal';
+WagesDetailsPage.displayName = 'WagesDetailsPage';
