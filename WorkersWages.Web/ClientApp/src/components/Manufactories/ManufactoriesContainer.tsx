@@ -9,7 +9,7 @@ import { Route } from "react-router-dom";
 export const ManufactoriesContainer = () => {
     const dataSource = useCallback(async (filter: FilterData, pageNumber: number, pageSize: number) => {
         const apiClient = new WorkersWagesApiClient('/extapi');
-        const response = await apiClient.manufactoriesGET(
+        const response = await apiClient.manufactoriesList(
             filter.name,
             filter.number,
             pageSize,

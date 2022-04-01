@@ -14,7 +14,7 @@ export const ProfessionsCreateModal = (props: Props) => {
     const propsOnDataChanged = props.onDataChanged;
     const handleSubmit = useCallback(async (data: ProfessionCreateRequest) => {
         const apiClient = new WorkersWagesApiClient('/extapi');
-        await apiClient.professionsPOST(data).then((_) => {
+        await apiClient.professionsCreate(data).then((_) => {
             history.goBack();
             propsOnDataChanged();
         });

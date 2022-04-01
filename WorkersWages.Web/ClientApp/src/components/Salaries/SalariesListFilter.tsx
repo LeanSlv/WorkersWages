@@ -8,7 +8,7 @@ export interface FilterData extends FilterBase {
 
 const professionIdOptions = async (inputValue: string, value: string | number | undefined, callback: (options: AisSelectOption<number>[]) => void) => {
     const apiClient = new WorkersWagesApiClient('/extapi');
-    const data = await apiClient.professionsGET(inputValue, 20, 0);
+    const data = await apiClient.professionsList(inputValue, 20, 0);
     const options = data.professions?.map((item) => {
         return { value: item.id ?? 0, label: item.name };
     });

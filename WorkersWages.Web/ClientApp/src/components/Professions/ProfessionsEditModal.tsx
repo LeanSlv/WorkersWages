@@ -25,7 +25,7 @@ export const ProfessionsEditModal = (props: Props) => {
     const handleSubmit = useCallback(async (data: ProfessionEditRequest) => {
         if (!id) return;
 
-        await apiClient.professionsPUT(+id, data).then((_) => {
+        await apiClient.professionsEdit(+id, data).then((_) => {
             history.goBack();
             propsOnDataChanged();
         });

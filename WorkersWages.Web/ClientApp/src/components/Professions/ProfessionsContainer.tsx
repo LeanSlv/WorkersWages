@@ -11,7 +11,7 @@ const apiClient = new WorkersWagesApiClient('/extapi');
 
 export const ProfessionsContainer = () => {
     const dataSource = useCallback(async (filter: FilterData, pageNumber: number, pageSize: number) => {
-        const response = await apiClient.professionsGET(
+        const response = await apiClient.professionsList(
             filter.name,
             pageSize,
             pageNumber * pageSize,
@@ -28,7 +28,7 @@ export const ProfessionsContainer = () => {
     });
 
     const handleDelete = useCallback(async (id: number) => {
-        await apiClient.professionsDELETE(id).then((_) => reloadData());
+        await apiClient.professionsDelete(id).then((_) => reloadData());
     }, [reloadData]);
 
     return (

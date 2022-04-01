@@ -12,7 +12,7 @@ export const WagesDetailsModal = () => {
     const [wageInfo, setWageInfo] = useState<WageDetailsResponse>();
     useEffect(() => {
         const apiClient = new WorkersWagesApiClient('/extapi');
-        apiClient.wagesGET2(+id, "id").then((r) => setWageInfo(r));
+        apiClient.wagesDetails(+id, "id").then((r) => setWageInfo(r));
     }, []);
 
     if (!wageInfo) return null;

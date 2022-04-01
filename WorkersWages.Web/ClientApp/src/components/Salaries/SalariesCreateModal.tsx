@@ -14,7 +14,7 @@ export const SalariesCreateModal = (props: Props) => {
     const propsOnDataChanged = props.onDataChanged;
     const handleSubmit = useCallback(async (data: SalaryEditRequest) => {
         const apiClient = new WorkersWagesApiClient('/extapi');
-        await apiClient.salariesPOST(data).then((_) => {
+        await apiClient.salariesCreate(data).then((_) => {
             history.goBack();
             propsOnDataChanged();
         });

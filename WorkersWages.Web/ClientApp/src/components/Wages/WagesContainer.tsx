@@ -9,7 +9,7 @@ import { WagesDetailsModal } from './WagesDetailsModal';
 export const WagesContainer = () => {
     const dataSource = useCallback(async (filter: FilterData, pageNumber: number, pageSize: number) => {
         const apiClient = new WorkersWagesApiClient('/extapi');
-        const response = await apiClient.wagesGET(
+        const response = await apiClient.wagesList(
             undefined,
             undefined,
             undefined,
