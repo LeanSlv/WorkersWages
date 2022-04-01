@@ -52,17 +52,25 @@ namespace WorkersWages.Web.Services
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
+        /// <summary>
+        /// ����������� ������������.
+        /// </summary>
+        /// <param name="body">������ �� ����������� �������������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<AccountLoginResponse> LoginAsync(AccountLoginRequest body)
+        public virtual System.Threading.Tasks.Task<AccountLoginResponse> AccountLoginAsync(AccountLoginRequest body)
         {
-            return LoginAsync(body, System.Threading.CancellationToken.None);
+            return AccountLoginAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ����������� ������������.
+        /// </summary>
+        /// <param name="body">������ �� ����������� �������������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<AccountLoginResponse> LoginAsync(AccountLoginRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<AccountLoginResponse> AccountLoginAsync(AccountLoginRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Account/login");
@@ -139,17 +147,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ����������� ������ ������������.
+        /// </summary>
+        /// <param name="body">������ �� ������������ ������ ������������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task RegisterAsync(AccountRegisterRequest body)
+        public virtual System.Threading.Tasks.Task AccountRegisterAsync(AccountRegisterRequest body)
         {
-            return RegisterAsync(body, System.Threading.CancellationToken.None);
+            return AccountRegisterAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ����������� ������ ������������.
+        /// </summary>
+        /// <param name="body">������ �� ������������ ������ ������������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task RegisterAsync(AccountRegisterRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task AccountRegisterAsync(AccountRegisterRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Account/register");
@@ -220,17 +236,31 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ��������� ������ �����.
+        /// </summary>
+        /// <param name="name">��������.</param>
+        /// <param name="number">�����.</param>
+        /// <param name="limit">���������� �������, ������������ � �������.</param>
+        /// <param name="offset">���������� ������� ��� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ManufactoryListResponse> ManufactoriesGETAsync(string name, string number, int limit, int offset)
+        public virtual System.Threading.Tasks.Task<ManufactoryListResponse> ManufactoriesListAsync(string name, string number, int limit, int offset)
         {
-            return ManufactoriesGETAsync(name, number, limit, offset, System.Threading.CancellationToken.None);
+            return ManufactoriesListAsync(name, number, limit, offset, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ��������� ������ �����.
+        /// </summary>
+        /// <param name="name">��������.</param>
+        /// <param name="number">�����.</param>
+        /// <param name="limit">���������� �������, ������������ � �������.</param>
+        /// <param name="offset">���������� ������� ��� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ManufactoryListResponse> ManufactoriesGETAsync(string name, string number, int limit, int offset, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ManufactoryListResponse> ManufactoriesListAsync(string name, string number, int limit, int offset, System.Threading.CancellationToken cancellationToken)
         {
             if (limit == null)
                 throw new System.ArgumentNullException("limit");
@@ -321,17 +351,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������� ������ ����.
+        /// </summary>
+        /// <param name="body">������ �� �������� ������ ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ManufactoriesPOSTAsync(ManufactoryCreateRequest body)
+        public virtual System.Threading.Tasks.Task ManufactoriesCreateAsync(ManufactoryCreateRequest body)
         {
-            return ManufactoriesPOSTAsync(body, System.Threading.CancellationToken.None);
+            return ManufactoriesCreateAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������� ������ ����.
+        /// </summary>
+        /// <param name="body">������ �� �������� ������ ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ManufactoriesPOSTAsync(ManufactoryCreateRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ManufactoriesCreateAsync(ManufactoryCreateRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -405,17 +443,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ����������� � ����.
+        /// </summary>
+        /// <param name="idQuery">�� ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ManufactoryDetailsResponse> ManufactoriesGET2Async(int idQuery, string idPath)
+        public virtual System.Threading.Tasks.Task<ManufactoryDetailsResponse> ManufactoriesDetailsAsync(int idQuery, string idPath)
         {
-            return ManufactoriesGET2Async(idQuery, idPath, System.Threading.CancellationToken.None);
+            return ManufactoriesDetailsAsync(idQuery, idPath, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ����������� � ����.
+        /// </summary>
+        /// <param name="idQuery">�� ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ManufactoryDetailsResponse> ManufactoriesGET2Async(int idQuery, string idPath, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ManufactoryDetailsResponse> ManufactoriesDetailsAsync(int idQuery, string idPath, System.Threading.CancellationToken cancellationToken)
         {
             if (idPath == null)
                 throw new System.ArgumentNullException("idPath");
@@ -498,17 +544,27 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������������� ����.
+        /// </summary>
+        /// <param name="id">�� ����.</param>
+        /// <param name="body">������ �� �������������� ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ManufactoriesPUTAsync(int id, ManufactoryEditRequest body)
+        public virtual System.Threading.Tasks.Task ManufactoriesEditAsync(int id, ManufactoryEditRequest body)
         {
-            return ManufactoriesPUTAsync(id, body, System.Threading.CancellationToken.None);
+            return ManufactoriesEditAsync(id, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������������� ����.
+        /// </summary>
+        /// <param name="id">�� ����.</param>
+        /// <param name="body">������ �� �������������� ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ManufactoriesPUTAsync(int id, ManufactoryEditRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ManufactoriesEditAsync(int id, ManufactoryEditRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -586,17 +642,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������� ����.
+        /// </summary>
+        /// <param name="id">�� ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ManufactoriesDELETEAsync(int id)
+        public virtual System.Threading.Tasks.Task ManufactoriesDeleteAsync(int id)
         {
-            return ManufactoriesDELETEAsync(id, System.Threading.CancellationToken.None);
+            return ManufactoriesDeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������� ����.
+        /// </summary>
+        /// <param name="id">�� ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ManufactoriesDELETEAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ManufactoriesDeleteAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -668,17 +732,29 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ��������� ������ ���������.
+        /// </summary>
+        /// <param name="name">��������.</param>
+        /// <param name="limit">���������� �������, ������������ � �������.</param>
+        /// <param name="offset">���������� ������� ��� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ProfessionListResponse> ProfessionsGETAsync(string name, int limit, int offset)
+        public virtual System.Threading.Tasks.Task<ProfessionListResponse> ProfessionsListAsync(string name, int limit, int offset)
         {
-            return ProfessionsGETAsync(name, limit, offset, System.Threading.CancellationToken.None);
+            return ProfessionsListAsync(name, limit, offset, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ��������� ������ ���������.
+        /// </summary>
+        /// <param name="name">��������.</param>
+        /// <param name="limit">���������� �������, ������������ � �������.</param>
+        /// <param name="offset">���������� ������� ��� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ProfessionListResponse> ProfessionsGETAsync(string name, int limit, int offset, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ProfessionListResponse> ProfessionsListAsync(string name, int limit, int offset, System.Threading.CancellationToken cancellationToken)
         {
             if (limit == null)
                 throw new System.ArgumentNullException("limit");
@@ -765,17 +841,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ���������� ����� ���������.
+        /// </summary>
+        /// <param name="body">������ �� ���������� ����� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ProfessionsPOSTAsync(ProfessionCreateRequest body)
+        public virtual System.Threading.Tasks.Task ProfessionsCreateAsync(ProfessionCreateRequest body)
         {
-            return ProfessionsPOSTAsync(body, System.Threading.CancellationToken.None);
+            return ProfessionsCreateAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ���������� ����� ���������.
+        /// </summary>
+        /// <param name="body">������ �� ���������� ����� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ProfessionsPOSTAsync(ProfessionCreateRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ProfessionsCreateAsync(ProfessionCreateRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -849,17 +933,27 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������������� ���������.
+        /// </summary>
+        /// <param name="id">�� ���������.</param>
+        /// <param name="body">������ �� �������������� ���������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ProfessionsPUTAsync(int id, ProfessionEditRequest body)
+        public virtual System.Threading.Tasks.Task ProfessionsEditAsync(int id, ProfessionEditRequest body)
         {
-            return ProfessionsPUTAsync(id, body, System.Threading.CancellationToken.None);
+            return ProfessionsEditAsync(id, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������������� ���������.
+        /// </summary>
+        /// <param name="id">�� ���������.</param>
+        /// <param name="body">������ �� �������������� ���������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ProfessionsPUTAsync(int id, ProfessionEditRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ProfessionsEditAsync(int id, ProfessionEditRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -937,17 +1031,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������� ���������.
+        /// </summary>
+        /// <param name="id">�� ���������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ProfessionsDELETEAsync(int id)
+        public virtual System.Threading.Tasks.Task ProfessionsDeleteAsync(int id)
         {
-            return ProfessionsDELETEAsync(id, System.Threading.CancellationToken.None);
+            return ProfessionsDeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������� ���������.
+        /// </summary>
+        /// <param name="id">�� ���������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ProfessionsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ProfessionsDeleteAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1019,17 +1121,31 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ��������� ������ �������.
+        /// </summary>
+        /// <param name="professionId">�������� ���������.</param>
+        /// <param name="rank">������.</param>
+        /// <param name="limit">���������� �������, ������������ � �������.</param>
+        /// <param name="offset">���������� ������� ��� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<SalaryListResponse> SalariesGETAsync(int? professionId, int? rank, int limit, int offset)
+        public virtual System.Threading.Tasks.Task<SalaryListResponse> SalariesListAsync(int? professionId, int? rank, int limit, int offset)
         {
-            return SalariesGETAsync(professionId, rank, limit, offset, System.Threading.CancellationToken.None);
+            return SalariesListAsync(professionId, rank, limit, offset, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ��������� ������ �������.
+        /// </summary>
+        /// <param name="professionId">�������� ���������.</param>
+        /// <param name="rank">������.</param>
+        /// <param name="limit">���������� �������, ������������ � �������.</param>
+        /// <param name="offset">���������� ������� ��� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<SalaryListResponse> SalariesGETAsync(int? professionId, int? rank, int limit, int offset, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<SalaryListResponse> SalariesListAsync(int? professionId, int? rank, int limit, int offset, System.Threading.CancellationToken cancellationToken)
         {
             if (limit == null)
                 throw new System.ArgumentNullException("limit");
@@ -1120,17 +1236,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ���������� ������ ������.
+        /// </summary>
+        /// <param name="body">������ �� ���������� ������ ������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SalariesPOSTAsync(SalaryCreateRequest body)
+        public virtual System.Threading.Tasks.Task SalariesCreateAsync(SalaryCreateRequest body)
         {
-            return SalariesPOSTAsync(body, System.Threading.CancellationToken.None);
+            return SalariesCreateAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ���������� ������ ������.
+        /// </summary>
+        /// <param name="body">������ �� ���������� ������ ������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SalariesPOSTAsync(SalaryCreateRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SalariesCreateAsync(SalaryCreateRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -1204,17 +1328,27 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������������� ������.
+        /// </summary>
+        /// <param name="idQuery">�� ������.</param>
+        /// <param name="body">������ �� �������������� ������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SalariesPUTAsync(int idQuery, string idPath, SalaryEditRequest body)
+        public virtual System.Threading.Tasks.Task SalariesEditAsync(int idQuery, string idPath, SalaryEditRequest body)
         {
-            return SalariesPUTAsync(idQuery, idPath, body, System.Threading.CancellationToken.None);
+            return SalariesEditAsync(idQuery, idPath, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������������� ������.
+        /// </summary>
+        /// <param name="idQuery">�� ������.</param>
+        /// <param name="body">������ �� �������������� ������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SalariesPUTAsync(int idQuery, string idPath, SalaryEditRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SalariesEditAsync(int idQuery, string idPath, SalaryEditRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (idPath == null)
                 throw new System.ArgumentNullException("idPath");
@@ -1297,17 +1431,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������� ������.
+        /// </summary>
+        /// <param name="idQuery">�� ������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SalariesDELETEAsync(int idQuery, string idPath)
+        public virtual System.Threading.Tasks.Task SalariesDeleteAsync(int idQuery, string idPath)
         {
-            return SalariesDELETEAsync(idQuery, idPath, System.Threading.CancellationToken.None);
+            return SalariesDeleteAsync(idQuery, idPath, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������� ������.
+        /// </summary>
+        /// <param name="idQuery">�� ������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SalariesDELETEAsync(int idQuery, string idPath, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SalariesDeleteAsync(int idQuery, string idPath, System.Threading.CancellationToken cancellationToken)
         {
             if (idPath == null)
                 throw new System.ArgumentNullException("idPath");
@@ -1384,17 +1526,31 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ��������� ������ �������� ����� �����.
+        /// </summary>
+        /// <param name="manufactoryId">�� ����.</param>
+        /// <param name="weekDay">���� ������.</param>
+        /// <param name="limit">���������� �������, ������������ � �������.</param>
+        /// <param name="offset">���������� ������� ��� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ScheduleListResponse> SchedulesGETAsync(int? manufactoryId, WeekDays? weekDay, int limit, int offset)
+        public virtual System.Threading.Tasks.Task<ScheduleListResponse> SchedulesListAsync(int? manufactoryId, WeekDays? weekDay, int limit, int offset)
         {
-            return SchedulesGETAsync(manufactoryId, weekDay, limit, offset, System.Threading.CancellationToken.None);
+            return SchedulesListAsync(manufactoryId, weekDay, limit, offset, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ��������� ������ �������� ����� �����.
+        /// </summary>
+        /// <param name="manufactoryId">�� ����.</param>
+        /// <param name="weekDay">���� ������.</param>
+        /// <param name="limit">���������� �������, ������������ � �������.</param>
+        /// <param name="offset">���������� ������� ��� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ScheduleListResponse> SchedulesGETAsync(int? manufactoryId, WeekDays? weekDay, int limit, int offset, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ScheduleListResponse> SchedulesListAsync(int? manufactoryId, WeekDays? weekDay, int limit, int offset, System.Threading.CancellationToken cancellationToken)
         {
             if (limit == null)
                 throw new System.ArgumentNullException("limit");
@@ -1485,17 +1641,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ���������� ������ ������� ������ ��� ����.
+        /// </summary>
+        /// <param name="body">������ �� ���������� ������� ������ ��� ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SchedulesPOSTAsync(ScheduleCreateRequest body)
+        public virtual System.Threading.Tasks.Task SchedulesCreateAsync(ScheduleCreateRequest body)
         {
-            return SchedulesPOSTAsync(body, System.Threading.CancellationToken.None);
+            return SchedulesCreateAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ���������� ������ ������� ������ ��� ����.
+        /// </summary>
+        /// <param name="body">������ �� ���������� ������� ������ ��� ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SchedulesPOSTAsync(ScheduleCreateRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SchedulesCreateAsync(ScheduleCreateRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -1569,17 +1733,27 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������������� ������� ������ ����.
+        /// </summary>
+        /// <param name="id">�� ������� ������ ����.</param>
+        /// <param name="body">������ �� �������������� ������� ������ ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SchedulesPUTAsync(int id, ScheduleEditRequest body)
+        public virtual System.Threading.Tasks.Task SchedulesEditAsync(int id, ScheduleEditRequest body)
         {
-            return SchedulesPUTAsync(id, body, System.Threading.CancellationToken.None);
+            return SchedulesEditAsync(id, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������������� ������� ������ ����.
+        /// </summary>
+        /// <param name="id">�� ������� ������ ����.</param>
+        /// <param name="body">������ �� �������������� ������� ������ ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SchedulesPUTAsync(int id, ScheduleEditRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SchedulesEditAsync(int id, ScheduleEditRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1657,17 +1831,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������� ������� ������ ����.
+        /// </summary>
+        /// <param name="id">�� ������� ������ ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SchedulesDELETEAsync(int id)
+        public virtual System.Threading.Tasks.Task SchedulesDeleteAsync(int id)
         {
-            return SchedulesDELETEAsync(id, System.Threading.CancellationToken.None);
+            return SchedulesDeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������� ������� ������ ����.
+        /// </summary>
+        /// <param name="id">�� ������� ������ ����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SchedulesDELETEAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SchedulesDeleteAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1739,17 +1921,35 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ��������� ������ ���������� ����.
+        /// </summary>
+        /// <param name="workerLastName">������� ��������.</param>
+        /// <param name="manufactoryId">�� ����.</param>
+        /// <param name="professionId">�� ���������.</param>
+        /// <param name="rank">������.</param>
+        /// <param name="limit">���������� �������, ������������ � �������.</param>
+        /// <param name="offset">���������� ������� ��� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<WageListResponse> WagesGETAsync(string workerLastName, int? manufactoryId, int? professionId, int? rank, int limit, int offset)
+        public virtual System.Threading.Tasks.Task<WageListResponse> WagesListAsync(string workerLastName, int? manufactoryId, int? professionId, int? rank, int limit, int offset)
         {
-            return WagesGETAsync(workerLastName, manufactoryId, professionId, rank, limit, offset, System.Threading.CancellationToken.None);
+            return WagesListAsync(workerLastName, manufactoryId, professionId, rank, limit, offset, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ��������� ������ ���������� ����.
+        /// </summary>
+        /// <param name="workerLastName">������� ��������.</param>
+        /// <param name="manufactoryId">�� ����.</param>
+        /// <param name="professionId">�� ���������.</param>
+        /// <param name="rank">������.</param>
+        /// <param name="limit">���������� �������, ������������ � �������.</param>
+        /// <param name="offset">���������� ������� ��� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<WageListResponse> WagesGETAsync(string workerLastName, int? manufactoryId, int? professionId, int? rank, int limit, int offset, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<WageListResponse> WagesListAsync(string workerLastName, int? manufactoryId, int? professionId, int? rank, int limit, int offset, System.Threading.CancellationToken cancellationToken)
         {
             if (limit == null)
                 throw new System.ArgumentNullException("limit");
@@ -1848,17 +2048,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������� ����� ���������� �����.
+        /// </summary>
+        /// <param name="body">������ �� �������� ����� ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task WagesPOSTAsync(WageCreateRequest body)
+        public virtual System.Threading.Tasks.Task WagesCreateAsync(WageCreateRequest body)
         {
-            return WagesPOSTAsync(body, System.Threading.CancellationToken.None);
+            return WagesCreateAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������� ����� ���������� �����.
+        /// </summary>
+        /// <param name="body">������ �� �������� ����� ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task WagesPOSTAsync(WageCreateRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task WagesCreateAsync(WageCreateRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -1932,17 +2140,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ��������� ������������ � ���������� �����.
+        /// </summary>
+        /// <param name="idQuery">�� ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<WageDetailsResponse> WagesGET2Async(int idQuery, string idPath)
+        public virtual System.Threading.Tasks.Task<WageDetailsResponse> WagesDetailsAsync(int idQuery, string idPath)
         {
-            return WagesGET2Async(idQuery, idPath, System.Threading.CancellationToken.None);
+            return WagesDetailsAsync(idQuery, idPath, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ��������� ������������ � ���������� �����.
+        /// </summary>
+        /// <param name="idQuery">�� ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<WageDetailsResponse> WagesGET2Async(int idQuery, string idPath, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<WageDetailsResponse> WagesDetailsAsync(int idQuery, string idPath, System.Threading.CancellationToken cancellationToken)
         {
             if (idPath == null)
                 throw new System.ArgumentNullException("idPath");
@@ -2025,17 +2241,27 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������������� ���������� �����.
+        /// </summary>
+        /// <param name="id">�� ���������� �����.</param>
+        /// <param name="body">������ �� �������������� ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task WagesPUTAsync(int id, WageEditRequest body)
+        public virtual System.Threading.Tasks.Task WagesEditAsync(int id, WageEditRequest body)
         {
-            return WagesPUTAsync(id, body, System.Threading.CancellationToken.None);
+            return WagesEditAsync(id, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������������� ���������� �����.
+        /// </summary>
+        /// <param name="id">�� ���������� �����.</param>
+        /// <param name="body">������ �� �������������� ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task WagesPUTAsync(int id, WageEditRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task WagesEditAsync(int id, WageEditRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2113,17 +2339,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������� ���������� �����.
+        /// </summary>
+        /// <param name="id">�� ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task WagesDELETEAsync(int id)
+        public virtual System.Threading.Tasks.Task WagesDeleteAsync(int id)
         {
-            return WagesDELETEAsync(id, System.Threading.CancellationToken.None);
+            return WagesDeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������� ���������� �����.
+        /// </summary>
+        /// <param name="id">�� ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task WagesDELETEAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task WagesDeleteAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2195,17 +2429,25 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ��������� ������ �������� ��� ���������� �����.
+        /// </summary>
+        /// <param name="wageId">�� ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<WageAllowanceListResponse> AllowancesAsync(int wageId)
+        public virtual System.Threading.Tasks.Task<WageAllowanceListResponse> WagesAllowanceListAsync(int wageId)
         {
-            return AllowancesAsync(wageId, System.Threading.CancellationToken.None);
+            return WagesAllowanceListAsync(wageId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ��������� ������ �������� ��� ���������� �����.
+        /// </summary>
+        /// <param name="wageId">�� ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<WageAllowanceListResponse> AllowancesAsync(int wageId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<WageAllowanceListResponse> WagesAllowanceListAsync(int wageId, System.Threading.CancellationToken cancellationToken)
         {
             if (wageId == null)
                 throw new System.ArgumentNullException("wageId");
@@ -2283,17 +2525,27 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// ���������� �������� � ���������� �����.
+        /// </summary>
+        /// <param name="wageId">�� ���������� �����.</param>
+        /// <param name="body">������ �� ���������� �������� � ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task AddAllowanceAsync(int wageId, WageAddAllowanceRequest body)
+        public virtual System.Threading.Tasks.Task WagesAddAllowanceAsync(int wageId, WageAddAllowanceRequest body)
         {
-            return AddAllowanceAsync(wageId, body, System.Threading.CancellationToken.None);
+            return WagesAddAllowanceAsync(wageId, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// ���������� �������� � ���������� �����.
+        /// </summary>
+        /// <param name="wageId">�� ���������� �����.</param>
+        /// <param name="body">������ �� ���������� �������� � ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task AddAllowanceAsync(int wageId, WageAddAllowanceRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task WagesAddAllowanceAsync(int wageId, WageAddAllowanceRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (wageId == null)
                 throw new System.ArgumentNullException("wageId");
@@ -2371,17 +2623,29 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������������� �������� � ���������� �����.
+        /// </summary>
+        /// <param name="wageId">�� ���������� �����.</param>
+        /// <param name="allowanceId">�� ��������.</param>
+        /// <param name="body">������ �� �������������� �������� � ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task EditAllowanceAsync(int wageId, int allowanceId, WageEditAllowanceRequest body)
+        public virtual System.Threading.Tasks.Task WagesEditAllowanceAsync(int wageId, int allowanceId, WageEditAllowanceRequest body)
         {
-            return EditAllowanceAsync(wageId, allowanceId, body, System.Threading.CancellationToken.None);
+            return WagesEditAllowanceAsync(wageId, allowanceId, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������������� �������� � ���������� �����.
+        /// </summary>
+        /// <param name="wageId">�� ���������� �����.</param>
+        /// <param name="allowanceId">�� ��������.</param>
+        /// <param name="body">������ �� �������������� �������� � ���������� �����.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task EditAllowanceAsync(int wageId, int allowanceId, WageEditAllowanceRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task WagesEditAllowanceAsync(int wageId, int allowanceId, WageEditAllowanceRequest body, System.Threading.CancellationToken cancellationToken)
         {
             if (wageId == null)
                 throw new System.ArgumentNullException("wageId");
@@ -2463,17 +2727,27 @@ namespace WorkersWages.Web.Services
             }
         }
 
+        /// <summary>
+        /// �������� �������� � ���������� �����.
+        /// </summary>
+        /// <param name="wageId">�� ���������� �����.</param>
+        /// <param name="allowanceId">�� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task DeleteAllowanceAsync(int wageId, int allowanceId)
+        public virtual System.Threading.Tasks.Task WagesDeleteAllowanceAsync(int wageId, int allowanceId)
         {
-            return DeleteAllowanceAsync(wageId, allowanceId, System.Threading.CancellationToken.None);
+            return WagesDeleteAllowanceAsync(wageId, allowanceId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// �������� �������� � ���������� �����.
+        /// </summary>
+        /// <param name="wageId">�� ���������� �����.</param>
+        /// <param name="allowanceId">�� ��������.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeleteAllowanceAsync(int wageId, int allowanceId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task WagesDeleteAllowanceAsync(int wageId, int allowanceId, System.Threading.CancellationToken cancellationToken)
         {
             if (wageId == null)
                 throw new System.ArgumentNullException("wageId");
@@ -2652,272 +2926,480 @@ namespace WorkersWages.Web.Services
         }
     }
 
+    /// <summary>
+    /// ������ �� ����������� ������������.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class AccountLoginRequest
     {
+        /// <summary>
+        /// �����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string UserName { get; set; }
 
+        /// <summary>
+        /// ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("password", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Password { get; set; }
 
     }
 
+    /// <summary>
+    /// ��������� ����������� ������������.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class AccountLoginResponse
     {
+        /// <summary>
+        /// �����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("token", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Token { get; set; }
 
+        /// <summary>
+        /// ���� �������� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("expiration", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.DateTimeOffset Expiration { get; set; }
 
     }
 
+    /// <summary>
+    /// ���������� ������ �� API.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ApiErrorResponse
     {
+        /// <summary>
+        /// ������ ������, ��� ���� - ��� ���������, � �������� - ����� ������ ����� ���������.
+        /// <br/>���� �������� string.Empty, �� ������ �����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("errors", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.IDictionary<string, System.Collections.Generic.ICollection<string>> Errors { get; set; }
 
     }
 
+    /// <summary>
+    /// ������ �� ����������� ������ ������������.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class AccountRegisterRequest
     {
+        /// <summary>
+        /// ���.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("firstName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string FirstName { get; set; }
 
+        /// <summary>
+        /// ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("middleName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string MiddleName { get; set; }
 
+        /// <summary>
+        /// �������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("lastName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string LastName { get; set; }
 
+        /// <summary>
+        /// ����������� �����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("email", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Email { get; set; }
 
+        /// <summary>
+        /// �����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string UserName { get; set; }
 
+        /// <summary>
+        /// ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("password", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Password { get; set; }
 
     }
 
+    /// <summary>
+    /// ���������� � ����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ManufactoryInfo
     {
+        /// <summary>
+        /// �� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         public int Id { get; set; }
 
+        /// <summary>
+        /// ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// �����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("number", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Number { get; set; }
 
+        /// <summary>
+        /// ���� � ����� �������� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("created", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset Created { get; set; }
 
+        /// <summary>
+        /// ���� � ����� ���������� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("updated", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset Updated { get; set; }
 
     }
 
+    /// <summary>
+    /// ��������� ������� ������ �����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ManufactoryListResponse
     {
+        /// <summary>
+        /// ������ ���������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("manufactories", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<ManufactoryInfo> Manufactories { get; set; } = new System.Collections.ObjectModel.Collection<ManufactoryInfo>();
 
+        /// <summary>
+        /// ����� ���������� �������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("totalCount", Required = Newtonsoft.Json.Required.Always)]
         public int TotalCount { get; set; }
 
     }
 
+    /// <summary>
+    /// ������ �� �������� ����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ManufactoryCreateRequest
     {
+        /// <summary>
+        /// ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// �����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("number", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Number { get; set; }
 
+        /// <summary>
+        /// ��� ����������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("headFIO", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string HeadFIO { get; set; }
 
+        /// <summary>
+        /// �� ���������� ����������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("headPhotoId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int? HeadPhotoId { get; set; }
 
     }
 
+    /// <summary>
+    /// ��������� ������� ������������ � ����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ManufactoryDetailsResponse
     {
+        /// <summary>
+        /// ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// �����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("number", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Number { get; set; }
 
+        /// <summary>
+        /// ��� ����������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("headFIO", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string HeadFIO { get; set; }
 
+        /// <summary>
+        /// �� ���������� ����������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("headPhotoId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int? HeadPhotoId { get; set; }
 
     }
 
+    /// <summary>
+    /// ������ �� �������������� ����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ManufactoryEditRequest
     {
+        /// <summary>
+        /// ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// �����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("number", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Number { get; set; }
 
+        /// <summary>
+        /// ��� ����������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("headFIO", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string HeadFIO { get; set; }
 
+        /// <summary>
+        /// �� ���������� ����������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("headPhotoId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int? HeadPhotoId { get; set; }
 
     }
 
+    /// <summary>
+    /// ���������� � ���������.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ProfessionInfo
     {
+        /// <summary>
+        /// �� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         public int Id { get; set; }
 
+        /// <summary>
+        /// ������������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// ���� � ����� �������� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("created", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset Created { get; set; }
 
+        /// <summary>
+        /// ���� � ����� ���������� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("updated", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset Updated { get; set; }
 
     }
 
+    /// <summary>
+    /// ��������� ������� ������ ���������.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ProfessionListResponse
     {
+        /// <summary>
+        /// ������ ���������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("professions", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<ProfessionInfo> Professions { get; set; } = new System.Collections.ObjectModel.Collection<ProfessionInfo>();
 
+        /// <summary>
+        /// ����� ���������� �������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("totalCount", Required = Newtonsoft.Json.Required.Always)]
         public int TotalCount { get; set; }
 
     }
 
+    /// <summary>
+    /// ������ �� �������� ���������.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ProfessionCreateRequest
     {
+        /// <summary>
+        /// ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Name { get; set; }
 
     }
 
+    /// <summary>
+    /// ������ �� �������������� ���������.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ProfessionEditRequest
     {
+        /// <summary>
+        /// ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Name { get; set; }
 
     }
 
+    /// <summary>
+    /// ���������� �� ������.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class SalaryInfo
     {
+        /// <summary>
+        /// �� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         public int Id { get; set; }
 
+        /// <summary>
+        /// �������� ���������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("professionName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ProfessionName { get; set; }
 
+        /// <summary>
+        /// ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("rank", Required = Newtonsoft.Json.Required.Always)]
         public int Rank { get; set; }
 
+        /// <summary>
+        /// ����� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("amount", Required = Newtonsoft.Json.Required.Always)]
         public double Amount { get; set; }
 
+        /// <summary>
+        /// ���� � ����� �������� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("created", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset Created { get; set; }
 
+        /// <summary>
+        /// ���� � ����� ���������� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("updated", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset Updated { get; set; }
 
     }
 
+    /// <summary>
+    /// ��������� ������� ������ �������.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class SalaryListResponse
     {
+        /// <summary>
+        /// ������ �������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("salaries", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<SalaryInfo> Salaries { get; set; } = new System.Collections.ObjectModel.Collection<SalaryInfo>();
 
+        /// <summary>
+        /// ����� ���������� �������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("totalCount", Required = Newtonsoft.Json.Required.Always)]
         public int TotalCount { get; set; }
 
     }
 
+    /// <summary>
+    /// ������ �� ���������� ������.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class SalaryCreateRequest
     {
+        /// <summary>
+        /// �� ���������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("professionId", Required = Newtonsoft.Json.Required.Always)]
         public int ProfessionId { get; set; }
 
+        /// <summary>
+        /// ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("rank", Required = Newtonsoft.Json.Required.Always)]
         public int Rank { get; set; }
 
+        /// <summary>
+        /// ����� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("amount", Required = Newtonsoft.Json.Required.Always)]
         public double Amount { get; set; }
 
     }
 
+    /// <summary>
+    /// ������ �� �������������� ������.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class SalaryEditRequest
     {
+        /// <summary>
+        /// �� ���������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("professionId", Required = Newtonsoft.Json.Required.Always)]
         public int ProfessionId { get; set; }
 
+        /// <summary>
+        /// ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("rank", Required = Newtonsoft.Json.Required.Always)]
         public int Rank { get; set; }
 
+        /// <summary>
+        /// ����� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("amount", Required = Newtonsoft.Json.Required.Always)]
         public double Amount { get; set; }
 
@@ -2988,15 +3470,27 @@ namespace WorkersWages.Web.Services
 
     }
 
+    /// <summary>
+    /// ���������� � ������� ������ ����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ScheduleInfo
     {
+        /// <summary>
+        /// �� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         public int Id { get; set; }
 
+        /// <summary>
+        /// �� ����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("manufactoryId", Required = Newtonsoft.Json.Required.Always)]
         public int ManufactoryId { get; set; }
 
+        /// <summary>
+        /// ������������ �������� ����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("manufactoryDisplayName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ManufactoryDisplayName { get; set; }
@@ -3018,31 +3512,72 @@ namespace WorkersWages.Web.Services
         [Newtonsoft.Json.JsonProperty("breakEnd", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public TimeSpan BreakEnd { get; set; }
 
+        /// <summary>
+        /// ���� � ����� �������� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("created", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset Created { get; set; }
 
+        /// <summary>
+        /// ���� � ����� ���������� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("updated", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset Updated { get; set; }
 
     }
 
+    /// <summary>
+    /// ��������� ������� ������ �������� ����� �����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ScheduleListResponse
     {
+        /// <summary>
+        /// ������ �������� ����� �����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("schedules", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<ScheduleInfo> Schedules { get; set; } = new System.Collections.ObjectModel.Collection<ScheduleInfo>();
 
+        /// <summary>
+        /// ����� ���������� �������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("totalCount", Required = Newtonsoft.Json.Required.Always)]
         public int TotalCount { get; set; }
 
     }
 
+    /// <summary>
+    /// ����� (��� �������� �������������� � ��������).
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
+    public partial class Time
+    {
+        /// <summary>
+        /// ����.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("hours", Required = Newtonsoft.Json.Required.Always)]
+        public int Hours { get; set; }
+
+        /// <summary>
+        /// ������.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("minutes", Required = Newtonsoft.Json.Required.Always)]
+        public int Minutes { get; set; }
+
+    }
+
+    /// <summary>
+    /// ������ �� ���������� ������� ������ ����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ScheduleCreateRequest
     {
+        /// <summary>
+        /// �� ����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("manufactoryId", Required = Newtonsoft.Json.Required.Always)]
         public int ManufactoryId { get; set; }
 
@@ -3052,22 +3587,28 @@ namespace WorkersWages.Web.Services
         public WeekDays WeekDay { get; set; }
 
         [Newtonsoft.Json.JsonProperty("workingStart", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public TimeSpan WorkingStart { get; set; }
+        public Time WorkingStart { get; set; }
 
         [Newtonsoft.Json.JsonProperty("workingEnd", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public TimeSpan WorkingEnd { get; set; }
+        public Time WorkingEnd { get; set; }
 
         [Newtonsoft.Json.JsonProperty("breakStart", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public TimeSpan BreakStart { get; set; }
+        public Time BreakStart { get; set; }
 
         [Newtonsoft.Json.JsonProperty("breakEnd", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public TimeSpan BreakEnd { get; set; }
+        public Time BreakEnd { get; set; }
 
     }
 
+    /// <summary>
+    /// ������ �� �������������� ������� ������ ����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ScheduleEditRequest
     {
+        /// <summary>
+        /// �� ����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("manufactoryId", Required = Newtonsoft.Json.Required.Always)]
         public int ManufactoryId { get; set; }
 
@@ -3077,176 +3618,308 @@ namespace WorkersWages.Web.Services
         public WeekDays WeekDay { get; set; }
 
         [Newtonsoft.Json.JsonProperty("workingStart", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public TimeSpan WorkingStart { get; set; }
+        public Time WorkingStart { get; set; }
 
         [Newtonsoft.Json.JsonProperty("workingEnd", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public TimeSpan WorkingEnd { get; set; }
+        public Time WorkingEnd { get; set; }
 
         [Newtonsoft.Json.JsonProperty("breakStart", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public TimeSpan BreakStart { get; set; }
+        public Time BreakStart { get; set; }
 
         [Newtonsoft.Json.JsonProperty("breakEnd", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public TimeSpan BreakEnd { get; set; }
+        public Time BreakEnd { get; set; }
 
     }
 
+    /// <summary>
+    /// ���������� � ���������� �����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class WageInfo
     {
+        /// <summary>
+        /// �� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         public int Id { get; set; }
 
+        /// <summary>
+        /// ������� ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("workerLastName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string WorkerLastName { get; set; }
 
+        /// <summary>
+        /// �� ����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("manufactoryId", Required = Newtonsoft.Json.Required.Always)]
         public int ManufactoryId { get; set; }
 
+        /// <summary>
+        /// ������������ ������������ ����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("manufactoryDisplayName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ManufactoryDisplayName { get; set; }
 
+        /// <summary>
+        /// �������� ���������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("professionName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ProfessionName { get; set; }
 
+        /// <summary>
+        /// ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("rank", Required = Newtonsoft.Json.Required.Always)]
         public int Rank { get; set; }
 
+        /// <summary>
+        /// ������ ��.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("amount", Required = Newtonsoft.Json.Required.Always)]
         public double Amount { get; set; }
 
+        /// <summary>
+        /// ������ �� � ������ ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("amountWithAllowances", Required = Newtonsoft.Json.Required.Always)]
         public double AmountWithAllowances { get; set; }
 
+        /// <summary>
+        /// ���� � ����� �������� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("created", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset Created { get; set; }
 
+        /// <summary>
+        /// ���� � ����� ���������� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("updated", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset Updated { get; set; }
 
     }
 
+    /// <summary>
+    /// ��������� ������� ������ ���������� ����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class WageListResponse
     {
+        /// <summary>
+        /// ������ ���������� ����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("wages", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<WageInfo> Wages { get; set; } = new System.Collections.ObjectModel.Collection<WageInfo>();
 
+        /// <summary>
+        /// ����� ���������� �������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("totalCount", Required = Newtonsoft.Json.Required.Always)]
         public int TotalCount { get; set; }
 
     }
 
+    /// <summary>
+    /// ������ �� �������� ���������� �����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class WageCreateRequest
     {
+        /// <summary>
+        /// ������� ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("workerLastName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string WorkerLastName { get; set; }
 
+        /// <summary>
+        /// �� ����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("manufactoryId", Required = Newtonsoft.Json.Required.Always)]
         public int ManufactoryId { get; set; }
 
+        /// <summary>
+        /// �� ���������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("professionId", Required = Newtonsoft.Json.Required.Always)]
         public int ProfessionId { get; set; }
 
+        /// <summary>
+        /// ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("rank", Required = Newtonsoft.Json.Required.Always)]
         public int Rank { get; set; }
 
     }
 
+    /// <summary>
+    /// ���������� � ���������.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class AllowanceInfo
     {
+        /// <summary>
+        /// �� ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         public int Id { get; set; }
 
+        /// <summary>
+        /// ������������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// ������ ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("amount", Required = Newtonsoft.Json.Required.Always)]
         public double Amount { get; set; }
 
     }
 
+    /// <summary>
+    /// ��������� ������� ������������ � ���������� �����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class WageDetailsResponse
     {
+        /// <summary>
+        /// ������� ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("workerLastName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string WorkerLastName { get; set; }
 
+        /// <summary>
+        /// ������������ ������������ ����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("manufactoryDisplayName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ManufactoryDisplayName { get; set; }
 
+        /// <summary>
+        /// �������� ���������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("professionName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ProfessionName { get; set; }
 
+        /// <summary>
+        /// ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("rank", Required = Newtonsoft.Json.Required.Always)]
         public int Rank { get; set; }
 
+        /// <summary>
+        /// ������ ��.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("amount", Required = Newtonsoft.Json.Required.Always)]
         public double Amount { get; set; }
 
+        /// <summary>
+        /// ������ �� � ������ ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("amountWithAllowances", Required = Newtonsoft.Json.Required.Always)]
         public double AmountWithAllowances { get; set; }
 
+        /// <summary>
+        /// ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("allowances", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<AllowanceInfo> Allowances { get; set; } = new System.Collections.ObjectModel.Collection<AllowanceInfo>();
 
     }
 
+    /// <summary>
+    /// ������ �� �������������� ���������� �����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class WageEditRequest
     {
+        /// <summary>
+        /// ������� ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("workerLastName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string WorkerLastName { get; set; }
 
+        /// <summary>
+        /// �� ����.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("manufactoryId", Required = Newtonsoft.Json.Required.Always)]
         public int ManufactoryId { get; set; }
 
+        /// <summary>
+        /// �� ���������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("professionId", Required = Newtonsoft.Json.Required.Always)]
         public int ProfessionId { get; set; }
 
+        /// <summary>
+        /// ������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("rank", Required = Newtonsoft.Json.Required.Always)]
         public int Rank { get; set; }
 
     }
 
+    /// <summary>
+    /// ��������� ������� �������� ��� ���������� �����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class WageAllowanceListResponse
     {
+        /// <summary>
+        /// ������ ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("allowances", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<AllowanceInfo> Allowances { get; set; }
 
     }
 
+    /// <summary>
+    /// ������ �� ���������� �������� � ���������� �����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class WageAddAllowanceRequest
     {
+        /// <summary>
+        /// ������������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// ������ ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("amount", Required = Newtonsoft.Json.Required.Always)]
         public double Amount { get; set; }
 
     }
 
+    /// <summary>
+    /// ������ �� �������������� �������� � ���������� �����.
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class WageEditAllowanceRequest
     {
+        /// <summary>
+        /// ������������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// ������ ��������.
+        /// </summary>
         [Newtonsoft.Json.JsonProperty("amount", Required = Newtonsoft.Json.Required.Always)]
         public double Amount { get; set; }
 

@@ -19,10 +19,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
-     * @param body (optional) 
+     * ����������� ������������.
+     * @param body (optional) ������ �� ����������� �������������.
      * @return Success
      */
-    login(body: AccountLoginRequest | undefined): Promise<AccountLoginResponse> {
+    accountLogin(body: AccountLoginRequest | undefined): Promise<AccountLoginResponse> {
         let url_ = this.baseUrl + "/api/Account/login";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -38,11 +39,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processLogin(_response);
+            return this.processAccountLogin(_response);
         });
     }
 
-    protected processLogin(response: Response): Promise<AccountLoginResponse> {
+    protected processAccountLogin(response: Response): Promise<AccountLoginResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -68,10 +69,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
-     * @param body (optional) 
+     * ����������� ������ ������������.
+     * @param body (optional) ������ �� ������������ ������ ������������.
      * @return Success
      */
-    register(body: AccountRegisterRequest | undefined): Promise<void> {
+    accountRegister(body: AccountRegisterRequest | undefined): Promise<void> {
         let url_ = this.baseUrl + "/api/Account/register";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -86,11 +88,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processRegister(_response);
+            return this.processAccountRegister(_response);
         });
     }
 
-    protected processRegister(response: Response): Promise<void> {
+    protected processAccountRegister(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -113,11 +115,14 @@ export class WorkersWagesApiClient {
     }
 
     /**
-     * @param name (optional) 
-     * @param number (optional) 
+     * ��������� ������ �����.
+     * @param name (optional) ��������.
+     * @param number (optional) �����.
+     * @param limit ���������� �������, ������������ � �������.
+     * @param offset ���������� ������� ��� ��������.
      * @return Success
      */
-    manufactoriesGET(name: string | null | undefined, number: string | null | undefined, limit: number, offset: number): Promise<ManufactoryListResponse> {
+    manufactoriesList(name: string | null | undefined, number: string | null | undefined, limit: number, offset: number): Promise<ManufactoryListResponse> {
         let url_ = this.baseUrl + "/api/Manufactories?";
         if (name !== undefined && name !== null)
             url_ += "Name=" + encodeURIComponent("" + name) + "&";
@@ -141,11 +146,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processManufactoriesGET(_response);
+            return this.processManufactoriesList(_response);
         });
     }
 
-    protected processManufactoriesGET(response: Response): Promise<ManufactoryListResponse> {
+    protected processManufactoriesList(response: Response): Promise<ManufactoryListResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -171,9 +176,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������� ������ ����.
+     * @param body ������ �� �������� ������ ����.
      * @return Success
      */
-    manufactoriesPOST(body: ManufactoryCreateRequest): Promise<void> {
+    manufactoriesCreate(body: ManufactoryCreateRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Manufactories";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -188,11 +195,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processManufactoriesPOST(_response);
+            return this.processManufactoriesCreate(_response);
         });
     }
 
-    protected processManufactoriesPOST(response: Response): Promise<void> {
+    protected processManufactoriesCreate(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -215,9 +222,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * ����������� � ����.
+     * @param idQuery �� ����.
      * @return Success
      */
-    manufactoriesGET2(idQuery: number, idPath: string): Promise<ManufactoryDetailsResponse> {
+    manufactoriesDetails(idQuery: number, idPath: string): Promise<ManufactoryDetailsResponse> {
         let url_ = this.baseUrl + "/api/Manufactories/{id}?";
         if (idPath === undefined || idPath === null)
             throw new Error("The parameter 'idPath' must be defined.");
@@ -236,11 +245,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processManufactoriesGET2(_response);
+            return this.processManufactoriesDetails(_response);
         });
     }
 
-    protected processManufactoriesGET2(response: Response): Promise<ManufactoryDetailsResponse> {
+    protected processManufactoriesDetails(response: Response): Promise<ManufactoryDetailsResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -266,9 +275,12 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������������� ����.
+     * @param id �� ����.
+     * @param body ������ �� �������������� ����.
      * @return Success
      */
-    manufactoriesPUT(id: number, body: ManufactoryEditRequest): Promise<void> {
+    manufactoriesEdit(id: number, body: ManufactoryEditRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Manufactories/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -286,11 +298,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processManufactoriesPUT(_response);
+            return this.processManufactoriesEdit(_response);
         });
     }
 
-    protected processManufactoriesPUT(response: Response): Promise<void> {
+    protected processManufactoriesEdit(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -313,9 +325,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������� ����.
+     * @param id �� ����.
      * @return Success
      */
-    manufactoriesDELETE(id: number): Promise<void> {
+    manufactoriesDelete(id: number): Promise<void> {
         let url_ = this.baseUrl + "/api/Manufactories/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -329,11 +343,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processManufactoriesDELETE(_response);
+            return this.processManufactoriesDelete(_response);
         });
     }
 
-    protected processManufactoriesDELETE(response: Response): Promise<void> {
+    protected processManufactoriesDelete(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -356,10 +370,13 @@ export class WorkersWagesApiClient {
     }
 
     /**
-     * @param name (optional) 
+     * ��������� ������ ���������.
+     * @param name (optional) ��������.
+     * @param limit ���������� �������, ������������ � �������.
+     * @param offset ���������� ������� ��� ��������.
      * @return Success
      */
-    professionsGET(name: string | null | undefined, limit: number, offset: number): Promise<ProfessionListResponse> {
+    professionsList(name: string | null | undefined, limit: number, offset: number): Promise<ProfessionListResponse> {
         let url_ = this.baseUrl + "/api/Professions?";
         if (name !== undefined && name !== null)
             url_ += "Name=" + encodeURIComponent("" + name) + "&";
@@ -381,11 +398,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processProfessionsGET(_response);
+            return this.processProfessionsList(_response);
         });
     }
 
-    protected processProfessionsGET(response: Response): Promise<ProfessionListResponse> {
+    protected processProfessionsList(response: Response): Promise<ProfessionListResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -411,9 +428,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * ���������� ����� ���������.
+     * @param body ������ �� ���������� ����� ��������.
      * @return Success
      */
-    professionsPOST(body: ProfessionCreateRequest): Promise<void> {
+    professionsCreate(body: ProfessionCreateRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Professions";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -428,11 +447,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processProfessionsPOST(_response);
+            return this.processProfessionsCreate(_response);
         });
     }
 
-    protected processProfessionsPOST(response: Response): Promise<void> {
+    protected processProfessionsCreate(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -455,9 +474,12 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������������� ���������.
+     * @param id �� ���������.
+     * @param body ������ �� �������������� ���������.
      * @return Success
      */
-    professionsPUT(id: number, body: ProfessionEditRequest): Promise<void> {
+    professionsEdit(id: number, body: ProfessionEditRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Professions/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -475,11 +497,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processProfessionsPUT(_response);
+            return this.processProfessionsEdit(_response);
         });
     }
 
-    protected processProfessionsPUT(response: Response): Promise<void> {
+    protected processProfessionsEdit(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -502,9 +524,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������� ���������.
+     * @param id �� ���������.
      * @return Success
      */
-    professionsDELETE(id: number): Promise<void> {
+    professionsDelete(id: number): Promise<void> {
         let url_ = this.baseUrl + "/api/Professions/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -518,11 +542,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processProfessionsDELETE(_response);
+            return this.processProfessionsDelete(_response);
         });
     }
 
-    protected processProfessionsDELETE(response: Response): Promise<void> {
+    protected processProfessionsDelete(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -545,11 +569,14 @@ export class WorkersWagesApiClient {
     }
 
     /**
-     * @param professionId (optional) 
-     * @param rank (optional) 
+     * ��������� ������ �������.
+     * @param professionId (optional) �������� ���������.
+     * @param rank (optional) ������.
+     * @param limit ���������� �������, ������������ � �������.
+     * @param offset ���������� ������� ��� ��������.
      * @return Success
      */
-    salariesGET(professionId: number | null | undefined, rank: number | null | undefined, limit: number, offset: number): Promise<SalaryListResponse> {
+    salariesList(professionId: number | null | undefined, rank: number | null | undefined, limit: number, offset: number): Promise<SalaryListResponse> {
         let url_ = this.baseUrl + "/api/Salaries?";
         if (professionId !== undefined && professionId !== null)
             url_ += "ProfessionId=" + encodeURIComponent("" + professionId) + "&";
@@ -573,11 +600,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processSalariesGET(_response);
+            return this.processSalariesList(_response);
         });
     }
 
-    protected processSalariesGET(response: Response): Promise<SalaryListResponse> {
+    protected processSalariesList(response: Response): Promise<SalaryListResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -603,9 +630,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * ���������� ������ ������.
+     * @param body ������ �� ���������� ������ ������.
      * @return Success
      */
-    salariesPOST(body: SalaryCreateRequest): Promise<void> {
+    salariesCreate(body: SalaryCreateRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Salaries";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -620,11 +649,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processSalariesPOST(_response);
+            return this.processSalariesCreate(_response);
         });
     }
 
-    protected processSalariesPOST(response: Response): Promise<void> {
+    protected processSalariesCreate(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -647,9 +676,12 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������������� ������.
+     * @param idQuery �� ������.
+     * @param body ������ �� �������������� ������.
      * @return Success
      */
-    salariesPUT(idQuery: number, idPath: string, body: SalaryEditRequest): Promise<void> {
+    salariesEdit(idQuery: number, idPath: string, body: SalaryEditRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Salaries/{id}?";
         if (idPath === undefined || idPath === null)
             throw new Error("The parameter 'idPath' must be defined.");
@@ -671,11 +703,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processSalariesPUT(_response);
+            return this.processSalariesEdit(_response);
         });
     }
 
-    protected processSalariesPUT(response: Response): Promise<void> {
+    protected processSalariesEdit(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -698,9 +730,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������� ������.
+     * @param idQuery �� ������.
      * @return Success
      */
-    salariesDELETE(idQuery: number, idPath: string): Promise<void> {
+    salariesDelete(idQuery: number, idPath: string): Promise<void> {
         let url_ = this.baseUrl + "/api/Salaries/{id}?";
         if (idPath === undefined || idPath === null)
             throw new Error("The parameter 'idPath' must be defined.");
@@ -718,11 +752,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processSalariesDELETE(_response);
+            return this.processSalariesDelete(_response);
         });
     }
 
-    protected processSalariesDELETE(response: Response): Promise<void> {
+    protected processSalariesDelete(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -745,11 +779,14 @@ export class WorkersWagesApiClient {
     }
 
     /**
-     * @param manufactoryId (optional) 
-     * @param weekDay (optional) 
+     * ��������� ������ �������� ����� �����.
+     * @param manufactoryId (optional) �� ����.
+     * @param weekDay (optional) ���� ������.
+     * @param limit ���������� �������, ������������ � �������.
+     * @param offset ���������� ������� ��� ��������.
      * @return Success
      */
-    schedulesGET(manufactoryId: number | null | undefined, weekDay: WeekDays | undefined, limit: number, offset: number): Promise<ScheduleListResponse> {
+    schedulesList(manufactoryId: number | null | undefined, weekDay: WeekDays | undefined, limit: number, offset: number): Promise<ScheduleListResponse> {
         let url_ = this.baseUrl + "/api/Schedules?";
         if (manufactoryId !== undefined && manufactoryId !== null)
             url_ += "ManufactoryId=" + encodeURIComponent("" + manufactoryId) + "&";
@@ -775,11 +812,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processSchedulesGET(_response);
+            return this.processSchedulesList(_response);
         });
     }
 
-    protected processSchedulesGET(response: Response): Promise<ScheduleListResponse> {
+    protected processSchedulesList(response: Response): Promise<ScheduleListResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -805,9 +842,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * ���������� ������ ������� ������ ��� ����.
+     * @param body ������ �� ���������� ������� ������ ��� ����.
      * @return Success
      */
-    schedulesPOST(body: ScheduleCreateRequest): Promise<void> {
+    schedulesCreate(body: ScheduleCreateRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Schedules";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -822,11 +861,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processSchedulesPOST(_response);
+            return this.processSchedulesCreate(_response);
         });
     }
 
-    protected processSchedulesPOST(response: Response): Promise<void> {
+    protected processSchedulesCreate(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -849,9 +888,12 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������������� ������� ������ ����.
+     * @param id �� ������� ������ ����.
+     * @param body ������ �� �������������� ������� ������ ����.
      * @return Success
      */
-    schedulesPUT(id: number, body: ScheduleEditRequest): Promise<void> {
+    schedulesEdit(id: number, body: ScheduleEditRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Schedules/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -869,11 +911,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processSchedulesPUT(_response);
+            return this.processSchedulesEdit(_response);
         });
     }
 
-    protected processSchedulesPUT(response: Response): Promise<void> {
+    protected processSchedulesEdit(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -896,9 +938,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������� ������� ������ ����.
+     * @param id �� ������� ������ ����.
      * @return Success
      */
-    schedulesDELETE(id: number): Promise<void> {
+    schedulesDelete(id: number): Promise<void> {
         let url_ = this.baseUrl + "/api/Schedules/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -912,11 +956,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processSchedulesDELETE(_response);
+            return this.processSchedulesDelete(_response);
         });
     }
 
-    protected processSchedulesDELETE(response: Response): Promise<void> {
+    protected processSchedulesDelete(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -939,13 +983,16 @@ export class WorkersWagesApiClient {
     }
 
     /**
-     * @param workerLastName (optional) 
-     * @param manufactoryId (optional) 
-     * @param professionId (optional) 
-     * @param rank (optional) 
+     * ��������� ������ ���������� ����.
+     * @param workerLastName (optional) ������� ��������.
+     * @param manufactoryId (optional) �� ����.
+     * @param professionId (optional) �� ���������.
+     * @param rank (optional) ������.
+     * @param limit ���������� �������, ������������ � �������.
+     * @param offset ���������� ������� ��� ��������.
      * @return Success
      */
-    wagesGET(workerLastName: string | null | undefined, manufactoryId: number | null | undefined, professionId: number | null | undefined, rank: number | null | undefined, limit: number, offset: number): Promise<WageListResponse> {
+    wagesList(workerLastName: string | null | undefined, manufactoryId: number | null | undefined, professionId: number | null | undefined, rank: number | null | undefined, limit: number, offset: number): Promise<WageListResponse> {
         let url_ = this.baseUrl + "/api/Wages?";
         if (workerLastName !== undefined && workerLastName !== null)
             url_ += "WorkerLastName=" + encodeURIComponent("" + workerLastName) + "&";
@@ -973,11 +1020,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processWagesGET(_response);
+            return this.processWagesList(_response);
         });
     }
 
-    protected processWagesGET(response: Response): Promise<WageListResponse> {
+    protected processWagesList(response: Response): Promise<WageListResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -1003,9 +1050,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������� ����� ���������� �����.
+     * @param body ������ �� �������� ����� ���������� �����.
      * @return Success
      */
-    wagesPOST(body: WageCreateRequest): Promise<void> {
+    wagesCreate(body: WageCreateRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Wages";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1020,11 +1069,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processWagesPOST(_response);
+            return this.processWagesCreate(_response);
         });
     }
 
-    protected processWagesPOST(response: Response): Promise<void> {
+    protected processWagesCreate(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -1047,9 +1096,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * ��������� ������������ � ���������� �����.
+     * @param idQuery �� ���������� �����.
      * @return Success
      */
-    wagesGET2(idQuery: number, idPath: string): Promise<WageDetailsResponse> {
+    wagesDetails(idQuery: number, idPath: string): Promise<WageDetailsResponse> {
         let url_ = this.baseUrl + "/api/Wages/{id}?";
         if (idPath === undefined || idPath === null)
             throw new Error("The parameter 'idPath' must be defined.");
@@ -1068,11 +1119,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processWagesGET2(_response);
+            return this.processWagesDetails(_response);
         });
     }
 
-    protected processWagesGET2(response: Response): Promise<WageDetailsResponse> {
+    protected processWagesDetails(response: Response): Promise<WageDetailsResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -1098,9 +1149,12 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������������� ���������� �����.
+     * @param id �� ���������� �����.
+     * @param body ������ �� �������������� ���������� �����.
      * @return Success
      */
-    wagesPUT(id: number, body: WageEditRequest): Promise<void> {
+    wagesEdit(id: number, body: WageEditRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Wages/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1118,11 +1172,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processWagesPUT(_response);
+            return this.processWagesEdit(_response);
         });
     }
 
-    protected processWagesPUT(response: Response): Promise<void> {
+    protected processWagesEdit(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -1145,9 +1199,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������� ���������� �����.
+     * @param id �� ���������� �����.
      * @return Success
      */
-    wagesDELETE(id: number): Promise<void> {
+    wagesDelete(id: number): Promise<void> {
         let url_ = this.baseUrl + "/api/Wages/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1161,11 +1217,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processWagesDELETE(_response);
+            return this.processWagesDelete(_response);
         });
     }
 
-    protected processWagesDELETE(response: Response): Promise<void> {
+    protected processWagesDelete(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -1188,9 +1244,11 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * ��������� ������ �������� ��� ���������� �����.
+     * @param wageId �� ���������� �����.
      * @return Success
      */
-    allowances(wageId: number): Promise<WageAllowanceListResponse> {
+    wagesAllowanceList(wageId: number): Promise<WageAllowanceListResponse> {
         let url_ = this.baseUrl + "/api/Wages/{wageId}/allowances";
         if (wageId === undefined || wageId === null)
             throw new Error("The parameter 'wageId' must be defined.");
@@ -1205,11 +1263,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAllowances(_response);
+            return this.processWagesAllowanceList(_response);
         });
     }
 
-    protected processAllowances(response: Response): Promise<WageAllowanceListResponse> {
+    protected processWagesAllowanceList(response: Response): Promise<WageAllowanceListResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -1235,9 +1293,12 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * ���������� �������� � ���������� �����.
+     * @param wageId �� ���������� �����.
+     * @param body ������ �� ���������� �������� � ���������� �����.
      * @return Success
      */
-    addAllowance(wageId: number, body: WageAddAllowanceRequest): Promise<void> {
+    wagesAddAllowance(wageId: number, body: WageAddAllowanceRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Wages/{wageId}/add-allowance";
         if (wageId === undefined || wageId === null)
             throw new Error("The parameter 'wageId' must be defined.");
@@ -1255,11 +1316,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAddAllowance(_response);
+            return this.processWagesAddAllowance(_response);
         });
     }
 
-    protected processAddAllowance(response: Response): Promise<void> {
+    protected processWagesAddAllowance(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -1282,9 +1343,13 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������������� �������� � ���������� �����.
+     * @param wageId �� ���������� �����.
+     * @param allowanceId �� ��������.
+     * @param body ������ �� �������������� �������� � ���������� �����.
      * @return Success
      */
-    editAllowance(wageId: number, allowanceId: number, body: WageEditAllowanceRequest): Promise<void> {
+    wagesEditAllowance(wageId: number, allowanceId: number, body: WageEditAllowanceRequest): Promise<void> {
         let url_ = this.baseUrl + "/api/Wages/{wageId}/edit-allowance/{allowanceId}";
         if (wageId === undefined || wageId === null)
             throw new Error("The parameter 'wageId' must be defined.");
@@ -1305,11 +1370,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processEditAllowance(_response);
+            return this.processWagesEditAllowance(_response);
         });
     }
 
-    protected processEditAllowance(response: Response): Promise<void> {
+    protected processWagesEditAllowance(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -1332,9 +1397,12 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * �������� �������� � ���������� �����.
+     * @param wageId �� ���������� �����.
+     * @param allowanceId �� ��������.
      * @return Success
      */
-    deleteAllowance(wageId: number, allowanceId: number): Promise<void> {
+    wagesDeleteAllowance(wageId: number, allowanceId: number): Promise<void> {
         let url_ = this.baseUrl + "/api/Wages/{wageId}/delete-allowance/{allowanceId}";
         if (wageId === undefined || wageId === null)
             throw new Error("The parameter 'wageId' must be defined.");
@@ -1351,11 +1419,11 @@ export class WorkersWagesApiClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processDeleteAllowance(_response);
+            return this.processWagesDeleteAllowance(_response);
         });
     }
 
-    protected processDeleteAllowance(response: Response): Promise<void> {
+    protected processWagesDeleteAllowance(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -1378,8 +1446,11 @@ export class WorkersWagesApiClient {
     }
 }
 
+/** ������ �� ����������� ������������. */
 export class AccountLoginRequest implements IAccountLoginRequest {
+    /** �����. */
     userName!: string;
+    /** ������. */
     password!: string;
 
     constructor(data?: IAccountLoginRequest) {
@@ -1413,13 +1484,19 @@ export class AccountLoginRequest implements IAccountLoginRequest {
     }
 }
 
+/** ������ �� ����������� ������������. */
 export interface IAccountLoginRequest {
+    /** �����. */
     userName: string;
+    /** ������. */
     password: string;
 }
 
+/** ��������� ����������� ������������. */
 export class AccountLoginResponse implements IAccountLoginResponse {
+    /** �����. */
     token?: string | undefined;
+    /** ���� �������� ������. */
     expiration?: Date;
 
     constructor(data?: IAccountLoginResponse) {
@@ -1453,12 +1530,18 @@ export class AccountLoginResponse implements IAccountLoginResponse {
     }
 }
 
+/** ��������� ����������� ������������. */
 export interface IAccountLoginResponse {
+    /** �����. */
     token?: string | undefined;
+    /** ���� �������� ������. */
     expiration?: Date;
 }
 
+/** ���������� ������ �� API. */
 export class ApiErrorResponse implements IApiErrorResponse {
+    /** ������ ������, ��� ���� - ��� ���������, � �������� - ����� ������ ����� ���������.
+���� �������� string.Empty, �� ������ �����. */
     errors?: { [key: string]: string[]; } | undefined;
 
     constructor(data?: IApiErrorResponse) {
@@ -1502,16 +1585,26 @@ export class ApiErrorResponse implements IApiErrorResponse {
     }
 }
 
+/** ���������� ������ �� API. */
 export interface IApiErrorResponse {
+    /** ������ ������, ��� ���� - ��� ���������, � �������� - ����� ������ ����� ���������.
+���� �������� string.Empty, �� ������ �����. */
     errors?: { [key: string]: string[]; } | undefined;
 }
 
+/** ������ �� ����������� ������ ������������. */
 export class AccountRegisterRequest implements IAccountRegisterRequest {
+    /** ���. */
     firstName!: string;
+    /** ��������. */
     middleName?: string | undefined;
+    /** �������. */
     lastName!: string;
+    /** ����������� �����. */
     email?: string | undefined;
+    /** �����. */
     userName!: string;
+    /** ������. */
     password!: string;
 
     constructor(data?: IAccountRegisterRequest) {
@@ -1553,20 +1646,33 @@ export class AccountRegisterRequest implements IAccountRegisterRequest {
     }
 }
 
+/** ������ �� ����������� ������ ������������. */
 export interface IAccountRegisterRequest {
+    /** ���. */
     firstName: string;
+    /** ��������. */
     middleName?: string | undefined;
+    /** �������. */
     lastName: string;
+    /** ����������� �����. */
     email?: string | undefined;
+    /** �����. */
     userName: string;
+    /** ������. */
     password: string;
 }
 
+/** ���������� � ����. */
 export class ManufactoryInfo implements IManufactoryInfo {
+    /** �� ������. */
     id!: number;
+    /** ��������. */
     name!: string;
+    /** �����. */
     number!: string;
+    /** ���� � ����� �������� ������. */
     created!: Date;
+    /** ���� � ����� ���������� ������. */
     updated!: Date;
 
     constructor(data?: IManufactoryInfo) {
@@ -1606,16 +1712,25 @@ export class ManufactoryInfo implements IManufactoryInfo {
     }
 }
 
+/** ���������� � ����. */
 export interface IManufactoryInfo {
+    /** �� ������. */
     id: number;
+    /** ��������. */
     name: string;
+    /** �����. */
     number: string;
+    /** ���� � ����� �������� ������. */
     created: Date;
+    /** ���� � ����� ���������� ������. */
     updated: Date;
 }
 
+/** ��������� ������� ������ �����. */
 export class ManufactoryListResponse implements IManufactoryListResponse {
+    /** ������ ���������. */
     manufactories!: ManufactoryInfo[];
+    /** ����� ���������� �������. */
     totalCount!: number;
 
     constructor(data?: IManufactoryListResponse) {
@@ -1660,15 +1775,23 @@ export class ManufactoryListResponse implements IManufactoryListResponse {
     }
 }
 
+/** ��������� ������� ������ �����. */
 export interface IManufactoryListResponse {
+    /** ������ ���������. */
     manufactories: ManufactoryInfo[];
+    /** ����� ���������� �������. */
     totalCount: number;
 }
 
+/** ������ �� �������� ����. */
 export class ManufactoryCreateRequest implements IManufactoryCreateRequest {
+    /** ��������. */
     name!: string;
+    /** �����. */
     number!: string;
+    /** ��� ����������. */
     headFIO!: string;
+    /** �� ���������� ����������. */
     headPhotoId?: number | undefined;
 
     constructor(data?: IManufactoryCreateRequest) {
@@ -1706,17 +1829,27 @@ export class ManufactoryCreateRequest implements IManufactoryCreateRequest {
     }
 }
 
+/** ������ �� �������� ����. */
 export interface IManufactoryCreateRequest {
+    /** ��������. */
     name: string;
+    /** �����. */
     number: string;
+    /** ��� ����������. */
     headFIO: string;
+    /** �� ���������� ����������. */
     headPhotoId?: number | undefined;
 }
 
+/** ��������� ������� ������������ � ����. */
 export class ManufactoryDetailsResponse implements IManufactoryDetailsResponse {
+    /** ��������. */
     name!: string;
+    /** �����. */
     number!: string;
+    /** ��� ����������. */
     headFIO!: string;
+    /** �� ���������� ����������. */
     headPhotoId?: number | undefined;
 
     constructor(data?: IManufactoryDetailsResponse) {
@@ -1754,17 +1887,27 @@ export class ManufactoryDetailsResponse implements IManufactoryDetailsResponse {
     }
 }
 
+/** ��������� ������� ������������ � ����. */
 export interface IManufactoryDetailsResponse {
+    /** ��������. */
     name: string;
+    /** �����. */
     number: string;
+    /** ��� ����������. */
     headFIO: string;
+    /** �� ���������� ����������. */
     headPhotoId?: number | undefined;
 }
 
+/** ������ �� �������������� ����. */
 export class ManufactoryEditRequest implements IManufactoryEditRequest {
+    /** ��������. */
     name!: string;
+    /** �����. */
     number!: string;
+    /** ��� ����������. */
     headFIO!: string;
+    /** �� ���������� ����������. */
     headPhotoId?: number | undefined;
 
     constructor(data?: IManufactoryEditRequest) {
@@ -1802,17 +1945,27 @@ export class ManufactoryEditRequest implements IManufactoryEditRequest {
     }
 }
 
+/** ������ �� �������������� ����. */
 export interface IManufactoryEditRequest {
+    /** ��������. */
     name: string;
+    /** �����. */
     number: string;
+    /** ��� ����������. */
     headFIO: string;
+    /** �� ���������� ����������. */
     headPhotoId?: number | undefined;
 }
 
+/** ���������� � ���������. */
 export class ProfessionInfo implements IProfessionInfo {
+    /** �� ������. */
     id!: number;
+    /** ������������. */
     name!: string;
+    /** ���� � ����� �������� ������. */
     created!: Date;
+    /** ���� � ����� ���������� ������. */
     updated!: Date;
 
     constructor(data?: IProfessionInfo) {
@@ -1850,15 +2003,23 @@ export class ProfessionInfo implements IProfessionInfo {
     }
 }
 
+/** ���������� � ���������. */
 export interface IProfessionInfo {
+    /** �� ������. */
     id: number;
+    /** ������������. */
     name: string;
+    /** ���� � ����� �������� ������. */
     created: Date;
+    /** ���� � ����� ���������� ������. */
     updated: Date;
 }
 
+/** ��������� ������� ������ ���������. */
 export class ProfessionListResponse implements IProfessionListResponse {
+    /** ������ ���������. */
     professions!: ProfessionInfo[];
+    /** ����� ���������� �������. */
     totalCount!: number;
 
     constructor(data?: IProfessionListResponse) {
@@ -1903,12 +2064,17 @@ export class ProfessionListResponse implements IProfessionListResponse {
     }
 }
 
+/** ��������� ������� ������ ���������. */
 export interface IProfessionListResponse {
+    /** ������ ���������. */
     professions: ProfessionInfo[];
+    /** ����� ���������� �������. */
     totalCount: number;
 }
 
+/** ������ �� �������� ���������. */
 export class ProfessionCreateRequest implements IProfessionCreateRequest {
+    /** ��������. */
     name!: string;
 
     constructor(data?: IProfessionCreateRequest) {
@@ -1940,11 +2106,15 @@ export class ProfessionCreateRequest implements IProfessionCreateRequest {
     }
 }
 
+/** ������ �� �������� ���������. */
 export interface IProfessionCreateRequest {
+    /** ��������. */
     name: string;
 }
 
+/** ������ �� �������������� ���������. */
 export class ProfessionEditRequest implements IProfessionEditRequest {
+    /** ��������. */
     name!: string;
 
     constructor(data?: IProfessionEditRequest) {
@@ -1976,16 +2146,25 @@ export class ProfessionEditRequest implements IProfessionEditRequest {
     }
 }
 
+/** ������ �� �������������� ���������. */
 export interface IProfessionEditRequest {
+    /** ��������. */
     name: string;
 }
 
+/** ���������� �� ������. */
 export class SalaryInfo implements ISalaryInfo {
+    /** �� ������. */
     id!: number;
+    /** �������� ���������. */
     professionName!: string;
+    /** ������. */
     rank!: number;
+    /** ����� ������. */
     amount!: number;
+    /** ���� � ����� �������� ������. */
     created!: Date;
+    /** ���� � ����� ���������� ������. */
     updated!: Date;
 
     constructor(data?: ISalaryInfo) {
@@ -2027,17 +2206,27 @@ export class SalaryInfo implements ISalaryInfo {
     }
 }
 
+/** ���������� �� ������. */
 export interface ISalaryInfo {
+    /** �� ������. */
     id: number;
+    /** �������� ���������. */
     professionName: string;
+    /** ������. */
     rank: number;
+    /** ����� ������. */
     amount: number;
+    /** ���� � ����� �������� ������. */
     created: Date;
+    /** ���� � ����� ���������� ������. */
     updated: Date;
 }
 
+/** ��������� ������� ������ �������. */
 export class SalaryListResponse implements ISalaryListResponse {
+    /** ������ �������. */
     salaries!: SalaryInfo[];
+    /** ����� ���������� �������. */
     totalCount!: number;
 
     constructor(data?: ISalaryListResponse) {
@@ -2082,14 +2271,21 @@ export class SalaryListResponse implements ISalaryListResponse {
     }
 }
 
+/** ��������� ������� ������ �������. */
 export interface ISalaryListResponse {
+    /** ������ �������. */
     salaries: SalaryInfo[];
+    /** ����� ���������� �������. */
     totalCount: number;
 }
 
+/** ������ �� ���������� ������. */
 export class SalaryCreateRequest implements ISalaryCreateRequest {
+    /** �� ���������. */
     professionId!: number;
+    /** ������. */
     rank!: number;
+    /** ����� ������. */
     amount!: number;
 
     constructor(data?: ISalaryCreateRequest) {
@@ -2125,15 +2321,23 @@ export class SalaryCreateRequest implements ISalaryCreateRequest {
     }
 }
 
+/** ������ �� ���������� ������. */
 export interface ISalaryCreateRequest {
+    /** �� ���������. */
     professionId: number;
+    /** ������. */
     rank: number;
+    /** ����� ������. */
     amount: number;
 }
 
+/** ������ �� �������������� ������. */
 export class SalaryEditRequest implements ISalaryEditRequest {
+    /** �� ���������. */
     professionId!: number;
+    /** ������. */
     rank!: number;
+    /** ����� ������. */
     amount!: number;
 
     constructor(data?: ISalaryEditRequest) {
@@ -2169,9 +2373,13 @@ export class SalaryEditRequest implements ISalaryEditRequest {
     }
 }
 
+/** ������ �� �������������� ������. */
 export interface ISalaryEditRequest {
+    /** �� ���������. */
     professionId: number;
+    /** ������. */
     rank: number;
+    /** ����� ������. */
     amount: number;
 }
 
@@ -2261,16 +2469,22 @@ export interface ITimeSpan {
     totalSeconds?: number;
 }
 
+/** ���������� � ������� ������ ����. */
 export class ScheduleInfo implements IScheduleInfo {
+    /** �� ������. */
     id!: number;
+    /** �� ����. */
     manufactoryId!: number;
+    /** ������������ �������� ����. */
     manufactoryDisplayName!: string;
     weekDay!: WeekDays;
     workingStart?: TimeSpan;
     workingEnd?: TimeSpan;
     breakStart?: TimeSpan;
     breakEnd?: TimeSpan;
+    /** ���� � ����� �������� ������. */
     created!: Date;
+    /** ���� � ����� ���������� ������. */
     updated!: Date;
 
     constructor(data?: IScheduleInfo) {
@@ -2320,21 +2534,30 @@ export class ScheduleInfo implements IScheduleInfo {
     }
 }
 
+/** ���������� � ������� ������ ����. */
 export interface IScheduleInfo {
+    /** �� ������. */
     id: number;
+    /** �� ����. */
     manufactoryId: number;
+    /** ������������ �������� ����. */
     manufactoryDisplayName: string;
     weekDay: WeekDays;
     workingStart?: TimeSpan;
     workingEnd?: TimeSpan;
     breakStart?: TimeSpan;
     breakEnd?: TimeSpan;
+    /** ���� � ����� �������� ������. */
     created: Date;
+    /** ���� � ����� ���������� ������. */
     updated: Date;
 }
 
+/** ��������� ������� ������ �������� ����� �����. */
 export class ScheduleListResponse implements IScheduleListResponse {
+    /** ������ �������� ����� �����. */
     schedules!: ScheduleInfo[];
+    /** ����� ���������� �������. */
     totalCount!: number;
 
     constructor(data?: IScheduleListResponse) {
@@ -2379,18 +2602,69 @@ export class ScheduleListResponse implements IScheduleListResponse {
     }
 }
 
+/** ��������� ������� ������ �������� ����� �����. */
 export interface IScheduleListResponse {
+    /** ������ �������� ����� �����. */
     schedules: ScheduleInfo[];
+    /** ����� ���������� �������. */
     totalCount: number;
 }
 
+/** ����� (��� �������� �������������� � ��������). */
+export class Time implements ITime {
+    /** ����. */
+    hours!: number;
+    /** ������. */
+    minutes!: number;
+
+    constructor(data?: ITime) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.hours = _data["hours"];
+            this.minutes = _data["minutes"];
+        }
+    }
+
+    static fromJS(data: any): Time {
+        data = typeof data === 'object' ? data : {};
+        let result = new Time();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["hours"] = this.hours;
+        data["minutes"] = this.minutes;
+        return data;
+    }
+}
+
+/** ����� (��� �������� �������������� � ��������). */
+export interface ITime {
+    /** ����. */
+    hours: number;
+    /** ������. */
+    minutes: number;
+}
+
+/** ������ �� ���������� ������� ������ ����. */
 export class ScheduleCreateRequest implements IScheduleCreateRequest {
+    /** �� ����. */
     manufactoryId!: number;
     weekDay!: WeekDays;
-    workingStart?: TimeSpan;
-    workingEnd?: TimeSpan;
-    breakStart?: TimeSpan;
-    breakEnd?: TimeSpan;
+    workingStart?: Time;
+    workingEnd?: Time;
+    breakStart?: Time;
+    breakEnd?: Time;
 
     constructor(data?: IScheduleCreateRequest) {
         if (data) {
@@ -2405,10 +2679,10 @@ export class ScheduleCreateRequest implements IScheduleCreateRequest {
         if (_data) {
             this.manufactoryId = _data["manufactoryId"];
             this.weekDay = _data["weekDay"];
-            this.workingStart = _data["workingStart"] ? TimeSpan.fromJS(_data["workingStart"]) : <any>undefined;
-            this.workingEnd = _data["workingEnd"] ? TimeSpan.fromJS(_data["workingEnd"]) : <any>undefined;
-            this.breakStart = _data["breakStart"] ? TimeSpan.fromJS(_data["breakStart"]) : <any>undefined;
-            this.breakEnd = _data["breakEnd"] ? TimeSpan.fromJS(_data["breakEnd"]) : <any>undefined;
+            this.workingStart = _data["workingStart"] ? Time.fromJS(_data["workingStart"]) : <any>undefined;
+            this.workingEnd = _data["workingEnd"] ? Time.fromJS(_data["workingEnd"]) : <any>undefined;
+            this.breakStart = _data["breakStart"] ? Time.fromJS(_data["breakStart"]) : <any>undefined;
+            this.breakEnd = _data["breakEnd"] ? Time.fromJS(_data["breakEnd"]) : <any>undefined;
         }
     }
 
@@ -2431,22 +2705,26 @@ export class ScheduleCreateRequest implements IScheduleCreateRequest {
     }
 }
 
+/** ������ �� ���������� ������� ������ ����. */
 export interface IScheduleCreateRequest {
+    /** �� ����. */
     manufactoryId: number;
     weekDay: WeekDays;
-    workingStart?: TimeSpan;
-    workingEnd?: TimeSpan;
-    breakStart?: TimeSpan;
-    breakEnd?: TimeSpan;
+    workingStart?: Time;
+    workingEnd?: Time;
+    breakStart?: Time;
+    breakEnd?: Time;
 }
 
+/** ������ �� �������������� ������� ������ ����. */
 export class ScheduleEditRequest implements IScheduleEditRequest {
+    /** �� ����. */
     manufactoryId!: number;
     weekDay!: WeekDays;
-    workingStart?: TimeSpan;
-    workingEnd?: TimeSpan;
-    breakStart?: TimeSpan;
-    breakEnd?: TimeSpan;
+    workingStart?: Time;
+    workingEnd?: Time;
+    breakStart?: Time;
+    breakEnd?: Time;
 
     constructor(data?: IScheduleEditRequest) {
         if (data) {
@@ -2461,10 +2739,10 @@ export class ScheduleEditRequest implements IScheduleEditRequest {
         if (_data) {
             this.manufactoryId = _data["manufactoryId"];
             this.weekDay = _data["weekDay"];
-            this.workingStart = _data["workingStart"] ? TimeSpan.fromJS(_data["workingStart"]) : <any>undefined;
-            this.workingEnd = _data["workingEnd"] ? TimeSpan.fromJS(_data["workingEnd"]) : <any>undefined;
-            this.breakStart = _data["breakStart"] ? TimeSpan.fromJS(_data["breakStart"]) : <any>undefined;
-            this.breakEnd = _data["breakEnd"] ? TimeSpan.fromJS(_data["breakEnd"]) : <any>undefined;
+            this.workingStart = _data["workingStart"] ? Time.fromJS(_data["workingStart"]) : <any>undefined;
+            this.workingEnd = _data["workingEnd"] ? Time.fromJS(_data["workingEnd"]) : <any>undefined;
+            this.breakStart = _data["breakStart"] ? Time.fromJS(_data["breakStart"]) : <any>undefined;
+            this.breakEnd = _data["breakEnd"] ? Time.fromJS(_data["breakEnd"]) : <any>undefined;
         }
     }
 
@@ -2487,25 +2765,38 @@ export class ScheduleEditRequest implements IScheduleEditRequest {
     }
 }
 
+/** ������ �� �������������� ������� ������ ����. */
 export interface IScheduleEditRequest {
+    /** �� ����. */
     manufactoryId: number;
     weekDay: WeekDays;
-    workingStart?: TimeSpan;
-    workingEnd?: TimeSpan;
-    breakStart?: TimeSpan;
-    breakEnd?: TimeSpan;
+    workingStart?: Time;
+    workingEnd?: Time;
+    breakStart?: Time;
+    breakEnd?: Time;
 }
 
+/** ���������� � ���������� �����. */
 export class WageInfo implements IWageInfo {
+    /** �� ������. */
     id!: number;
+    /** ������� ��������. */
     workerLastName!: string;
+    /** �� ����. */
     manufactoryId!: number;
+    /** ������������ ������������ ����. */
     manufactoryDisplayName!: string;
+    /** �������� ���������. */
     professionName!: string;
+    /** ������. */
     rank!: number;
+    /** ������ ��. */
     amount!: number;
+    /** ������ �� � ������ ��������. */
     amountWithAllowances!: number;
+    /** ���� � ����� �������� ������. */
     created!: Date;
+    /** ���� � ����� ���������� ������. */
     updated!: Date;
 
     constructor(data?: IWageInfo) {
@@ -2555,21 +2846,35 @@ export class WageInfo implements IWageInfo {
     }
 }
 
+/** ���������� � ���������� �����. */
 export interface IWageInfo {
+    /** �� ������. */
     id: number;
+    /** ������� ��������. */
     workerLastName: string;
+    /** �� ����. */
     manufactoryId: number;
+    /** ������������ ������������ ����. */
     manufactoryDisplayName: string;
+    /** �������� ���������. */
     professionName: string;
+    /** ������. */
     rank: number;
+    /** ������ ��. */
     amount: number;
+    /** ������ �� � ������ ��������. */
     amountWithAllowances: number;
+    /** ���� � ����� �������� ������. */
     created: Date;
+    /** ���� � ����� ���������� ������. */
     updated: Date;
 }
 
+/** ��������� ������� ������ ���������� ����. */
 export class WageListResponse implements IWageListResponse {
+    /** ������ ���������� ����. */
     wages!: WageInfo[];
+    /** ����� ���������� �������. */
     totalCount!: number;
 
     constructor(data?: IWageListResponse) {
@@ -2614,15 +2919,23 @@ export class WageListResponse implements IWageListResponse {
     }
 }
 
+/** ��������� ������� ������ ���������� ����. */
 export interface IWageListResponse {
+    /** ������ ���������� ����. */
     wages: WageInfo[];
+    /** ����� ���������� �������. */
     totalCount: number;
 }
 
+/** ������ �� �������� ���������� �����. */
 export class WageCreateRequest implements IWageCreateRequest {
+    /** ������� ��������. */
     workerLastName!: string;
+    /** �� ����. */
     manufactoryId!: number;
+    /** �� ���������. */
     professionId!: number;
+    /** ������. */
     rank!: number;
 
     constructor(data?: IWageCreateRequest) {
@@ -2660,16 +2973,25 @@ export class WageCreateRequest implements IWageCreateRequest {
     }
 }
 
+/** ������ �� �������� ���������� �����. */
 export interface IWageCreateRequest {
+    /** ������� ��������. */
     workerLastName: string;
+    /** �� ����. */
     manufactoryId: number;
+    /** �� ���������. */
     professionId: number;
+    /** ������. */
     rank: number;
 }
 
+/** ���������� � ���������. */
 export class AllowanceInfo implements IAllowanceInfo {
+    /** �� ������. */
     id!: number;
+    /** ������������. */
     name?: string | undefined;
+    /** ������ ��������. */
     amount!: number;
 
     constructor(data?: IAllowanceInfo) {
@@ -2705,19 +3027,31 @@ export class AllowanceInfo implements IAllowanceInfo {
     }
 }
 
+/** ���������� � ���������. */
 export interface IAllowanceInfo {
+    /** �� ������. */
     id: number;
+    /** ������������. */
     name?: string | undefined;
+    /** ������ ��������. */
     amount: number;
 }
 
+/** ��������� ������� ������������ � ���������� �����. */
 export class WageDetailsResponse implements IWageDetailsResponse {
+    /** ������� ��������. */
     workerLastName!: string;
+    /** ������������ ������������ ����. */
     manufactoryDisplayName!: string;
+    /** �������� ���������. */
     professionName!: string;
+    /** ������. */
     rank!: number;
+    /** ������ ��. */
     amount!: number;
+    /** ������ �� � ������ ��������. */
     amountWithAllowances!: number;
+    /** ��������. */
     allowances!: AllowanceInfo[];
 
     constructor(data?: IWageDetailsResponse) {
@@ -2772,20 +3106,33 @@ export class WageDetailsResponse implements IWageDetailsResponse {
     }
 }
 
+/** ��������� ������� ������������ � ���������� �����. */
 export interface IWageDetailsResponse {
+    /** ������� ��������. */
     workerLastName: string;
+    /** ������������ ������������ ����. */
     manufactoryDisplayName: string;
+    /** �������� ���������. */
     professionName: string;
+    /** ������. */
     rank: number;
+    /** ������ ��. */
     amount: number;
+    /** ������ �� � ������ ��������. */
     amountWithAllowances: number;
+    /** ��������. */
     allowances: AllowanceInfo[];
 }
 
+/** ������ �� �������������� ���������� �����. */
 export class WageEditRequest implements IWageEditRequest {
+    /** ������� ��������. */
     workerLastName!: string;
+    /** �� ����. */
     manufactoryId!: number;
+    /** �� ���������. */
     professionId!: number;
+    /** ������. */
     rank!: number;
 
     constructor(data?: IWageEditRequest) {
@@ -2823,14 +3170,21 @@ export class WageEditRequest implements IWageEditRequest {
     }
 }
 
+/** ������ �� �������������� ���������� �����. */
 export interface IWageEditRequest {
+    /** ������� ��������. */
     workerLastName: string;
+    /** �� ����. */
     manufactoryId: number;
+    /** �� ���������. */
     professionId: number;
+    /** ������. */
     rank: number;
 }
 
+/** ��������� ������� �������� ��� ���������� �����. */
 export class WageAllowanceListResponse implements IWageAllowanceListResponse {
+    /** ������ ��������. */
     allowances?: AllowanceInfo[] | undefined;
 
     constructor(data?: IWageAllowanceListResponse) {
@@ -2870,12 +3224,17 @@ export class WageAllowanceListResponse implements IWageAllowanceListResponse {
     }
 }
 
+/** ��������� ������� �������� ��� ���������� �����. */
 export interface IWageAllowanceListResponse {
+    /** ������ ��������. */
     allowances?: AllowanceInfo[] | undefined;
 }
 
+/** ������ �� ���������� �������� � ���������� �����. */
 export class WageAddAllowanceRequest implements IWageAddAllowanceRequest {
+    /** ������������. */
     name?: string | undefined;
+    /** ������ ��������. */
     amount!: number;
 
     constructor(data?: IWageAddAllowanceRequest) {
@@ -2909,13 +3268,19 @@ export class WageAddAllowanceRequest implements IWageAddAllowanceRequest {
     }
 }
 
+/** ������ �� ���������� �������� � ���������� �����. */
 export interface IWageAddAllowanceRequest {
+    /** ������������. */
     name?: string | undefined;
+    /** ������ ��������. */
     amount: number;
 }
 
+/** ������ �� �������������� �������� � ���������� �����. */
 export class WageEditAllowanceRequest implements IWageEditAllowanceRequest {
+    /** ������������. */
     name?: string | undefined;
+    /** ������ ��������. */
     amount!: number;
 
     constructor(data?: IWageEditAllowanceRequest) {
@@ -2949,8 +3314,11 @@ export class WageEditAllowanceRequest implements IWageEditAllowanceRequest {
     }
 }
 
+/** ������ �� �������������� �������� � ���������� �����. */
 export interface IWageEditAllowanceRequest {
+    /** ������������. */
     name?: string | undefined;
+    /** ������ ��������. */
     amount: number;
 }
 
