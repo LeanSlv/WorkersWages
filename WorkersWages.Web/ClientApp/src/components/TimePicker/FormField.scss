@@ -1,0 +1,49 @@
+﻿.form-field-label {
+    line-height: 150%;
+    color: #666;
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 1rem * 0.8125;
+}
+
+.input-text.form-control {
+    height: 1rem * 0.875 + 0.625rem * 2;
+    padding: 0.625rem;
+    line-height: 100%;
+
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 1rem * 0.875;
+
+    color: #333;
+    border: 0.0625rem solid #ddd;
+
+    &::placeholder {
+        color: #999;
+    }
+
+    &:focus {
+        color: #333;
+        box-shadow: unset;
+        border-bottom: 0.125rem solid #3c78bc;
+        padding-bottom: 0.625rem - 0.125rem;
+
+        &.is-invalid {
+            border-color: #ec6359;
+        }
+    }
+}
+
+.react-datepicker-popper {
+    z-index: 5 !important;
+}
+
+.react-datepicker__current-month {
+    display: none;
+}
+
+.react-datepicker__header__dropdown {
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
+}
