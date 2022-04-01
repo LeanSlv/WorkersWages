@@ -6,7 +6,7 @@ export interface FilterData extends FilterBase {
     weekDay?: WeekDays;
 }
 
-const professionIdOptions = async (inputValue: string, value: string | number | undefined, callback: (options: AisSelectOption<number>[]) => void) => {
+const manufactoryIdOptions = async (inputValue: string, value: string | number | undefined, callback: (options: AisSelectOption<number>[]) => void) => {
     const apiClient = new WorkersWagesApiClient('/extapi');
     const data = await apiClient.manufactoriesList(inputValue, undefined, 20, 0);
     const options = data.manufactories?.map((item) => {
@@ -18,7 +18,7 @@ const professionIdOptions = async (inputValue: string, value: string | number | 
 export const SchedulesListFilter = (props: FilterProps<FilterData>) => {
     return (
         <AisFilter {...props}>
-            <AisFormField.SelectAsync label="Цех" name="manufactoryId" loadOptions={professionIdOptions} />
+            <AisFormField.SelectAsync label="Цех" name="manufactoryId" loadOptions={manufactoryIdOptions} />
             <AisFormField.Text label="День недели" name="weekDay" />
         </AisFilter>
     );
