@@ -75,7 +75,7 @@ namespace WorkersWages.API.API.Wages
         /// <param name="id">ИД заработной платы.</param>
         /// <returns>Подробности о заработной плате</returns>
         [HttpGet("{id}")]
-        public ActionResult<WageDetailsResponse> Details([Required][FromQuery] int id)
+        public ActionResult<WageDetailsResponse> Details([Required][FromRoute] int id)
         {
             var wage = _dataContext.Wages
                 .Include(i => i.Manufactory)

@@ -92,7 +92,7 @@ namespace WorkersWages.API.API.Salaries
         /// <param name="id">ИД оклада.</param>
         /// <param name="request">Запрос на редактирование оклада.</param>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit([Required][FromQuery] int id, [Required][FromBody] SalaryEditRequest request)
+        public async Task<IActionResult> Edit([Required][FromRoute] int id, [Required][FromBody] SalaryEditRequest request)
         {
             if (!ModelState.IsValid)
                 throw new ApiException();
@@ -117,7 +117,7 @@ namespace WorkersWages.API.API.Salaries
         /// </summary>
         /// <param name="id">ИД оклада.</param>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([Required][FromQuery] int id)
+        public async Task<IActionResult> Delete([Required][FromRoute] int id)
         {
             var salary = _dataContext.Salaries.FirstOrDefault(i => i.Id == id);
             if (salary == default)

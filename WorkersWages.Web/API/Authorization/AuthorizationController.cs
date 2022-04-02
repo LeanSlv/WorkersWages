@@ -35,7 +35,7 @@ namespace WorkersWages.Web.API.Authorization
         {
             HttpClient httpClient = _httpClientFactory.CreateClient("api_client");
             var workersWagesApiClient = new Services.WorkersWagesApiClient(_configuration.GetValue<string>("API"), httpClient);
-            var response = await workersWagesApiClient.LoginAsync(request);
+            var response = await workersWagesApiClient.AccountLoginAsync(request);
             var token = new JwtSecurityTokenHandler().ReadJwtToken(response.Token);
             var identity = new ClaimsPrincipal(new ClaimsIdentity(token.Claims, CookieAuthenticationDefaults.AuthenticationScheme));
 
@@ -54,14 +54,14 @@ namespace WorkersWages.Web.API.Authorization
         {
             HttpClient httpClient = _httpClientFactory.CreateClient("api_client");
             var workersWagesApiClient = new Services.WorkersWagesApiClient(_configuration.GetValue<string>("API"), httpClient);
-            await workersWagesApiClient.RegisterAsync(request);
+            await workersWagesApiClient.AccountRegisterAsync(request);
 
             var loginRequest = new Services.AccountLoginRequest
             {
                 UserName = request.UserName,
                 Password = request.Password
             };
-            var response = await workersWagesApiClient.LoginAsync(loginRequest);
+            var response = await workersWagesApiClient.AccountLoginAsync(loginRequest);
             var token = new JwtSecurityTokenHandler().ReadJwtToken(response.Token);
             var identity = new ClaimsPrincipal(new ClaimsIdentity(token.Claims, CookieAuthenticationDefaults.AuthenticationScheme));
 

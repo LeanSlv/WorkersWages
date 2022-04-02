@@ -10,7 +10,10 @@
         "tags": [
           "Account"
         ],
+        "summary": "Авторизация пользователя.",
+        "operationId": "AccountLogin",
         "requestBody": {
+          "description": "Запрос на авторизацию пользователей.",
           "content": {
             "application/json": {
               "schema": {
@@ -68,7 +71,10 @@
         "tags": [
           "Account"
         ],
+        "summary": "Регистрация нового пользователя.",
+        "operationId": "AccountRegister",
         "requestBody": {
+          "description": "Запрос на регистрацнию нового пользователя.",
           "content": {
             "application/json": {
               "schema": {
@@ -114,38 +120,48 @@
         "tags": [
           "Manufactories"
         ],
+        "summary": "Получение списка цехов.",
+        "operationId": "ManufactoriesList",
         "parameters": [
           {
             "name": "Name",
             "in": "query",
+            "description": "Название.",
             "schema": {
               "type": "string",
+              "description": "Название.",
               "nullable": true
             }
           },
           {
             "name": "Number",
             "in": "query",
+            "description": "Номер.",
             "schema": {
               "type": "string",
+              "description": "Номер.",
               "nullable": true
             }
           },
           {
             "name": "Limit",
             "in": "query",
+            "description": "Количество записей, возвращаемое в запросе.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Количество записей, возвращаемое в запросе.",
               "format": "int32"
             }
           },
           {
             "name": "Offset",
             "in": "query",
+            "description": "Количество записей для пропуска.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Количество записей для пропуска.",
               "format": "int32"
             }
           }
@@ -187,7 +203,10 @@
         "tags": [
           "Manufactories"
         ],
+        "summary": "Создание нового цеха.",
+        "operationId": "ManufactoriesCreate",
         "requestBody": {
+          "description": "Запрос на создание нового цеха.",
           "content": {
             "application/json": {
               "schema": {
@@ -234,22 +253,18 @@
         "tags": [
           "Manufactories"
         ],
+        "summary": "Подробности о цехе.",
+        "operationId": "ManufactoriesDetails",
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
+            "description": "ИД цеха.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД цеха.",
               "format": "int32"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],
@@ -290,18 +305,23 @@
         "tags": [
           "Manufactories"
         ],
+        "summary": "Редактирование цеха.",
+        "operationId": "ManufactoriesEdit",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ИД цеха.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД цеха.",
               "format": "int32"
             }
           }
         ],
         "requestBody": {
+          "description": "Запрос на редактирование цеха.",
           "content": {
             "application/json": {
               "schema": {
@@ -346,13 +366,17 @@
         "tags": [
           "Manufactories"
         ],
+        "summary": "Удаление цеха.",
+        "operationId": "ManufactoriesDelete",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ИД цеха.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД цеха.",
               "format": "int32"
             }
           }
@@ -384,30 +408,38 @@
         "tags": [
           "Professions"
         ],
+        "summary": "Получение списка профессий.",
+        "operationId": "ProfessionsList",
         "parameters": [
           {
             "name": "Name",
             "in": "query",
+            "description": "Название.",
             "schema": {
               "type": "string",
+              "description": "Название.",
               "nullable": true
             }
           },
           {
             "name": "Limit",
             "in": "query",
+            "description": "Количество записей, возвращаемое в запросе.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Количество записей, возвращаемое в запросе.",
               "format": "int32"
             }
           },
           {
             "name": "Offset",
             "in": "query",
+            "description": "Количество записей для пропуска.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Количество записей для пропуска.",
               "format": "int32"
             }
           }
@@ -449,7 +481,10 @@
         "tags": [
           "Professions"
         ],
+        "summary": "Добавление новой профессии.",
+        "operationId": "ProfessionsCreate",
         "requestBody": {
+          "description": "Запрос на добавление новой професии.",
           "content": {
             "application/json": {
               "schema": {
@@ -496,18 +531,23 @@
         "tags": [
           "Professions"
         ],
+        "summary": "Редактирование профессии.",
+        "operationId": "ProfessionsEdit",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ИД профессии.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД профессии.",
               "format": "int32"
             }
           }
         ],
         "requestBody": {
+          "description": "Запрос на редактирование профессии.",
           "content": {
             "application/json": {
               "schema": {
@@ -552,13 +592,17 @@
         "tags": [
           "Professions"
         ],
+        "summary": "Удаление профессии.",
+        "operationId": "ProfessionsDelete",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ИД профессии.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД профессии.",
               "format": "int32"
             }
           }
@@ -590,12 +634,16 @@
         "tags": [
           "Salaries"
         ],
+        "summary": "Получение списка окладов.",
+        "operationId": "SalariesList",
         "parameters": [
           {
             "name": "ProfessionId",
             "in": "query",
+            "description": "Название профессии.",
             "schema": {
               "type": "integer",
+              "description": "Название профессии.",
               "format": "int32",
               "nullable": true
             }
@@ -603,8 +651,10 @@
           {
             "name": "Rank",
             "in": "query",
+            "description": "Разряд.",
             "schema": {
               "type": "integer",
+              "description": "Разряд.",
               "format": "int32",
               "nullable": true
             }
@@ -612,18 +662,22 @@
           {
             "name": "Limit",
             "in": "query",
+            "description": "Количество записей, возвращаемое в запросе.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Количество записей, возвращаемое в запросе.",
               "format": "int32"
             }
           },
           {
             "name": "Offset",
             "in": "query",
+            "description": "Количество записей для пропуска.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Количество записей для пропуска.",
               "format": "int32"
             }
           }
@@ -665,7 +719,10 @@
         "tags": [
           "Salaries"
         ],
+        "summary": "Добавление нового оклада.",
+        "operationId": "SalariesCreate",
         "requestBody": {
+          "description": "Запрос на добавление нового оклада.",
           "content": {
             "application/json": {
               "schema": {
@@ -712,26 +769,23 @@
         "tags": [
           "Salaries"
         ],
+        "summary": "Редактирование оклада.",
+        "operationId": "SalariesEdit",
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
+            "description": "ИД оклада.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД оклада.",
               "format": "int32"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],
         "requestBody": {
+          "description": "Запрос на редактирование оклада.",
           "content": {
             "application/json": {
               "schema": {
@@ -776,22 +830,18 @@
         "tags": [
           "Salaries"
         ],
+        "summary": "Удаление оклада.",
+        "operationId": "SalariesDelete",
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
+            "description": "ИД оклада.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД оклада.",
               "format": "int32"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],
@@ -822,12 +872,16 @@
         "tags": [
           "Schedules"
         ],
+        "summary": "Получение списка графиков работ цехов.",
+        "operationId": "SchedulesList",
         "parameters": [
           {
             "name": "ManufactoryId",
             "in": "query",
+            "description": "ИД цеха.",
             "schema": {
               "type": "integer",
+              "description": "ИД цеха.",
               "format": "int32",
               "nullable": true
             }
@@ -835,6 +889,7 @@
           {
             "name": "WeekDay",
             "in": "query",
+            "description": "День недели.",
             "schema": {
               "$ref": "#/components/schemas/WeekDays"
             }
@@ -842,18 +897,22 @@
           {
             "name": "Limit",
             "in": "query",
+            "description": "Количество записей, возвращаемое в запросе.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Количество записей, возвращаемое в запросе.",
               "format": "int32"
             }
           },
           {
             "name": "Offset",
             "in": "query",
+            "description": "Количество записей для пропуска.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Количество записей для пропуска.",
               "format": "int32"
             }
           }
@@ -895,7 +954,10 @@
         "tags": [
           "Schedules"
         ],
+        "summary": "Добавление нового графика работы для цеха.",
+        "operationId": "SchedulesCreate",
         "requestBody": {
+          "description": "Запрос на добавление графика работы для цеха.",
           "content": {
             "application/json": {
               "schema": {
@@ -942,18 +1004,23 @@
         "tags": [
           "Schedules"
         ],
+        "summary": "Редактирование графика работы цеха.",
+        "operationId": "SchedulesEdit",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ИД графика работы цеха.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД графика работы цеха.",
               "format": "int32"
             }
           }
         ],
         "requestBody": {
+          "description": "Запрос на редактирование графика работы цеха.",
           "content": {
             "application/json": {
               "schema": {
@@ -998,13 +1065,17 @@
         "tags": [
           "Schedules"
         ],
+        "summary": "Удаление графика работы цеха.",
+        "operationId": "SchedulesDelete",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ИД графика работы цеха.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД графика работы цеха.",
               "format": "int32"
             }
           }
@@ -1036,20 +1107,26 @@
         "tags": [
           "Wages"
         ],
+        "summary": "Получение списка заработных плат.",
+        "operationId": "WagesList",
         "parameters": [
           {
             "name": "WorkerLastName",
             "in": "query",
+            "description": "Фамилия рабочего.",
             "schema": {
               "type": "string",
+              "description": "Фамилия рабочего.",
               "nullable": true
             }
           },
           {
             "name": "ManufactoryId",
             "in": "query",
+            "description": "ИД цеха.",
             "schema": {
               "type": "integer",
+              "description": "ИД цеха.",
               "format": "int32",
               "nullable": true
             }
@@ -1057,8 +1134,10 @@
           {
             "name": "ProfessionId",
             "in": "query",
+            "description": "ИД профессии.",
             "schema": {
               "type": "integer",
+              "description": "ИД профессии.",
               "format": "int32",
               "nullable": true
             }
@@ -1066,8 +1145,10 @@
           {
             "name": "Rank",
             "in": "query",
+            "description": "Разряд.",
             "schema": {
               "type": "integer",
+              "description": "Разряд.",
               "format": "int32",
               "nullable": true
             }
@@ -1075,18 +1156,22 @@
           {
             "name": "Limit",
             "in": "query",
+            "description": "Количество записей, возвращаемое в запросе.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Количество записей, возвращаемое в запросе.",
               "format": "int32"
             }
           },
           {
             "name": "Offset",
             "in": "query",
+            "description": "Количество записей для пропуска.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "Количество записей для пропуска.",
               "format": "int32"
             }
           }
@@ -1128,7 +1213,10 @@
         "tags": [
           "Wages"
         ],
+        "summary": "Создание новой заработной платы.",
+        "operationId": "WagesCreate",
         "requestBody": {
+          "description": "Запрос на создание новой заработной платы.",
           "content": {
             "application/json": {
               "schema": {
@@ -1175,22 +1263,18 @@
         "tags": [
           "Wages"
         ],
+        "summary": "Получение подробностей о заработной плате.",
+        "operationId": "WagesDetails",
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
+            "description": "ИД заработной платы.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД заработной платы.",
               "format": "int32"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],
@@ -1231,18 +1315,23 @@
         "tags": [
           "Wages"
         ],
+        "summary": "Редактирование заработной платы.",
+        "operationId": "WagesEdit",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ИД заработной платы.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД заработной платы.",
               "format": "int32"
             }
           }
         ],
         "requestBody": {
+          "description": "Запрос на редактирование заработной платы.",
           "content": {
             "application/json": {
               "schema": {
@@ -1287,13 +1376,17 @@
         "tags": [
           "Wages"
         ],
+        "summary": "Удаление заработной платы.",
+        "operationId": "WagesDelete",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ИД заработной платы.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД заработной платы.",
               "format": "int32"
             }
           }
@@ -1325,13 +1418,17 @@
         "tags": [
           "Wages"
         ],
+        "summary": "Получение списка надбавок для заработной платы.",
+        "operationId": "WagesAllowanceList",
         "parameters": [
           {
             "name": "wageId",
             "in": "path",
+            "description": "ИД заработной платы.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД заработной платы.",
               "format": "int32"
             }
           }
@@ -1375,18 +1472,23 @@
         "tags": [
           "Wages"
         ],
+        "summary": "Добавление надбавки к заработной плате.",
+        "operationId": "WagesAddAllowance",
         "parameters": [
           {
             "name": "wageId",
             "in": "path",
+            "description": "ИД заработной платы.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД заработной платы.",
               "format": "int32"
             }
           }
         ],
         "requestBody": {
+          "description": "Запрос на добавление надбавки к заработной плате.",
           "content": {
             "application/json": {
               "schema": {
@@ -1433,27 +1535,34 @@
         "tags": [
           "Wages"
         ],
+        "summary": "Редактирование надбавки к заработной плате.",
+        "operationId": "WagesEditAllowance",
         "parameters": [
           {
             "name": "wageId",
             "in": "path",
+            "description": "ИД заработной платы.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД заработной платы.",
               "format": "int32"
             }
           },
           {
             "name": "allowanceId",
             "in": "path",
+            "description": "ИД надбавки.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД надбавки.",
               "format": "int32"
             }
           }
         ],
         "requestBody": {
+          "description": "Запрос на редактирование надбавки к заработной плате.",
           "content": {
             "application/json": {
               "schema": {
@@ -1500,22 +1609,28 @@
         "tags": [
           "Wages"
         ],
+        "summary": "Удаление надбавки к заработной плате.",
+        "operationId": "WagesDeleteAllowance",
         "parameters": [
           {
             "name": "wageId",
             "in": "path",
+            "description": "ИД заработной платы.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД заработной платы.",
               "format": "int32"
             }
           },
           {
             "name": "allowanceId",
             "in": "path",
+            "description": "ИД надбавки.",
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ИД надбавки.",
               "format": "int32"
             }
           }
@@ -1553,27 +1668,33 @@
         "type": "object",
         "properties": {
           "userName": {
-            "type": "string"
+            "type": "string",
+            "description": "Логин."
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "description": "Пароль."
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на авторизацию пользователя."
       },
       "AccountLoginResponse": {
         "type": "object",
         "properties": {
           "token": {
             "type": "string",
+            "description": "Токен.",
             "nullable": true
           },
           "expiration": {
             "type": "string",
+            "description": "Срок действия токена.",
             "format": "date-time"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Результат авторизации пользователя."
       },
       "ApiErrorResponse": {
         "type": "object",
@@ -1586,10 +1707,12 @@
                 "type": "string"
               }
             },
+            "description": "Список ошибок, где ключ - имя параметра, а значение - текст ошибок этого параметра.\r\nЕсли параметр string.Empty, то ошибка общая.",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Бизнесовая ошибка от API."
       },
       "AccountRegisterRequest": {
         "required": [
@@ -1601,27 +1724,34 @@
         "type": "object",
         "properties": {
           "firstName": {
-            "type": "string"
+            "type": "string",
+            "description": "Имя."
           },
           "middleName": {
             "type": "string",
+            "description": "Отчество.",
             "nullable": true
           },
           "lastName": {
-            "type": "string"
+            "type": "string",
+            "description": "Фамилия."
           },
           "email": {
             "type": "string",
+            "description": "Электронная почта.",
             "nullable": true
           },
           "userName": {
-            "type": "string"
+            "type": "string",
+            "description": "Логин."
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "description": "Пароль."
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на регистрацию нового пользователя."
       },
       "ManufactoryInfo": {
         "required": [
@@ -1635,24 +1765,30 @@
         "properties": {
           "id": {
             "type": "integer",
+            "description": "ИД записи.",
             "format": "int32"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Название."
           },
           "number": {
-            "type": "string"
+            "type": "string",
+            "description": "Номер."
           },
           "created": {
             "type": "string",
+            "description": "Дата и время создания записи.",
             "format": "date-time"
           },
           "updated": {
             "type": "string",
+            "description": "Дата и время обновления записи.",
             "format": "date-time"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Информация о цехе."
       },
       "ManufactoryListResponse": {
         "required": [
@@ -1665,14 +1801,17 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ManufactoryInfo"
-            }
+            },
+            "description": "Список профессий."
           },
           "totalCount": {
             "type": "integer",
+            "description": "Общее количество записей.",
             "format": "int32"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Результат запроса списка цехов."
       },
       "ManufactoryCreateRequest": {
         "required": [
@@ -1683,21 +1822,26 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Название."
           },
           "number": {
-            "type": "string"
+            "type": "string",
+            "description": "Номер."
           },
           "headFIO": {
-            "type": "string"
+            "type": "string",
+            "description": "ФИО начальника."
           },
           "headPhotoId": {
             "type": "integer",
+            "description": "ИД фотографии начальника.",
             "format": "int32",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на создание цеха."
       },
       "ManufactoryDetailsResponse": {
         "required": [
@@ -1708,21 +1852,26 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Название."
           },
           "number": {
-            "type": "string"
+            "type": "string",
+            "description": "Номер."
           },
           "headFIO": {
-            "type": "string"
+            "type": "string",
+            "description": "ФИО начальника."
           },
           "headPhotoId": {
             "type": "integer",
+            "description": "ИД фотографии начальника.",
             "format": "int32",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Результат запроса подробностей о цехе."
       },
       "ManufactoryEditRequest": {
         "required": [
@@ -1733,21 +1882,26 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Название."
           },
           "number": {
-            "type": "string"
+            "type": "string",
+            "description": "Номер."
           },
           "headFIO": {
-            "type": "string"
+            "type": "string",
+            "description": "ФИО начальника."
           },
           "headPhotoId": {
             "type": "integer",
+            "description": "ИД фотографии начальника.",
             "format": "int32",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на редактирование цеха."
       },
       "ProfessionInfo": {
         "required": [
@@ -1760,21 +1914,26 @@
         "properties": {
           "id": {
             "type": "integer",
+            "description": "ИД записи.",
             "format": "int32"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Наименование."
           },
           "created": {
             "type": "string",
+            "description": "Дата и время создания записи.",
             "format": "date-time"
           },
           "updated": {
             "type": "string",
+            "description": "Дата и время обновления записи.",
             "format": "date-time"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Информация о профессии."
       },
       "ProfessionListResponse": {
         "required": [
@@ -1787,14 +1946,17 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ProfessionInfo"
-            }
+            },
+            "description": "Список профессий."
           },
           "totalCount": {
             "type": "integer",
+            "description": "Общее количество записей.",
             "format": "int32"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Результат запроса списка профессий."
       },
       "ProfessionCreateRequest": {
         "required": [
@@ -1803,10 +1965,12 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Название."
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на создание профессии."
       },
       "ProfessionEditRequest": {
         "required": [
@@ -1815,10 +1979,12 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Название."
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на редактирование профессии."
       },
       "SalaryInfo": {
         "required": [
@@ -1833,29 +1999,36 @@
         "properties": {
           "id": {
             "type": "integer",
+            "description": "ИД записи.",
             "format": "int32"
           },
           "professionName": {
-            "type": "string"
+            "type": "string",
+            "description": "Название профессии."
           },
           "rank": {
             "type": "integer",
+            "description": "Разряд.",
             "format": "int32"
           },
           "amount": {
             "type": "number",
+            "description": "Сумма оклада.",
             "format": "double"
           },
           "created": {
             "type": "string",
+            "description": "Дата и время создания записи.",
             "format": "date-time"
           },
           "updated": {
             "type": "string",
+            "description": "Дата и время обновления записи.",
             "format": "date-time"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Информация об окладе."
       },
       "SalaryListResponse": {
         "required": [
@@ -1868,14 +2041,17 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/SalaryInfo"
-            }
+            },
+            "description": "Список окладов."
           },
           "totalCount": {
             "type": "integer",
+            "description": "Общее количество записей.",
             "format": "int32"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Результат запроса списка окладов."
       },
       "SalaryCreateRequest": {
         "required": [
@@ -1887,18 +2063,22 @@
         "properties": {
           "professionId": {
             "type": "integer",
+            "description": "ИД профессии.",
             "format": "int32"
           },
           "rank": {
             "type": "integer",
+            "description": "Разряд.",
             "format": "int32"
           },
           "amount": {
             "type": "number",
+            "description": "Сумма оклада.",
             "format": "double"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на добавление оклада."
       },
       "SalaryEditRequest": {
         "required": [
@@ -1910,18 +2090,22 @@
         "properties": {
           "professionId": {
             "type": "integer",
+            "description": "ИД профессии.",
             "format": "int32"
           },
           "rank": {
             "type": "integer",
+            "description": "Разряд.",
             "format": "int32"
           },
           "amount": {
             "type": "number",
+            "description": "Сумма оклада.",
             "format": "double"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на редактирование оклада."
       },
       "WeekDays": {
         "enum": [
@@ -2009,14 +2193,17 @@
         "properties": {
           "id": {
             "type": "integer",
+            "description": "ИД записи.",
             "format": "int32"
           },
           "manufactoryId": {
             "type": "integer",
+            "description": "ИД цеха.",
             "format": "int32"
           },
           "manufactoryDisplayName": {
-            "type": "string"
+            "type": "string",
+            "description": "Отображаемое название цеха."
           },
           "weekDay": {
             "$ref": "#/components/schemas/WeekDays"
@@ -2035,14 +2222,17 @@
           },
           "created": {
             "type": "string",
+            "description": "Дата и время создания записи.",
             "format": "date-time"
           },
           "updated": {
             "type": "string",
+            "description": "Дата и время обновления записи.",
             "format": "date-time"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Информация о графике работы цеха."
       },
       "ScheduleListResponse": {
         "required": [
@@ -2055,14 +2245,38 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ScheduleInfo"
-            }
+            },
+            "description": "Список графиков работ цехов."
           },
           "totalCount": {
             "type": "integer",
+            "description": "Общее количество записей.",
             "format": "int32"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Результат запроса списка графиков работ цехов."
+      },
+      "Time": {
+        "required": [
+          "hours",
+          "minutes"
+        ],
+        "type": "object",
+        "properties": {
+          "hours": {
+            "type": "integer",
+            "description": "Часы.",
+            "format": "int32"
+          },
+          "minutes": {
+            "type": "integer",
+            "description": "Минуты.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Время (для удобного взаимодействия с клиентом)."
       },
       "ScheduleCreateRequest": {
         "required": [
@@ -2073,25 +2287,27 @@
         "properties": {
           "manufactoryId": {
             "type": "integer",
+            "description": "ИД цеха.",
             "format": "int32"
           },
           "weekDay": {
             "$ref": "#/components/schemas/WeekDays"
           },
           "workingStart": {
-            "$ref": "#/components/schemas/TimeSpan"
+            "$ref": "#/components/schemas/Time"
           },
           "workingEnd": {
-            "$ref": "#/components/schemas/TimeSpan"
+            "$ref": "#/components/schemas/Time"
           },
           "breakStart": {
-            "$ref": "#/components/schemas/TimeSpan"
+            "$ref": "#/components/schemas/Time"
           },
           "breakEnd": {
-            "$ref": "#/components/schemas/TimeSpan"
+            "$ref": "#/components/schemas/Time"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на добавление графика работы цеха."
       },
       "ScheduleEditRequest": {
         "required": [
@@ -2102,25 +2318,27 @@
         "properties": {
           "manufactoryId": {
             "type": "integer",
+            "description": "ИД цеха.",
             "format": "int32"
           },
           "weekDay": {
             "$ref": "#/components/schemas/WeekDays"
           },
           "workingStart": {
-            "$ref": "#/components/schemas/TimeSpan"
+            "$ref": "#/components/schemas/Time"
           },
           "workingEnd": {
-            "$ref": "#/components/schemas/TimeSpan"
+            "$ref": "#/components/schemas/Time"
           },
           "breakStart": {
-            "$ref": "#/components/schemas/TimeSpan"
+            "$ref": "#/components/schemas/Time"
           },
           "breakEnd": {
-            "$ref": "#/components/schemas/TimeSpan"
+            "$ref": "#/components/schemas/Time"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на редактирование графика работы цеха."
       },
       "WageInfo": {
         "required": [
@@ -2139,43 +2357,54 @@
         "properties": {
           "id": {
             "type": "integer",
+            "description": "Ид записи.",
             "format": "int32"
           },
           "workerLastName": {
-            "type": "string"
+            "type": "string",
+            "description": "Фамилия рабочего."
           },
           "manufactoryId": {
             "type": "integer",
+            "description": "ИД цеха.",
             "format": "int32"
           },
           "manufactoryDisplayName": {
-            "type": "string"
+            "type": "string",
+            "description": "Отображаемое наименование цеха."
           },
           "professionName": {
-            "type": "string"
+            "type": "string",
+            "description": "Название профессии."
           },
           "rank": {
             "type": "integer",
+            "description": "Разряд.",
             "format": "int32"
           },
           "amount": {
             "type": "number",
+            "description": "Размер зп.",
             "format": "double"
           },
           "amountWithAllowances": {
             "type": "number",
+            "description": "Размер зп с учетом надбавок.",
             "format": "double"
           },
           "created": {
             "type": "string",
+            "description": "Дата и время создания записи.",
             "format": "date-time"
           },
           "updated": {
             "type": "string",
+            "description": "Дата и время обновления записи.",
             "format": "date-time"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Информация о заработной плате."
       },
       "WageListResponse": {
         "required": [
@@ -2188,14 +2417,17 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/WageInfo"
-            }
+            },
+            "description": "Список заработныз плат."
           },
           "totalCount": {
             "type": "integer",
+            "description": "Общее количество записей.",
             "format": "int32"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Результат запроса списка заработных плат."
       },
       "WageCreateRequest": {
         "required": [
@@ -2207,22 +2439,27 @@
         "type": "object",
         "properties": {
           "workerLastName": {
-            "type": "string"
+            "type": "string",
+            "description": "Фамилия рабочего."
           },
           "manufactoryId": {
             "type": "integer",
+            "description": "ИД цеха.",
             "format": "int32"
           },
           "professionId": {
             "type": "integer",
+            "description": "ИД профессии.",
             "format": "int32"
           },
           "rank": {
             "type": "integer",
+            "description": "Разряд.",
             "format": "int32"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на создание заработной платы."
       },
       "AllowanceInfo": {
         "required": [
@@ -2233,18 +2470,22 @@
         "properties": {
           "id": {
             "type": "integer",
+            "description": "ИД записи.",
             "format": "int32"
           },
           "name": {
             "type": "string",
+            "description": "Наименование.",
             "nullable": true
           },
           "amount": {
             "type": "number",
+            "description": "Размер надбавки.",
             "format": "double"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Информация о надбавках."
       },
       "WageDetailsResponse": {
         "required": [
@@ -2259,34 +2500,42 @@
         "type": "object",
         "properties": {
           "workerLastName": {
-            "type": "string"
+            "type": "string",
+            "description": "Фамилия рабочего."
           },
           "manufactoryDisplayName": {
-            "type": "string"
+            "type": "string",
+            "description": "Отображаемое наименование цеха."
           },
           "professionName": {
-            "type": "string"
+            "type": "string",
+            "description": "Название профессии."
           },
           "rank": {
             "type": "integer",
+            "description": "Разряд.",
             "format": "int32"
           },
           "amount": {
             "type": "number",
+            "description": "Размер зп.",
             "format": "double"
           },
           "amountWithAllowances": {
             "type": "number",
+            "description": "Размер зп с учетом надбавок.",
             "format": "double"
           },
           "allowances": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/AllowanceInfo"
-            }
+            },
+            "description": "Надбавки."
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Результат запроса подробностей о заработной плате."
       },
       "WageEditRequest": {
         "required": [
@@ -2298,22 +2547,27 @@
         "type": "object",
         "properties": {
           "workerLastName": {
-            "type": "string"
+            "type": "string",
+            "description": "Фамилия рабочего."
           },
           "manufactoryId": {
             "type": "integer",
+            "description": "ИД цеха.",
             "format": "int32"
           },
           "professionId": {
             "type": "integer",
+            "description": "ИД профессии.",
             "format": "int32"
           },
           "rank": {
             "type": "integer",
+            "description": "Разряд.",
             "format": "int32"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на редактирование заработной платы."
       },
       "WageAllowanceListResponse": {
         "type": "object",
@@ -2323,10 +2577,12 @@
             "items": {
               "$ref": "#/components/schemas/AllowanceInfo"
             },
+            "description": "Список надбавок.",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Результат запроса надбавок для заработной платы."
       },
       "WageAddAllowanceRequest": {
         "required": [
@@ -2336,14 +2592,17 @@
         "properties": {
           "name": {
             "type": "string",
+            "description": "Наименование.",
             "nullable": true
           },
           "amount": {
             "type": "number",
+            "description": "Размер надбавки.",
             "format": "double"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на добавление надбавки к заработной плате."
       },
       "WageEditAllowanceRequest": {
         "required": [
@@ -2353,14 +2612,17 @@
         "properties": {
           "name": {
             "type": "string",
+            "description": "Наименование.",
             "nullable": true
           },
           "amount": {
             "type": "number",
+            "description": "Размер надбавки.",
             "format": "double"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Запрос на редактирование надбавки к заработной платы."
       }
     },
     "securitySchemes": {

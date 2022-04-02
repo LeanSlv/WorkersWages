@@ -62,7 +62,7 @@ namespace WorkersWages.API.API.Manufactories
         /// <param name="id">ИД цеха.</param>
         /// <returns>Подробности о цехе.</returns>
         [HttpGet("{id}")]
-        public ActionResult<ManufactoryDetailsResponse> Details([Required][FromQuery] int id)
+        public ActionResult<ManufactoryDetailsResponse> Details([Required][FromRoute] int id)
         {
             var manufactory = _dataContext.Manufactories.FirstOrDefault(i => i.Id == id);
             if (manufactory == default)

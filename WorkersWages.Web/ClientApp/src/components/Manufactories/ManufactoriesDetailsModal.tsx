@@ -12,13 +12,13 @@ export const ManufactoriesDetailsModal = () => {
     const [manufacoryInfo, setManufacoryInfo] = useState<ManufactoryDetailsResponse>();
     useEffect(() => {
         const apiClient = new WorkersWagesApiClient('/extapi');
-        apiClient.manufactoriesGET2(+id, "id").then((r) => setManufacoryInfo(r));
+        apiClient.manufactoriesDetails(+id).then((r) => setManufacoryInfo(r));
     }, []);
 
     if (!manufacoryInfo) return null;
 
     return (
-        <AisModal show={true} onHide={() => history.goBack()} title="Подробности цеха">
+        <AisModal show={true} onHide={() => history.push('/manufactories')} title="Подробности цеха">
             <AisGrid.Row>
                 <AisGrid.Col className="text-center">
                     <div>** Сюда добавить фотографию **</div>

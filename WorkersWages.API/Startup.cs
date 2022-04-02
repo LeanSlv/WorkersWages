@@ -17,6 +17,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WorkersWages.API.Models;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using System.Reflection;
+using System.IO;
 
 namespace WorkersWages.API
 {
@@ -34,11 +37,11 @@ namespace WorkersWages.API
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WorkersWagesAPI", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "WorkersWagesAPI", Version = "v1" });
 
-                c.AddSecurityDefinition("jwt", new OpenApiSecurityScheme()
+                options.AddSecurityDefinition("jwt", new OpenApiSecurityScheme()
                 {
                     Name = "JWT token",
                     Type = SecuritySchemeType.Http,
@@ -46,6 +49,18 @@ namespace WorkersWages.API
                     Description = "Аутентификация от имени пользователя",
                     BearerFormat = "JWT"
                 });
+
+                // Define operationId for client generators
+                options.CustomOperationIds(apiDesc =>
+                {
+                    var actionDescriptor = apiDesc.ActionDescriptor as ControllerActionDescriptor;
+                    return actionDescriptor != null ? $"{actionDescriptor.ControllerName}{actionDescriptor.ActionName}" : null;
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
             });
 
             services

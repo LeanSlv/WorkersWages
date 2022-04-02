@@ -1,12 +1,17 @@
-﻿import { AisFilter, FilterBase, FilterProps, AisFormField, AisSelectOption } from '@ais-gorod/react-ui';
-import { WorkersWagesApiClient } from '../../services/WorkersWagesApiClient';
+﻿import { AisButton, AisForm, AisFormField, Yup, AisSelectOption } from "@ais-gorod/react-ui";
+import { WageEditRequest, WorkersWagesApiClient } from "../../services/WorkersWagesApiClient";
 
-export interface FilterData extends FilterBase {
-    workerLastName?: string;
-    manufactoryId?: number;
-    professionId?: number;
-    rank?: number;
+interface Props {
+    data?: WageEditRequest;
+    onSubmit: (data: WageEditRequest) => void;
 }
+
+const validationSchema = Yup.object().shape({
+    workerLastName: Yup.string().required(),
+    manufactoryId: Yup.number().required(),
+    professionId: Yup.number().required(),
+    rank: Yup.number().required()
+});
 
 const apiClient = new WorkersWagesApiClient('/extapi');
 
@@ -26,15 +31,16 @@ const professionIdOptions = async (inputValue: string, value: string | number | 
     callback(options);
 };
 
-export const WagesListFilter = (props: FilterProps<FilterData>) => {
+export const WagesEditForm = (props: Props) => {
     return (
-        <AisFilter {...props}>
+        <AisForm onSubmit={props.onSubmit} validationSchema={validationSchema} initialValues={props.data}>
             <AisFormField.Text label="Фамилия рабочего" name="workerLastName" />
             <AisFormField.SelectAsync label="Цех" name="manufactoryId" loadOptions={manufactoryIdOptions} />
             <AisFormField.SelectAsync label="Профессия" name="professionId" loadOptions={professionIdOptions} />
             <AisFormField.Number label="Разряд" name="rank" />
-        </AisFilter>
+            <AisButton type="submit">Сохранить</AisButton>
+        </AisForm>
     );
 };
 
-WagesListFilter.displayName = 'WagesListFilter';
+WagesEditForm.displayName = 'WagesEditForm';

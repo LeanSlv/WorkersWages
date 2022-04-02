@@ -76,10 +76,10 @@ namespace WorkersWages.API.API.Schedules
             {
                 ManufactoryId = request.ManufactoryId,
                 WeekDay = request.WeekDay,
-                WorkingStart = request.WorkingStart,
-                WorkingEnd = request.WorkingEnd,
-                BreakStart = request.BreakStart,
-                BreakEnd = request.BreakEnd,
+                WorkingStart = request.WorkingStart != null ? new TimeSpan(request.WorkingStart.Hours, request.WorkingStart.Minutes, 0) : null,
+                WorkingEnd = request.WorkingEnd != null ? new TimeSpan(request.WorkingEnd.Hours, request.WorkingEnd.Minutes, 0) : null,
+                BreakStart = request.BreakStart != null ? new TimeSpan(request.BreakStart.Hours, request.BreakStart.Minutes, 0) : null,
+                BreakEnd = request.BreakEnd != null ? new TimeSpan(request.BreakEnd.Hours, request.BreakEnd.Minutes, 0) : null,
                 Created = now,
                 Updated = now
             };
@@ -107,10 +107,10 @@ namespace WorkersWages.API.API.Schedules
 
             schedule.ManufactoryId = request.ManufactoryId;
             schedule.WeekDay = request.WeekDay;
-            schedule.WorkingStart = request.WorkingStart;
-            schedule.WorkingEnd = request.WorkingEnd;
-            schedule.BreakStart = request.BreakStart;
-            schedule.BreakEnd = request.BreakEnd;
+            schedule.WorkingStart = request.WorkingStart != null ? new TimeSpan(request.WorkingStart.Hours, request.WorkingStart.Minutes, 0) : null;
+            schedule.WorkingEnd = request.WorkingEnd != null ? new TimeSpan(request.WorkingEnd.Hours, request.WorkingEnd.Minutes, 0) : null;
+            schedule.BreakStart = request.BreakStart != null ? new TimeSpan(request.BreakStart.Hours, request.BreakStart.Minutes, 0) : null;
+            schedule.BreakEnd = request.BreakEnd != null ? new TimeSpan(request.BreakEnd.Hours, request.BreakEnd.Minutes, 0) : null;
             schedule.Updated = DateTimeOffset.Now;
 
             _dataContext.Schedules.Update(schedule);

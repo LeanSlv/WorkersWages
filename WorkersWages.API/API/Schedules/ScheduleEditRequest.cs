@@ -24,21 +24,39 @@ namespace WorkersWages.API.API.Schedules
         /// <summary>
         /// Время начала работы.
         /// </summary>
-        public TimeSpan? WorkingStart { get; set; }
+        public Time? WorkingStart { get; set; }
 
         /// <summary>
         /// Время окончания работы.
         /// </summary>
-        public TimeSpan? WorkingEnd { get; set; }
+        public Time? WorkingEnd { get; set; }
 
         /// <summary>
         /// Время начала перерыва.
         /// </summary>
-        public TimeSpan? BreakStart { get; set; }
+        public Time? BreakStart { get; set; }
 
         /// <summary>
         /// Время окончания перерыва.
         /// </summary>
-        public TimeSpan? BreakEnd { get; set; }
+        public Time? BreakEnd { get; set; }
+
+        /// <summary>
+        /// Время (для удобного взаимодействия с клиентом).
+        /// </summary>
+        public class Time
+        {
+            /// <summary>
+            /// Часы.
+            /// </summary>
+            [Required]
+            public int Hours { get; set; }
+
+            /// <summary>
+            /// Минуты.
+            /// </summary>
+            [Required]
+            public int Minutes { get; set; }
+        }
     }
 }

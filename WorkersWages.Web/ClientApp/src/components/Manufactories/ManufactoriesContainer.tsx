@@ -5,11 +5,14 @@ import { FilterData } from './ManufactoriesListFilter';
 import { ManufactoriesListPage } from './ManufactoriesListPage';
 import { ManufactoriesDetailsModal } from './ManufactoriesDetailsModal';
 import { Route } from "react-router-dom";
+import { ManufactoriesCreateModal } from './ManufactoriesCreateModal';
+import { ManufactoriesEditModal } from './ManufactoriesEditModal';
+
+const apiClient = new WorkersWagesApiClient('/extapi');
 
 export const ManufactoriesContainer = () => {
     const dataSource = useCallback(async (filter: FilterData, pageNumber: number, pageSize: number) => {
-        const apiClient = new WorkersWagesApiClient('/extapi');
-        const response = await apiClient.manufactoriesGET(
+        const response = await apiClient.manufactoriesList(
             filter.name,
             filter.number,
             pageSize,
@@ -22,14 +25,24 @@ export const ManufactoriesContainer = () => {
         };
     }, []);
 
-    const { data, filter, setFilter, pagination } = useAisList<ManufactoryListResponse, FilterData>({
+    const { data, filter, setFilter, pagination, reloadData } = useAisList<ManufactoryListResponse, FilterData>({
         dataSource: dataSource,
     });
+
+    const handleDelete = useCallback(async (id: number) => {
+        await apiClient.manufactoriesDelete(id).then((_) => reloadData());
+    }, [reloadData]);
 
     return (
         <>
             <Route path="/manufactories/details/:id" exact>
                 <ManufactoriesDetailsModal />
+            </Route>
+            <Route path="/manufactories/add" exact>
+                <ManufactoriesCreateModal onDataChanged={reloadData} />
+            </Route>
+            <Route path="/manufactories/edit/:id" exact>
+                <ManufactoriesEditModal onDataChanged={reloadData} />
             </Route>
             <ManufactoriesListPage
                 data={data?.manufactories}
@@ -37,6 +50,7 @@ export const ManufactoriesContainer = () => {
                 filterData={filter}
                 setFilter={setFilter}
                 pagination={pagination}
+                handleDelete={handleDelete}
             />
         </>
     );
