@@ -28,11 +28,17 @@ export const WagesEditModal = (props: Props) => {
     }, [id])
 
     const propsOnDataChanged = props.onDataChanged;
+    const propsOnHide = props.onHide;
     const handleSubmit = useCallback(async (data: WageEditRequest) => {
         if (!id) return;
 
-        await apiClient.wagesEdit(id, data).then((_) => propsOnDataChanged());
-    }, [id, history, propsOnDataChanged]);
+        await apiClient.wagesEdit(id, data).then((_) => {
+            propsOnHide();
+            propsOnDataChanged();
+        });
+    }, [id, history, propsOnDataChanged, propsOnHide]);
+
+    if (!wageInfo) return null;
 
     return (
         <AisModal show={true} onHide={props.onHide} title="Редактирование заработной платы">

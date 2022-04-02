@@ -37,6 +37,8 @@ export const ProfessionsEditModal = (props: Props) => {
         });
     }, [id, history, propsOnDataChanged]);
 
+    if (!professionInfo) return null;
+
     return (
         <AisModal show={true} onHide={() => history.goBack()} title="Редактирование профессии">
             <ProfessionsEditForm onSubmit={handleSubmit} data={professionInfo} />

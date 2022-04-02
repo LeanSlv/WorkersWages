@@ -39,6 +39,8 @@ export const SalariesEditModal = (props: Props) => {
         });
     }, [id, history, propsOnDataChanged]);
 
+    if (!salaryInfo) return null;
+
     return (
         <AisModal show={true} onHide={() => history.goBack()} title="Редактирование оклада">
             <SalariesEditForm onSubmit={handleSubmit} data={salaryInfo} />

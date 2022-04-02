@@ -23,10 +23,10 @@ export const SchedulesEditModal = (props: Props) => {
         apiClient.schedulesDetails(+id).then((r) => setScheduleInfo({
             manufactoryId: r.manufactoryId,
             weekDay: r.weekDay,
-            workingStart: new Date(1, 1, 1, r.workingStart?.hours, r.workingStart?.minutes),
-            workingEnd: new Date(1, 1, 1, r.workingEnd?.hours, r.workingEnd?.minutes),
-            breakStart: new Date(1, 1, 1, r.breakStart?.hours, r.breakStart?.minutes),
-            breakEnd: new Date(1, 1, 1, r.breakEnd?.hours, r.breakEnd?.minutes),
+            workingStart: r.workingStart ? new Date(1, 1, 1, r.workingStart.hours, r.workingStart.minutes) : undefined,
+            workingEnd: r.workingEnd ? new Date(1, 1, 1, r.workingEnd.hours, r.workingEnd.minutes) : undefined,
+            breakStart: r.breakStart ? new Date(1, 1, 1, r.breakStart.hours, r.breakStart.minutes) : undefined,
+            breakEnd: r.breakEnd ? new Date(1, 1, 1, r.breakEnd.hours, r.breakEnd.minutes) : undefined,
         }));
     }, [id])
 
@@ -48,6 +48,8 @@ export const SchedulesEditModal = (props: Props) => {
             propsOnDataChanged();
         });
     }, [id, history, propsOnDataChanged]);
+
+    if (!scheduleInfo) return null;
 
     return (
         <AisModal show={true} onHide={() => history.goBack()} title="Редактирование графика работы цеха">

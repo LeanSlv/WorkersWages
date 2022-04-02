@@ -10,10 +10,14 @@ interface Props {
 
 export const WagesCreateModal = (props: Props) => {
     const propsOnDataChanged = props.onDataChanged;
+    const propsOnHide = props.onHide;
     const handleSubmit = useCallback(async (data: WageCreateRequest) => {
         const apiClient = new WorkersWagesApiClient('/extapi');
-        await apiClient.wagesCreate(data).then((_) => propsOnDataChanged());
-    }, [history, propsOnDataChanged]);
+        await apiClient.wagesCreate(data).then((_) => {
+            propsOnHide();
+            propsOnDataChanged();
+        });
+    }, [history, propsOnDataChanged, propsOnHide]);
 
     return (
         <AisModal show={true} onHide={props.onHide} title="Добавление заработной платы">

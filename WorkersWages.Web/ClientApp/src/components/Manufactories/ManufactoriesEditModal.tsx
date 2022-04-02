@@ -40,6 +40,8 @@ export const ManufactoriesEditModal = (props: Props) => {
         });
     }, [id, history, propsOnDataChanged]);
 
+    if (!manufactoryInfo) return null;
+
     return (
         <AisModal show={true} onHide={() => history.goBack()} title="Редактирование цеха">
             <ManufactoriesEditForm onSubmit={handleSubmit} data={manufactoryInfo} />
