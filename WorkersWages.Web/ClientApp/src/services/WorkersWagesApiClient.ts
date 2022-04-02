@@ -470,6 +470,55 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * ��������� ������������ ���������.
+     * @param id �� ���������.
+     * @return Success
+     */
+    professionsDetails(id: number): Promise<ProfessionDetailsResponse> {
+        let url_ = this.baseUrl + "/api/Professions/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processProfessionsDetails(_response);
+        });
+    }
+
+    protected processProfessionsDetails(response: Response): Promise<ProfessionDetailsResponse> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ProfessionDetailsResponse.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ApiErrorResponse.fromJS(resultData400);
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<ProfessionDetailsResponse>(null as any);
+    }
+
+    /**
      * �������������� ���������.
      * @param id �� ���������.
      * @param body ������ �� �������������� ���������.
@@ -669,6 +718,55 @@ export class WorkersWagesApiClient {
             });
         }
         return Promise.resolve<void>(null as any);
+    }
+
+    /**
+     * ��������� ������������ ������.
+     * @param id �� ������.
+     * @return Success
+     */
+    salariesDetails(id: number): Promise<SalaryDetailsResponse> {
+        let url_ = this.baseUrl + "/api/Salaries/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processSalariesDetails(_response);
+        });
+    }
+
+    protected processSalariesDetails(response: Response): Promise<SalaryDetailsResponse> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = SalaryDetailsResponse.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ApiErrorResponse.fromJS(resultData400);
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<SalaryDetailsResponse>(null as any);
     }
 
     /**
@@ -873,6 +971,55 @@ export class WorkersWagesApiClient {
             });
         }
         return Promise.resolve<void>(null as any);
+    }
+
+    /**
+     * ��������� ������������ ������� ������ ����.
+     * @param id �� ������� ������ ����.
+     * @return Success
+     */
+    schedulesDetails(id: number): Promise<ScheduleDetailsResponse> {
+        let url_ = this.baseUrl + "/api/Schedules/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processSchedulesDetails(_response);
+        });
+    }
+
+    protected processSchedulesDetails(response: Response): Promise<ScheduleDetailsResponse> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ScheduleDetailsResponse.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ApiErrorResponse.fromJS(resultData400);
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<ScheduleDetailsResponse>(null as any);
     }
 
     /**
@@ -2096,6 +2243,46 @@ export interface IProfessionCreateRequest {
     name: string;
 }
 
+/** ��������� ������� ��������� ������������ ���������. */
+export class ProfessionDetailsResponse implements IProfessionDetailsResponse {
+    /** ��������. */
+    name!: string;
+
+    constructor(data?: IProfessionDetailsResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any): ProfessionDetailsResponse {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProfessionDetailsResponse();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        return data;
+    }
+}
+
+/** ��������� ������� ��������� ������������ ���������. */
+export interface IProfessionDetailsResponse {
+    /** ��������. */
+    name: string;
+}
+
 /** ������ �� �������������� ���������. */
 export class ProfessionEditRequest implements IProfessionEditRequest {
     /** ��������. */
@@ -2307,6 +2494,58 @@ export class SalaryCreateRequest implements ISalaryCreateRequest {
 
 /** ������ �� ���������� ������. */
 export interface ISalaryCreateRequest {
+    /** �� ���������. */
+    professionId: number;
+    /** ������. */
+    rank: number;
+    /** ����� ������. */
+    amount: number;
+}
+
+/** ��������� ������� ��������� ������������ ������. */
+export class SalaryDetailsResponse implements ISalaryDetailsResponse {
+    /** �� ���������. */
+    professionId!: number;
+    /** ������. */
+    rank!: number;
+    /** ����� ������. */
+    amount!: number;
+
+    constructor(data?: ISalaryDetailsResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.professionId = _data["professionId"];
+            this.rank = _data["rank"];
+            this.amount = _data["amount"];
+        }
+    }
+
+    static fromJS(data: any): SalaryDetailsResponse {
+        data = typeof data === 'object' ? data : {};
+        let result = new SalaryDetailsResponse();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["professionId"] = this.professionId;
+        data["rank"] = this.rank;
+        data["amount"] = this.amount;
+        return data;
+    }
+}
+
+/** ��������� ������� ��������� ������������ ������. */
+export interface ISalaryDetailsResponse {
     /** �� ���������. */
     professionId: number;
     /** ������. */
@@ -2700,6 +2939,66 @@ export interface IScheduleCreateRequest {
     breakEnd?: Time;
 }
 
+/** ��������� ������� ��������� ������������ ������� ������ ����. */
+export class ScheduleDetailsResponse implements IScheduleDetailsResponse {
+    /** �� ����. */
+    manufactoryId!: number;
+    weekDay!: WeekDays;
+    workingStart?: TimeSpan;
+    workingEnd?: TimeSpan;
+    breakStart?: TimeSpan;
+    breakEnd?: TimeSpan;
+
+    constructor(data?: IScheduleDetailsResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.manufactoryId = _data["manufactoryId"];
+            this.weekDay = _data["weekDay"];
+            this.workingStart = _data["workingStart"] ? TimeSpan.fromJS(_data["workingStart"]) : <any>undefined;
+            this.workingEnd = _data["workingEnd"] ? TimeSpan.fromJS(_data["workingEnd"]) : <any>undefined;
+            this.breakStart = _data["breakStart"] ? TimeSpan.fromJS(_data["breakStart"]) : <any>undefined;
+            this.breakEnd = _data["breakEnd"] ? TimeSpan.fromJS(_data["breakEnd"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ScheduleDetailsResponse {
+        data = typeof data === 'object' ? data : {};
+        let result = new ScheduleDetailsResponse();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["manufactoryId"] = this.manufactoryId;
+        data["weekDay"] = this.weekDay;
+        data["workingStart"] = this.workingStart ? this.workingStart.toJSON() : <any>undefined;
+        data["workingEnd"] = this.workingEnd ? this.workingEnd.toJSON() : <any>undefined;
+        data["breakStart"] = this.breakStart ? this.breakStart.toJSON() : <any>undefined;
+        data["breakEnd"] = this.breakEnd ? this.breakEnd.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+/** ��������� ������� ��������� ������������ ������� ������ ����. */
+export interface IScheduleDetailsResponse {
+    /** �� ����. */
+    manufactoryId: number;
+    weekDay: WeekDays;
+    workingStart?: TimeSpan;
+    workingEnd?: TimeSpan;
+    breakStart?: TimeSpan;
+    breakEnd?: TimeSpan;
+}
+
 /** ������ �� �������������� ������� ������ ����. */
 export class ScheduleEditRequest implements IScheduleEditRequest {
     /** �� ����. */
@@ -3025,8 +3324,12 @@ export interface IAllowanceInfo {
 export class WageDetailsResponse implements IWageDetailsResponse {
     /** ������� ��������. */
     workerLastName!: string;
+    /** �� ����. */
+    manufactoryId!: number;
     /** ������������ ������������ ����. */
     manufactoryDisplayName!: string;
+    /** �� ���������. */
+    professionId!: number;
     /** �������� ���������. */
     professionName!: string;
     /** ������. */
@@ -3053,7 +3356,9 @@ export class WageDetailsResponse implements IWageDetailsResponse {
     init(_data?: any) {
         if (_data) {
             this.workerLastName = _data["workerLastName"];
+            this.manufactoryId = _data["manufactoryId"];
             this.manufactoryDisplayName = _data["manufactoryDisplayName"];
+            this.professionId = _data["professionId"];
             this.professionName = _data["professionName"];
             this.rank = _data["rank"];
             this.amount = _data["amount"];
@@ -3076,7 +3381,9 @@ export class WageDetailsResponse implements IWageDetailsResponse {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["workerLastName"] = this.workerLastName;
+        data["manufactoryId"] = this.manufactoryId;
         data["manufactoryDisplayName"] = this.manufactoryDisplayName;
+        data["professionId"] = this.professionId;
         data["professionName"] = this.professionName;
         data["rank"] = this.rank;
         data["amount"] = this.amount;
@@ -3094,8 +3401,12 @@ export class WageDetailsResponse implements IWageDetailsResponse {
 export interface IWageDetailsResponse {
     /** ������� ��������. */
     workerLastName: string;
+    /** �� ����. */
+    manufactoryId: number;
     /** ������������ ������������ ����. */
     manufactoryDisplayName: string;
+    /** �� ���������. */
+    professionId: number;
     /** �������� ���������. */
     professionName: string;
     /** ������. */

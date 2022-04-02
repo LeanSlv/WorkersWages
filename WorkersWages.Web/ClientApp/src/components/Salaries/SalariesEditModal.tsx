@@ -18,7 +18,15 @@ export const SalariesEditModal = (props: Props) => {
 
     const [salaryInfo, setSalaryInfo] = useState<SalaryEditRequest>();
     useEffect(() => {
-        /* TODO: Добавить в АПИ подробности на все сущности для вытаскивания данных при редактировании */
+        if (!id) return;
+
+        apiClient.salariesDetails(+id).then((r) => setSalaryInfo(
+            new SalaryEditRequest({
+                professionId: r.professionId,
+                rank: r.rank,
+                amount: r.amount,
+            })
+        ));
     }, [id])
 
     const propsOnDataChanged = props.onDataChanged;

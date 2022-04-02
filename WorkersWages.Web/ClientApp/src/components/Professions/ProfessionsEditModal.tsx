@@ -18,7 +18,13 @@ export const ProfessionsEditModal = (props: Props) => {
 
     const [professionInfo, setProfessionInfo] = useState<ProfessionEditRequest>();
     useEffect(() => {
-        /* TODO: Добавить в АПИ подробности на все сущности для вытаскивания данных при редактировании */
+        if (!id) return;
+
+        apiClient.professionsDetails(+id).then((r) => setProfessionInfo(
+            new ProfessionEditRequest({
+                name: r.name
+            })
+        ));
     }, [id])
 
     const propsOnDataChanged = props.onDataChanged;

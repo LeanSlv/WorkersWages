@@ -16,9 +16,18 @@ export const SchedulesEditModal = (props: Props) => {
         id: string;
     };
 
-    const [scheduleInfo, setScheduleInfo] = useState<ScheduleEditRequest>();
+    const [scheduleInfo, setScheduleInfo] = useState<FormValues>();
     useEffect(() => {
-        /* TODO: Добавить в АПИ подробности на все сущности для вытаскивания данных при редактировании */
+        if (!id) return;
+
+        apiClient.schedulesDetails(+id).then((r) => setScheduleInfo({
+            manufactoryId: r.manufactoryId,
+            weekDay: r.weekDay,
+            workingStart: new Date(1, 1, 1, r.workingStart?.hours, r.workingStart?.minutes),
+            workingEnd: new Date(1, 1, 1, r.workingEnd?.hours, r.workingEnd?.minutes),
+            breakStart: new Date(1, 1, 1, r.breakStart?.hours, r.breakStart?.minutes),
+            breakEnd: new Date(1, 1, 1, r.breakEnd?.hours, r.breakEnd?.minutes),
+        }));
     }, [id])
 
     const propsOnDataChanged = props.onDataChanged;
@@ -42,7 +51,7 @@ export const SchedulesEditModal = (props: Props) => {
 
     return (
         <AisModal show={true} onHide={() => history.goBack()} title="Редактирование графика работы цеха">
-            <SchedulesEditForm onSubmit={handleSubmit} />
+            <SchedulesEditForm onSubmit={handleSubmit} data={scheduleInfo} />
         </AisModal>
     );
 };

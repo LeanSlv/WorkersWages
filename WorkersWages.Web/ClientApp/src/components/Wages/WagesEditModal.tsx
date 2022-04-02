@@ -20,9 +20,9 @@ export const WagesEditModal = (props: Props) => {
         apiClient.wagesDetails(id).then((r) => setWageInfo(
             new WageEditRequest({
                 workerLastName: r.workerLastName,
-                manufactoryId: 1, // TODO: добавить в вывод ИД цеха
-                professionId: 1, // TODO: добавить вывод ИД профессии
-                rank: 1, // TODO: добавить вывод разряда профессии
+                manufactoryId: r.manufactoryId,
+                professionId: r.professionId,
+                rank: r.rank,
             })
         ));
     }, [id])
