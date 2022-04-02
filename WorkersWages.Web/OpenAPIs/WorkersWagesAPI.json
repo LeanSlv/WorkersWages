@@ -1623,6 +1623,71 @@
         }
       }
     },
+    "/api/Wages/{wageId}/allowances/{id}": {
+      "get": {
+        "tags": [
+          "Wages"
+        ],
+        "summary": "Получение подробностей надбавки для заработной платы.",
+        "operationId": "WagesAllowanceDetails",
+        "parameters": [
+          {
+            "name": "wageId",
+            "in": "path",
+            "description": "ИД заработной платы.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ИД заработной платы.",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ИД надбавки.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ИД надбавки.",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WageAllowanceDetailsResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WageAllowanceDetailsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Wages/{wageId}/add-allowance": {
       "post": {
         "tags": [
@@ -2823,6 +2888,26 @@
         },
         "additionalProperties": false,
         "description": "Результат запроса надбавок для заработной платы."
+      },
+      "WageAllowanceDetailsResponse": {
+        "required": [
+          "amount"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Название.",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "description": "Размер.",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат получения подробностей надбавки для заработной платы."
       },
       "WageAddAllowanceRequest": {
         "required": [

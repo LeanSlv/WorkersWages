@@ -228,6 +228,26 @@ namespace WorkersWages.API.API.Wages
         }
 
         /// <summary>
+        /// Получение подробностей надбавки для заработной платы.
+        /// </summary>
+        /// <param name="wageId">ИД заработной платы.</param>
+        /// <param name="id">ИД надбавки.</param>
+        /// <returns>Подробности надбавки для заработной платы.</returns>
+        [HttpGet("{wageId}/allowances/{id}")]
+        public ActionResult<WageAllowanceDetailsResponse> AllowanceDetails([Required][FromRoute] int wageId, [Required][FromRoute] int id)
+        {
+            var allowance = _dataContext.Allowances.FirstOrDefault(i => i.WageId == wageId && i.Id == id);
+            if(allowance == default)
+                return NotFound($"Надбавки для заработной платы с ИД \"{id}\" не существует.");
+
+            return new WageAllowanceDetailsResponse
+            {
+                Name = allowance.Name,
+                Amount = allowance.Amount
+            };
+        }
+
+        /// <summary>
         /// Добавление надбавки к заработной плате.
         /// </summary>
         /// <param name="wageId">ИД заработной платы.</param>
