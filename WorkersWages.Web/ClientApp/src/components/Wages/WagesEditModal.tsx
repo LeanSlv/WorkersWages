@@ -1,26 +1,23 @@
 ﻿import { AisModal } from "@ais-gorod/react-ui";
 import { useCallback, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
 import { WageEditRequest, WorkersWagesApiClient } from "../../services/WorkersWagesApiClient";
 import { WagesEditForm } from './WagesEditForm';
 
 interface Props {
+    id: number;
+    onHide: () => void;
     onDataChanged: () => void;
 }
 
 const apiClient = new WorkersWagesApiClient('/extapi');
 
 export const WagesEditModal = (props: Props) => {
-    const history = useHistory();
-    const { id } = useParams() as {
-        id: string;
-    };
-
+    const id = props.id;
     const [wageInfo, setWageInfo] = useState<WageEditRequest>();
     useEffect(() => {
         if (!id) return;
 
-        apiClient.wagesDetails(+id).then((r) => setWageInfo(
+        apiClient.wagesDetails(id).then((r) => setWageInfo(
             new WageEditRequest({
                 workerLastName: r.workerLastName,
                 manufactoryId: 1, // TODO: добавить в вывод ИД цеха
@@ -34,14 +31,11 @@ export const WagesEditModal = (props: Props) => {
     const handleSubmit = useCallback(async (data: WageEditRequest) => {
         if (!id) return;
 
-        await apiClient.wagesEdit(+id, data).then((_) => {
-            history.goBack();
-            propsOnDataChanged();
-        });
+        await apiClient.wagesEdit(id, data).then((_) => propsOnDataChanged());
     }, [id, history, propsOnDataChanged]);
 
     return (
-        <AisModal show={true} onHide={() => history.goBack()} title="Редактирование заработной платы">
+        <AisModal show={true} onHide={props.onHide} title="Редактирование заработной платы">
             <WagesEditForm onSubmit={handleSubmit} data={wageInfo} />
         </AisModal>
     );

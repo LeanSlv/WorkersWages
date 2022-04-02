@@ -1,27 +1,22 @@
 ﻿import { AisModal } from "@ais-gorod/react-ui";
 import { useCallback } from "react";
-import { useHistory } from "react-router-dom";
 import { WageCreateRequest, WorkersWagesApiClient } from "../../services/WorkersWagesApiClient";
 import { WagesEditForm } from './WagesEditForm';
 
 interface Props {
+    onHide: () => void;
     onDataChanged: () => void;
 }
 
 export const WagesCreateModal = (props: Props) => {
-    const history = useHistory();
-
     const propsOnDataChanged = props.onDataChanged;
     const handleSubmit = useCallback(async (data: WageCreateRequest) => {
         const apiClient = new WorkersWagesApiClient('/extapi');
-        await apiClient.wagesCreate(data).then((_) => {
-            history.goBack();
-            propsOnDataChanged();
-        });
+        await apiClient.wagesCreate(data).then((_) => propsOnDataChanged());
     }, [history, propsOnDataChanged]);
 
     return (
-        <AisModal show={true} onHide={() => history.goBack()} title="Добавление заработной платы">
+        <AisModal show={true} onHide={props.onHide} title="Добавление заработной платы">
             <WagesEditForm onSubmit={handleSubmit} />
         </AisModal>
     );
