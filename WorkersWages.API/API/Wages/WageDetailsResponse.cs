@@ -14,10 +14,22 @@ namespace WorkersWages.API.API.Wages
         public string WorkerLastName { get; set; }
 
         /// <summary>
+        /// ИД цеха.
+        /// </summary>
+        [Required]
+        public int ManufactoryId { get; set; }
+
+        /// <summary>
         /// Отображаемое наименование цеха.
         /// </summary>
         [Required]
         public string ManufactoryDisplayName { get; set; }
+
+        /// <summary>
+        /// ИД профессии.
+        /// </summary>
+        [Required]
+        public int ProfessionId { get; set; }
 
         /// <summary>
         /// Название профессии.

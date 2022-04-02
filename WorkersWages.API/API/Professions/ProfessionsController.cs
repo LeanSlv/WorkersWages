@@ -54,6 +54,24 @@ namespace WorkersWages.API.API.Professions
         }
 
         /// <summary>
+        /// Получение подробностей профессии.
+        /// </summary>
+        /// <param name="id">ИД профессии.</param>
+        /// <returns>Подробности профессии.</returns>
+        [HttpGet("{id}")]
+        public ActionResult<ProfessionDetailsResponse> Details([Required][FromRoute] int id)
+        {
+            var profession = _dataContext.Professions.FirstOrDefault(i => i.Id == id);
+            if(profession == default)
+                return NotFound($"Профессия с ИД \"{id}\" не существует.");
+
+            return new ProfessionDetailsResponse
+            {
+                Name = profession.Name
+            };
+        }
+
+        /// <summary>
         /// Добавление новой профессии.
         /// </summary>
         /// <param name="request">Запрос на добавление новой професии.</param>

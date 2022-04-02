@@ -35,7 +35,7 @@ namespace WorkersWages.API.API.Salaries
 
             if (request.ProfessionId.HasValue)
                 list = list.Where(i => i.ProfessionId == request.ProfessionId.Value);
-            if(request.Rank.HasValue)
+            if (request.Rank.HasValue)
                 list = list.Where(i => i.Rank == request.Rank.Value);
 
             var totalCount = list.Count();
@@ -56,6 +56,26 @@ namespace WorkersWages.API.API.Salaries
             {
                 Salaries = salaries.ToArray(),
                 TotalCount = totalCount
+            };
+        }
+
+        /// <summary>
+        /// Получение подробностей оклада.
+        /// </summary>
+        /// <param name="id">ИД оклада.</param>
+        /// <returns> Подробности оклада.</returns>
+        [HttpGet("{id}")]
+        public ActionResult<SalaryDetailsResponse> Details([Required][FromRoute] int id)
+        {
+            var salary = _dataContext.Salaries.FirstOrDefault(i => i.Id == id);
+            if(salary == default)
+                return NotFound($"Оклад с ИД \"{id}\" не существует.");
+
+            return new SalaryDetailsResponse
+            {
+                ProfessionId = salary.ProfessionId,
+                Rank = salary.Rank,
+                Amount = salary.Amount
             };
         }
 

@@ -96,7 +96,9 @@ namespace WorkersWages.API.API.Wages
             return new WageDetailsResponse
             {
                 WorkerLastName = wage.WorkerLastName,
+                ManufactoryId = wage.ManufactoryId,
                 ManufactoryDisplayName = $"{wage.Manufactory.Name} - №{wage.Manufactory.Number}",
+                ProfessionId = wage.ProfessionId,
                 ProfessionName = wage.Profession.Name,
                 Rank = wage.Rank,
                 Amount = wage.Amount,

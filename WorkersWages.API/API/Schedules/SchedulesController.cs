@@ -61,6 +61,29 @@ namespace WorkersWages.API.API.Schedules
         }
 
         /// <summary>
+        /// Получение подробностей графика работы цеха.
+        /// </summary>
+        /// <param name="id">ИД графика работы цеха.</param>
+        /// <returns>Подробности графика работы цеха.</returns>
+        [HttpGet("{id}")]
+        public ActionResult<ScheduleDetailsResponse> Details([Required][FromRoute] int id)
+        {
+            var schedule = _dataContext.Schedules.FirstOrDefault(i => i.Id == id);
+            if(schedule == default)
+                return NotFound($"Графика работы для цеха с ИД \"{id}\" не существует.");
+
+            return new ScheduleDetailsResponse
+            {
+                ManufactoryId = schedule.ManufactoryId,
+                WeekDay = schedule.WeekDay,
+                WorkingStart = schedule.WorkingStart,
+                WorkingEnd = schedule.WorkingEnd,
+                BreakStart = schedule.BreakStart,
+                BreakEnd = schedule.BreakEnd
+            };
+        }
+
+        /// <summary>
         /// Добавление нового графика работы для цеха.
         /// </summary>
         /// <param name="request">Запрос на добавление графика работы для цеха.</param>
