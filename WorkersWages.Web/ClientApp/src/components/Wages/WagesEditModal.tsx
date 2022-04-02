@@ -20,19 +20,25 @@ export const WagesEditModal = (props: Props) => {
         apiClient.wagesDetails(id).then((r) => setWageInfo(
             new WageEditRequest({
                 workerLastName: r.workerLastName,
-                manufactoryId: 1, // TODO: добавить в вывод ИД цеха
-                professionId: 1, // TODO: добавить вывод ИД профессии
-                rank: 1, // TODO: добавить вывод разряда профессии
+                manufactoryId: r.manufactoryId,
+                professionId: r.professionId,
+                rank: r.rank,
             })
         ));
     }, [id])
 
     const propsOnDataChanged = props.onDataChanged;
+    const propsOnHide = props.onHide;
     const handleSubmit = useCallback(async (data: WageEditRequest) => {
         if (!id) return;
 
-        await apiClient.wagesEdit(id, data).then((_) => propsOnDataChanged());
-    }, [id, history, propsOnDataChanged]);
+        await apiClient.wagesEdit(id, data).then((_) => {
+            propsOnHide();
+            propsOnDataChanged();
+        });
+    }, [id, history, propsOnDataChanged, propsOnHide]);
+
+    if (!wageInfo) return null;
 
     return (
         <AisModal show={true} onHide={props.onHide} title="Редактирование заработной платы">

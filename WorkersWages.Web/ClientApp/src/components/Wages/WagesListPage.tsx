@@ -15,10 +15,10 @@ export const WagesListPage = () => {
 
     const dataSource = useCallback(async (filter: FilterData, pageNumber: number, pageSize: number) => {
         const response = await apiClient.wagesList(
-            undefined,
-            undefined,
-            undefined,
-            undefined,
+            filter.workerLastName,
+            filter.manufactoryId,
+            filter.professionId,
+            filter.rank,
             pageSize,
             pageNumber * pageSize,
         );

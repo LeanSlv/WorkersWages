@@ -8,6 +8,8 @@ interface Props {
     onDataChanged: () => void;
 }
 
+const apiClient = new WorkersWagesApiClient('/extapi');
+
 export const WagesDetailsEditAllowanceModal = (props: Props) => {
     const history = useHistory();
     const { wageId, allowanceId } = useParams() as {
@@ -17,19 +19,27 @@ export const WagesDetailsEditAllowanceModal = (props: Props) => {
 
     const [allowanceInfo, setAllowanceInfo] = useState<WageEditAllowanceRequest>();
     useEffect(() => {
-        /* TODO: Добавить в АПИ подробности на все сущности для вытаскивания данных при редактировании */
+        if (!wageId || !allowanceId) return;
+
+        apiClient.wagesAllowanceDetails(+wageId, +allowanceId).then((r) => setAllowanceInfo(
+            new WageEditAllowanceRequest({
+                name: r.name,
+                amount: r.amount,
+            })
+        ));
     }, [wageId, allowanceId])
 
     const propsOnDataChanged = props.onDataChanged;
     const handleSubmit = useCallback(async (data: WageEditAllowanceRequest) => {
         if (!wageId || !allowanceId) return;
 
-        const apiClient = new WorkersWagesApiClient('/extapi');
         await apiClient.wagesEditAllowance(+wageId, +allowanceId, data).then((_) => {
             history.goBack();
             propsOnDataChanged();
         });
     }, [history, propsOnDataChanged]);
+
+    if (!allowanceInfo) return null;
 
     return (
         <AisModal show={true} onHide={() => history.goBack()} title="Редактирование надбавки к заработной плате">

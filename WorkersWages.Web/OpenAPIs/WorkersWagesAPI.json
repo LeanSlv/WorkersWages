@@ -527,6 +527,58 @@
       }
     },
     "/api/Professions/{id}": {
+      "get": {
+        "tags": [
+          "Professions"
+        ],
+        "summary": "Получение подробностей профессии.",
+        "operationId": "ProfessionsDetails",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ИД профессии.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ИД профессии.",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfessionDetailsResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfessionDetailsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "Professions"
@@ -765,6 +817,58 @@
       }
     },
     "/api/Salaries/{id}": {
+      "get": {
+        "tags": [
+          "Salaries"
+        ],
+        "summary": "Получение подробностей оклада.",
+        "operationId": "SalariesDetails",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ИД оклада.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ИД оклада.",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalaryDetailsResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalaryDetailsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "Salaries"
@@ -1000,6 +1104,58 @@
       }
     },
     "/api/Schedules/{id}": {
+      "get": {
+        "tags": [
+          "Schedules"
+        ],
+        "summary": "Получение подробностей графика работы цеха.",
+        "operationId": "SchedulesDetails",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ИД графика работы цеха.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ИД графика работы цеха.",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduleDetailsResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduleDetailsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "Schedules"
@@ -1445,6 +1601,71 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/WageAllowanceListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Wages/{wageId}/allowances/{id}": {
+      "get": {
+        "tags": [
+          "Wages"
+        ],
+        "summary": "Получение подробностей надбавки для заработной платы.",
+        "operationId": "WagesAllowanceDetails",
+        "parameters": [
+          {
+            "name": "wageId",
+            "in": "path",
+            "description": "ИД заработной платы.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ИД заработной платы.",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ИД надбавки.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ИД надбавки.",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WageAllowanceDetailsResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WageAllowanceDetailsResponse"
                 }
               }
             }
@@ -1972,6 +2193,20 @@
         "additionalProperties": false,
         "description": "Запрос на создание профессии."
       },
+      "ProfessionDetailsResponse": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Название."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат запроса получения подробностей профессии."
+      },
       "ProfessionEditRequest": {
         "required": [
           "name"
@@ -2079,6 +2314,33 @@
         },
         "additionalProperties": false,
         "description": "Запрос на добавление оклада."
+      },
+      "SalaryDetailsResponse": {
+        "required": [
+          "amount",
+          "professionId",
+          "rank"
+        ],
+        "type": "object",
+        "properties": {
+          "professionId": {
+            "type": "integer",
+            "description": "ИД профессии.",
+            "format": "int32"
+          },
+          "rank": {
+            "type": "integer",
+            "description": "Разряд.",
+            "format": "int32"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Сумма оклада.",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат запроса получения подробностей оклада."
       },
       "SalaryEditRequest": {
         "required": [
@@ -2309,6 +2571,37 @@
         "additionalProperties": false,
         "description": "Запрос на добавление графика работы цеха."
       },
+      "ScheduleDetailsResponse": {
+        "required": [
+          "manufactoryId",
+          "weekDay"
+        ],
+        "type": "object",
+        "properties": {
+          "manufactoryId": {
+            "type": "integer",
+            "description": "ИД цеха.",
+            "format": "int32"
+          },
+          "weekDay": {
+            "$ref": "#/components/schemas/WeekDays"
+          },
+          "workingStart": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "workingEnd": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "breakStart": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "breakEnd": {
+            "$ref": "#/components/schemas/TimeSpan"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат запроса получения подробностей графика работы цеха."
+      },
       "ScheduleEditRequest": {
         "required": [
           "manufactoryId",
@@ -2493,6 +2786,8 @@
           "amount",
           "amountWithAllowances",
           "manufactoryDisplayName",
+          "manufactoryId",
+          "professionId",
           "professionName",
           "rank",
           "workerLastName"
@@ -2503,9 +2798,19 @@
             "type": "string",
             "description": "Фамилия рабочего."
           },
+          "manufactoryId": {
+            "type": "integer",
+            "description": "ИД цеха.",
+            "format": "int32"
+          },
           "manufactoryDisplayName": {
             "type": "string",
             "description": "Отображаемое наименование цеха."
+          },
+          "professionId": {
+            "type": "integer",
+            "description": "ИД профессии.",
+            "format": "int32"
           },
           "professionName": {
             "type": "string",
@@ -2583,6 +2888,26 @@
         },
         "additionalProperties": false,
         "description": "Результат запроса надбавок для заработной платы."
+      },
+      "WageAllowanceDetailsResponse": {
+        "required": [
+          "amount"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Название.",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "description": "Размер.",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат получения подробностей надбавки для заработной платы."
       },
       "WageAddAllowanceRequest": {
         "required": [

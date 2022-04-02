@@ -96,7 +96,9 @@ namespace WorkersWages.API.API.Wages
             return new WageDetailsResponse
             {
                 WorkerLastName = wage.WorkerLastName,
+                ManufactoryId = wage.ManufactoryId,
                 ManufactoryDisplayName = $"{wage.Manufactory.Name} - №{wage.Manufactory.Number}",
+                ProfessionId = wage.ProfessionId,
                 ProfessionName = wage.Profession.Name,
                 Rank = wage.Rank,
                 Amount = wage.Amount,
@@ -222,6 +224,26 @@ namespace WorkersWages.API.API.Wages
             return new WageAllowanceListResponse
             {
                 Allowances = allowances.ToArray()
+            };
+        }
+
+        /// <summary>
+        /// Получение подробностей надбавки для заработной платы.
+        /// </summary>
+        /// <param name="wageId">ИД заработной платы.</param>
+        /// <param name="id">ИД надбавки.</param>
+        /// <returns>Подробности надбавки для заработной платы.</returns>
+        [HttpGet("{wageId}/allowances/{id}")]
+        public ActionResult<WageAllowanceDetailsResponse> AllowanceDetails([Required][FromRoute] int wageId, [Required][FromRoute] int id)
+        {
+            var allowance = _dataContext.Allowances.FirstOrDefault(i => i.WageId == wageId && i.Id == id);
+            if(allowance == default)
+                return NotFound($"Надбавки для заработной платы с ИД \"{id}\" не существует.");
+
+            return new WageAllowanceDetailsResponse
+            {
+                Name = allowance.Name,
+                Amount = allowance.Amount
             };
         }
 
