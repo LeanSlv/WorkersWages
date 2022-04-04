@@ -115,6 +115,47 @@
         }
       }
     },
+    "/api/Account": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Получение информации о текущем пользователе.",
+        "operationId": "AccountUserInfo",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountUserInfoResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountUserInfoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Manufactories": {
       "get": {
         "tags": [
@@ -1973,6 +2014,45 @@
         },
         "additionalProperties": false,
         "description": "Запрос на регистрацию нового пользователя."
+      },
+      "AccountUserInfoResponse": {
+        "required": [
+          "email",
+          "firstName",
+          "lastName",
+          "userName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ИД записи.",
+            "format": "int32"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Имя."
+          },
+          "middleName": {
+            "type": "string",
+            "description": "Отчество.",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Фамилия."
+          },
+          "userName": {
+            "type": "string",
+            "description": "Логин."
+          },
+          "email": {
+            "type": "string",
+            "description": "Электронная почта."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Результат запроса получения информации о текущем пользователе."
       },
       "ManufactoryInfo": {
         "required": [

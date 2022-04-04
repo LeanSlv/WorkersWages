@@ -11,6 +11,7 @@ using WorkersWages.API.Storage.Models;
 using System.Threading.Tasks;
 using System.Text;
 using WorkersWages.API.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WorkersWages.API.API.Account
 {
@@ -42,11 +43,12 @@ namespace WorkersWages.API.API.Account
             var user = await _userManager.FindByNameAsync(request.UserName);
             if (user != default && await _userManager.CheckPasswordAsync(user, request.Password))
             {
+                var fullName = $"{user.LastName} {user.FirstName} {user.MiddleName}";
                 var authClaims = new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Email, user.Email)
+                    new Claim(ClaimTypes.Name, fullName),
+                    new Claim(ClaimTypes.Email, user.Email),
                 };
 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authOptions.Value.SecretKey));
@@ -94,6 +96,29 @@ namespace WorkersWages.API.API.Account
                 throw new ApiException("Произошла ошибка при создании нового пользователя.");
 
             return Ok();
+        }
+
+        /// <summary>
+        /// Получение информации о текущем пользователе.
+        /// </summary>
+        /// <returns>Информация о текущем пользователе.</returns>
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<AccountUserInfoResponse>> UserInfo()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return NotFound("Пользователь не найден.");
+
+            return new AccountUserInfoResponse
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                MiddleName = user.MiddleName,
+                LastName = user.LastName,
+                UserName = user.UserName,
+                Email = user.Email
+            };
         }
     }
 }
