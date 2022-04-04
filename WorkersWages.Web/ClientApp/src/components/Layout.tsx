@@ -2,7 +2,12 @@
 import { AisLayout } from '@ais-gorod/react-ui';
 import { ReactNode } from 'react';
 
-export const Layout = (props: { children: ReactNode | ReactNode[]; isLoading: boolean }) => {
+interface Props {
+    children: ReactNode | ReactNode[];
+    isLoading: boolean;
+}
+
+export const Layout = (props: Props) => {
     return (
         <AisLayout nav={<NavMenu />} containerFluid isLoading={props.isLoading} pageTitleBase={'Сведения о месячной зарплате рабочих'}>
             {props.children}
