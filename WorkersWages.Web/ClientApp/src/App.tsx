@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Layout } from './components/Layout';
-import { Route } from 'react-router-dom';
+import { Route, useHistory, useLocation } from 'react-router-dom';
 import { UserInfoContext, UserInfo } from './components/UserInfoContext';
 import { WorkersWagesWebLocalApiClient } from './services/WorkersWagesWebLocalApiClient';
 
@@ -13,29 +13,51 @@ import { SalariesContainer } from './components/Salaries/SalariesContainer';
 import { SchedulesContainer } from './components/Schedules/SchedulesContainer';
 import { ManufactoriesContainer } from './components/Manufactories/ManufactoriesContainer';
 import { WagesContainer } from './components/Wages/WagesContainer';
+import { AccountProfilePage } from './components/Account/AccountProfilePage';
 
 import './App.scss';
 
-
 function App() {
+    const history = useHistory();
+    const location = useLocation();
+
     const [userInfo, setUserInfo] = useState<UserInfo>();
-    useEffect(() => {
+    const loadUserInfo = useCallback(() => {
         const apiClient = new WorkersWagesWebLocalApiClient();
         apiClient.userInfo().then((data) => setUserInfo(data));
-    }, []);
+    }, [setUserInfo])
+
+    useEffect(() => loadUserInfo(), []);
+
+    useEffect(() => {
+        if (!userInfo?.displayName && !(location.pathname.toString() === '/' || location.pathname.startsWith('/login') || location.pathname.startsWith('/register'))) {
+            history.replace({ ...location, pathname: '/' });
+        }
+    }, [userInfo, history, location]);
 
     return (
         <UserInfoContext.Provider value={userInfo}>
             <Layout isLoading={false}>
                 <Route path="/" exact component={MainPage} />
-                <Route path="/login" exact component={LoginPage} />
-                <Route path="/register" exact component={RegisterPage} />
-
-                <Route path="/professions" component={ProfessionsContainer} />
-                <Route path="/salaries" component={SalariesContainer} />
-                <Route path="/schedules" component={SchedulesContainer} />
-                <Route path="/manufactories" component={ManufactoriesContainer} />
-                <Route path="/wages" component={WagesContainer} />
+                {userInfo?.displayName ? (
+                    <>
+                        <Route path="/professions" component={ProfessionsContainer} />
+                        <Route path="/salaries" component={SalariesContainer} />
+                        <Route path="/schedules" component={SchedulesContainer} />
+                        <Route path="/manufactories" component={ManufactoriesContainer} />
+                        <Route path="/wages" component={WagesContainer} />
+                        <Route path="/profile" component={AccountProfilePage} />
+                    </>
+                ) : (
+                    <>
+                        <Route path="/login" exact>
+                            <LoginPage onSubmit={loadUserInfo} />
+                        </Route>
+                        <Route path="/register" exact>
+                            <RegisterPage onSubmit={loadUserInfo} />
+                        </Route>
+                    </>
+                )}
             </Layout>
         </UserInfoContext.Provider>
     );

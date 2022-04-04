@@ -9,9 +9,10 @@ const apiClient = new WorkersWagesWebLocalApiClient();
 
 export const NavMenu = () => {
     const userInfo = useContext(UserInfoContext);
-
     const handleLogout = useCallback(async () => {
-        await apiClient.logout().then((_) => window.location.reload());
+        await apiClient.logout().then((_) => {
+            window.location.reload()
+        });
     }, []);
 
     return (
@@ -44,7 +45,9 @@ export const NavMenu = () => {
                 {userInfo?.displayName ? (
                     <>
                         <AisNavbar.Text>
-                            <MdOutlineAccountCircle /> {userInfo.displayName}
+                            <NavLink to={(l) => ({ ...l, pathname: '/profile' })}>
+                                <MdOutlineAccountCircle /> {userInfo.displayName}
+                            </NavLink>
                         </AisNavbar.Text>
                         <BSNav.Link onClick={handleLogout}>
                             <MdOutlineExitToApp /> Выйти

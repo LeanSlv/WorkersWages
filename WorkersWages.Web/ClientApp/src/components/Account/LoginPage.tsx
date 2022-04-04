@@ -3,17 +3,25 @@ import { AisForm, AisFormField, AisButton, AisCard, AisGrid, Yup } from '@ais-go
 import { useHistory, Link } from 'react-router-dom';
 import { AccountLoginRequest, WorkersWagesWebLocalApiClient } from '../../services/WorkersWagesWebLocalApiClient';
 
+interface Props {
+    onSubmit: () => void;
+}
+
 const FormValuesSchema = Yup.object().shape({
     userName: Yup.string().required(),
     password: Yup.string().required()
 });
 
-export const LoginPage = () => {
+export const LoginPage = (props: Props) => {
     const history = useHistory();
+    const propsOnSubmit = props.onSubmit;
     const handleSubmit = useCallback(async (data: AccountLoginRequest) => {
         const apiClient = new WorkersWagesWebLocalApiClient();
-        await apiClient.login(data).then((_) => history.goBack());
-    }, []);
+        await apiClient.login(data).then((_) => {
+            history.push('/');
+            propsOnSubmit();
+        });
+    }, [history, propsOnSubmit]);
 
     return (
         <AisGrid.Row id="flexContainer">

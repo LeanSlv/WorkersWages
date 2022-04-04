@@ -3,6 +3,10 @@ import { AisForm, AisFormField, AisButton, AisCard, AisGrid, Yup } from '@ais-go
 import { useHistory } from 'react-router-dom';
 import { AccountRegisterRequest, WorkersWagesWebLocalApiClient } from '../../services/WorkersWagesWebLocalApiClient';
 
+interface Props {
+    onSubmit: () => void;
+}
+
 interface RegisterData {
     firstName: string;
     lastName: string;
@@ -24,8 +28,9 @@ const FormValuesSchema = Yup.object().shape({
         .required()
 });
 
-export const RegisterPage = () => {
+export const RegisterPage = (props: Props) => {
     const history = useHistory();
+    const propsOnSubmit = props.onSubmit;
     const handleSubmit = useCallback(async (data: RegisterData) => {
         const request = new AccountRegisterRequest({
             firstName: data.firstName,
@@ -37,8 +42,11 @@ export const RegisterPage = () => {
         });
 
         const apiClient = new WorkersWagesWebLocalApiClient();
-        await apiClient.register(request).then((_) => history.push('/'));
-    }, []);
+        await apiClient.register(request).then((_) => {
+            history.push('/');
+            propsOnSubmit();
+        });
+    }, [history, propsOnSubmit]);
 
     return (
         <AisGrid.Row id="flexContainer">

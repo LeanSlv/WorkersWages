@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -38,10 +39,13 @@ namespace WorkersWages.Web.API.Authorization
             var response = await workersWagesApiClient.AccountLoginAsync(request);
             var token = new JwtSecurityTokenHandler().ReadJwtToken(response.Token);
             var identity = new ClaimsPrincipal(new ClaimsIdentity(token.Claims, CookieAuthenticationDefaults.AuthenticationScheme));
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, identity, new AuthenticationProperties { IsPersistent = true });
 
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, identity, new AuthenticationProperties { AllowRefresh = true });
-            await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.SetString("access_token", response.Token);
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddHours(4)
+            };
+            Response.Cookies.Append("access_token", response.Token, cookieOptions);
             return;
         }
 
@@ -64,10 +68,13 @@ namespace WorkersWages.Web.API.Authorization
             var response = await workersWagesApiClient.AccountLoginAsync(loginRequest);
             var token = new JwtSecurityTokenHandler().ReadJwtToken(response.Token);
             var identity = new ClaimsPrincipal(new ClaimsIdentity(token.Claims, CookieAuthenticationDefaults.AuthenticationScheme));
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, identity, new AuthenticationProperties { IsPersistent = true });
 
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, identity, new AuthenticationProperties { AllowRefresh = true });
-            await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.SetString("access_token", response.Token);
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddHours(4)
+            };
+            Response.Cookies.Append("access_token", response.Token, cookieOptions);
             return;
         }
 
@@ -93,6 +100,7 @@ namespace WorkersWages.Web.API.Authorization
         public async Task Logout()
         {
             await HttpContext.SignOutAsync();
+            Response.Cookies.Delete("access_token");
             return;
         }
     }
