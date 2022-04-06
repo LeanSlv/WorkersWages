@@ -160,6 +160,98 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * ��������� �������� ������ ������������.
+     * @param body ������ �������.
+     * @return Success
+     */
+    accountEditMainInfo(body: AccountEditMainInfoRequest): Promise<void> {
+        let url_ = this.baseUrl + "/api/Account/edit-main-info";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processAccountEditMainInfo(_response);
+        });
+    }
+
+    protected processAccountEditMainInfo(response: Response): Promise<void> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            return;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ApiErrorResponse.fromJS(resultData400);
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<void>(null as any);
+    }
+
+    /**
+     * ��������� ������� ������ ������������.
+     * @param body ������ �������.
+     * @return Success
+     */
+    accountEditCredentialsInfo(body: AccountEditCredentialsInfoRequest): Promise<void> {
+        let url_ = this.baseUrl + "/api/Account/edit-account-info";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processAccountEditCredentialsInfo(_response);
+        });
+    }
+
+    protected processAccountEditCredentialsInfo(response: Response): Promise<void> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            return;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ApiErrorResponse.fromJS(resultData400);
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<void>(null as any);
+    }
+
+    /**
      * ��������� ������ �����.
      * @param name (optional) ��������.
      * @param number (optional) �����.
@@ -1959,6 +2051,110 @@ export interface IAccountUserInfoResponse {
     userName: string;
     /** ����������� �����. */
     email: string;
+}
+
+/** ������ �� ��������� �������� ������ ������������. */
+export class AccountEditMainInfoRequest implements IAccountEditMainInfoRequest {
+    /** ���. */
+    firstName!: string;
+    /** ��������. */
+    middleName?: string | undefined;
+    /** �������. */
+    lastName!: string;
+    /** ����������� �����. */
+    email!: string;
+
+    constructor(data?: IAccountEditMainInfoRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.firstName = _data["firstName"];
+            this.middleName = _data["middleName"];
+            this.lastName = _data["lastName"];
+            this.email = _data["email"];
+        }
+    }
+
+    static fromJS(data: any): AccountEditMainInfoRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new AccountEditMainInfoRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["firstName"] = this.firstName;
+        data["middleName"] = this.middleName;
+        data["lastName"] = this.lastName;
+        data["email"] = this.email;
+        return data;
+    }
+}
+
+/** ������ �� ��������� �������� ������ ������������. */
+export interface IAccountEditMainInfoRequest {
+    /** ���. */
+    firstName: string;
+    /** ��������. */
+    middleName?: string | undefined;
+    /** �������. */
+    lastName: string;
+    /** ����������� �����. */
+    email: string;
+}
+
+/** ������ �� ��������� ������� ������. */
+export class AccountEditCredentialsInfoRequest implements IAccountEditCredentialsInfoRequest {
+    /** �����. */
+    userName?: string | undefined;
+    /** ������. */
+    password?: string | undefined;
+
+    constructor(data?: IAccountEditCredentialsInfoRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.userName = _data["userName"];
+            this.password = _data["password"];
+        }
+    }
+
+    static fromJS(data: any): AccountEditCredentialsInfoRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new AccountEditCredentialsInfoRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userName"] = this.userName;
+        data["password"] = this.password;
+        return data;
+    }
+}
+
+/** ������ �� ��������� ������� ������. */
+export interface IAccountEditCredentialsInfoRequest {
+    /** �����. */
+    userName?: string | undefined;
+    /** ������. */
+    password?: string | undefined;
 }
 
 /** ���������� � ����. */

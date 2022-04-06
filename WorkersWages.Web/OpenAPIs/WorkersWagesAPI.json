@@ -156,6 +156,106 @@
         }
       }
     },
+    "/api/Account/edit-main-info": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Изменение основных данных пользователя.",
+        "operationId": "AccountEditMainInfo",
+        "requestBody": {
+          "description": "Данные запроса.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountEditMainInfoRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountEditMainInfoRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountEditMainInfoRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Account/edit-account-info": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Изменение учетных данных пользователя.",
+        "operationId": "AccountEditCredentialsInfo",
+        "requestBody": {
+          "description": "Данные запроса.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountEditCredentialsInfoRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountEditCredentialsInfoRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountEditCredentialsInfoRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Manufactories": {
       "get": {
         "tags": [
@@ -2053,6 +2153,52 @@
         },
         "additionalProperties": false,
         "description": "Результат запроса получения информации о текущем пользователе."
+      },
+      "AccountEditMainInfoRequest": {
+        "required": [
+          "email",
+          "firstName",
+          "lastName"
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "Имя."
+          },
+          "middleName": {
+            "type": "string",
+            "description": "Отчество.",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Фамилия."
+          },
+          "email": {
+            "type": "string",
+            "description": "Электронная почта."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Запрос на изменение основных данных пользователя."
+      },
+      "AccountEditCredentialsInfoRequest": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string",
+            "description": "Логин.",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "description": "Пароль.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Запрос на изменение учетных данных."
       },
       "ManufactoryInfo": {
         "required": [
