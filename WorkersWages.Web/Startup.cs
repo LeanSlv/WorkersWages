@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using Yarp.ReverseProxy.Forwarder;
@@ -129,7 +130,9 @@ namespace WorkersWages.Web
 
                 endpoints.Map("/extapi/{**catch-all}", async httpContext =>
                 {
-                    var token = httpContext.Session.GetString("access_token");
+                    //var result = await httpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    //var token = result.Properties.Items.FirstOrDefault(i => i.Key.StartsWith("access_token")).Value;
+                    var token = httpContext.Request.Cookies["access_token"];
                     httpContext.Request.Cookies = null;
                     httpContext.Request.Headers.Add("Authorization", $"Bearer {token}");
                     httpContext.Request.Path = new PathString("/" + httpContext.Request.RouteValues["catch-all"].ToString());

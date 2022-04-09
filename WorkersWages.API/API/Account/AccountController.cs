@@ -11,6 +11,12 @@ using WorkersWages.API.Storage.Models;
 using System.Threading.Tasks;
 using System.Text;
 using WorkersWages.API.Exceptions;
+using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
+using WorkersWages.API.Extensions;
+using WorkersWages.API.Storage;
+using System.Linq;
+using System.Transactions;
 
 namespace WorkersWages.API.API.Account
 {
@@ -23,11 +29,13 @@ namespace WorkersWages.API.API.Account
     {
         private readonly UserManager<User> _userManager;
         private readonly IOptionsSnapshot<AuthOptions> _authOptions;
+        private readonly DataContext _dataContext;
 
-        public AccountController(UserManager<User> userManager, IOptionsSnapshot<AuthOptions> authOptions)
+        public AccountController(UserManager<User> userManager, IOptionsSnapshot<AuthOptions> authOptions, DataContext dataContext)
         {
             _userManager = userManager;
             _authOptions = authOptions;
+            _dataContext = dataContext;
         }
 
         /// <summary>
@@ -42,11 +50,12 @@ namespace WorkersWages.API.API.Account
             var user = await _userManager.FindByNameAsync(request.UserName);
             if (user != default && await _userManager.CheckPasswordAsync(user, request.Password))
             {
+                var fullName = $"{user.LastName} {user.FirstName} {user.MiddleName}";
                 var authClaims = new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Email, user.Email)
+                    new Claim(ClaimTypes.Name, fullName),
+                    new Claim(ClaimTypes.Email, user.Email),
                 };
 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authOptions.Value.SecretKey));
@@ -93,6 +102,104 @@ namespace WorkersWages.API.API.Account
             if (!result.Succeeded)
                 throw new ApiException("Произошла ошибка при создании нового пользователя.");
 
+            return Ok();
+        }
+
+        /// <summary>
+        /// Получение информации о текущем пользователе.
+        /// </summary>
+        /// <returns>Информация о текущем пользователе.</returns>
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<AccountUserInfoResponse>> UserInfo()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return NotFound("Пользователь не найден.");
+
+            return new AccountUserInfoResponse
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                MiddleName = user.MiddleName,
+                LastName = user.LastName,
+                UserName = user.UserName,
+                Email = user.Email
+            };
+        }
+
+        /// <summary>
+        /// Изменение основных данных пользователя.
+        /// </summary>
+        /// <param name="request">Данные запроса.</param>
+        [HttpPost("edit-main-info")]
+        [Authorize]
+        public async Task<IActionResult> EditMainInfo([Required][FromBody] AccountEditMainInfoRequest request)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == default)
+                return NotFound("Пользователь не найден.");
+
+            if (!string.IsNullOrEmpty(request.Email) && _dataContext.Users.Any(i => i.NormalizedEmail == _userManager.NormalizeEmail(request.Email) && i.Id != user.Id))
+                ModelState.AddModelError("email", "Пользователь с таким email-адресом уже существует");
+            if (!ModelState.IsValid)
+            {
+                throw new ApiException();
+            }
+
+            user.FirstName = request.FirstName;
+            user.MiddleName = request.MiddleName;
+            user.LastName = request.LastName;
+            user.Email = request.Email;
+
+            var result = await _userManager.UpdateAsync(user);
+            result.EnsureSucceeded<ApiException>("Обновление основных данных пользователя.");
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Изменение учетных данных пользователя.
+        /// </summary>
+        /// <param name="request">Данные запроса.</param>
+        [HttpPost("edit-account-info")]
+        [Authorize]
+        public async Task<IActionResult> EditCredentialsInfo([Required][FromBody] AccountEditCredentialsInfoRequest request)
+        {
+            IdentityResult result;
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == default)
+                return NotFound("Пользователь не найден.");
+
+            if (_dataContext.Users.Any(i => i.NormalizedUserName == _userManager.NormalizeName(request.UserName) && i.Id != user.Id))
+                ModelState.AddModelError("userName", "Пользователь с таким логином уже существует");
+            if (!ModelState.IsValid)
+            {
+                throw new ApiException();
+            }
+
+            if (!string.IsNullOrEmpty(request.Password))
+            {
+                using (var tr = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    result = await _userManager.RemovePasswordAsync(user);
+                    result.EnsureSucceeded<ApiException>("Удаление пароля пользователя.");
+
+                    result = await _userManager.AddPasswordAsync(user, request.Password);
+                    result.EnsureSucceeded<ApiException>("Добавление пароля пользователя.");
+
+                    tr.Complete();
+                }
+            }
+
+            if (!string.IsNullOrEmpty(request.UserName))
+            {
+                user.UserName = request.UserName;
+                result = await _userManager.UpdateAsync(user);
+                result.EnsureSucceeded<ApiException>("Обновление информации о пользователе.");
+            }
+            
             return Ok();
         }
     }
