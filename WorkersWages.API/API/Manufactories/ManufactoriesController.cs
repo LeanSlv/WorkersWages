@@ -73,7 +73,7 @@ namespace WorkersWages.API.API.Manufactories
                 Name = manufactory.Name,
                 Number = manufactory.Number,
                 HeadFIO = manufactory.HeadFIO,
-                HeadPhotoId = manufactory.HeadPhotoId
+                HeadPhotoUrl = manufactory.HeadPhotoId.HasValue ? $"{Request.Scheme}://{Request.Host}/api/Files/{manufactory.HeadPhotoId}" : null
             };
         }
 

@@ -37,8 +37,8 @@ namespace WorkersWages.API.API.Files
             try
             {
                 var extension = Path.GetExtension(formFile.FileName);
-                var path = "/Files/" + new Guid() + extension;
-                using (var fileStream = new FileStream(_appEnvironment.ContentRootPath + path, FileMode.Create))
+                var path = Path.Combine("Files", Guid.NewGuid() + extension);
+                using (var fileStream = new FileStream(Path.Combine(_appEnvironment.ContentRootPath, path), FileMode.Create))
                 {
                     await formFile.CopyToAsync(fileStream);
                 }
