@@ -27,6 +27,12 @@ namespace WorkersWages.API.Storage.Models
         public string Url { get; set; }
 
         /// <summary>
+        /// Mime-тип.
+        /// </summary>
+        [Required]
+        public string MimeType { get; set; }
+
+        /// <summary>
         /// Дата и время создания записи.
         /// </summary>
         [Required]

@@ -26,8 +26,8 @@ namespace WorkersWages.API.API.Manufactories
         public string HeadFIO { get; set; }
 
         /// <summary>
-        /// ИД фотографии начальника.
+        /// Url фотографии начальника.
         /// </summary>
-        public int? HeadPhotoId { get; set; }
+        public string HeadPhotoUrl { get; set; }
     }
 }
