@@ -256,6 +256,115 @@
         }
       }
     },
+    "/api/Files": {
+      "post": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Загружает новый файл.",
+        "operationId": "FilesUpload",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "formFile"
+                ],
+                "type": "object",
+                "properties": {
+                  "formFile": {
+                    "type": "string",
+                    "description": "Файл для загрузки.",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "formFile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Files/{id}": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Скачивает файл.",
+        "operationId": "FilesDownload",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ИД файла.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ИД файла.",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Manufactories": {
       "get": {
         "tags": [
@@ -2310,10 +2419,9 @@
             "type": "string",
             "description": "ФИО начальника."
           },
-          "headPhotoId": {
-            "type": "integer",
-            "description": "ИД фотографии начальника.",
-            "format": "int32",
+          "headPhotoUrl": {
+            "type": "string",
+            "description": "Url фотографии начальника.",
             "nullable": true
           }
         },

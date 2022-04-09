@@ -252,6 +252,105 @@ export class WorkersWagesApiClient {
     }
 
     /**
+     * ��������� ����� ����.
+     * @param formFile (optional) 
+     * @return Success
+     */
+    filesUpload(formFile: FileParameter | undefined): Promise<number> {
+        let url_ = this.baseUrl + "/api/Files";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = new FormData();
+        if (formFile === null || formFile === undefined)
+            throw new Error("The parameter 'formFile' cannot be null.");
+        else
+            content_.append("formFile", formFile.data, formFile.fileName ? formFile.fileName : "formFile");
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processFilesUpload(_response);
+        });
+    }
+
+    protected processFilesUpload(response: Response): Promise<number> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return result200;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ApiErrorResponse.fromJS(resultData400);
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<number>(null as any);
+    }
+
+    /**
+     * ��������� ����.
+     * @param id �� �����.
+     * @return Success
+     */
+    filesDownload(id: number): Promise<void> {
+        let url_ = this.baseUrl + "/api/Files/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processFilesDownload(_response);
+        });
+    }
+
+    protected processFilesDownload(response: Response): Promise<void> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            return;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ApiErrorResponse.fromJS(resultData400);
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<void>(null as any);
+    }
+
+    /**
      * ��������� ������ �����.
      * @param name (optional) ��������.
      * @param number (optional) �����.
@@ -2344,8 +2443,8 @@ export class ManufactoryDetailsResponse implements IManufactoryDetailsResponse {
     number!: string;
     /** ��� ����������. */
     headFIO!: string;
-    /** �� ���������� ����������. */
-    headPhotoId?: number | undefined;
+    /** Url ���������� ����������. */
+    headPhotoUrl?: string | undefined;
 
     constructor(data?: IManufactoryDetailsResponse) {
         if (data) {
@@ -2361,7 +2460,7 @@ export class ManufactoryDetailsResponse implements IManufactoryDetailsResponse {
             this.name = _data["name"];
             this.number = _data["number"];
             this.headFIO = _data["headFIO"];
-            this.headPhotoId = _data["headPhotoId"];
+            this.headPhotoUrl = _data["headPhotoUrl"];
         }
     }
 
@@ -2377,7 +2476,7 @@ export class ManufactoryDetailsResponse implements IManufactoryDetailsResponse {
         data["name"] = this.name;
         data["number"] = this.number;
         data["headFIO"] = this.headFIO;
-        data["headPhotoId"] = this.headPhotoId;
+        data["headPhotoUrl"] = this.headPhotoUrl;
         return data;
     }
 }
@@ -2390,8 +2489,8 @@ export interface IManufactoryDetailsResponse {
     number: string;
     /** ��� ����������. */
     headFIO: string;
-    /** �� ���������� ����������. */
-    headPhotoId?: number | undefined;
+    /** Url ���������� ����������. */
+    headPhotoUrl?: string | undefined;
 }
 
 /** ������ �� �������������� ����. */
@@ -4025,6 +4124,11 @@ export interface IWageEditAllowanceRequest {
     name?: string | undefined;
     /** ������ ��������. */
     amount: number;
+}
+
+export interface FileParameter {
+    data: any;
+    fileName: string;
 }
 
 export class ApiException extends Error {
