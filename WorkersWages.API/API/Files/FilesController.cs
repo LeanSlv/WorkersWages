@@ -10,6 +10,9 @@ using WorkersWages.API.Storage;
 
 namespace WorkersWages.API.API.Files
 {
+    /// <summary>
+    /// Работа с файлами.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class FilesController : ControllerBase
@@ -28,7 +31,7 @@ namespace WorkersWages.API.API.Files
         /// </summary>
         /// <param name="formFile">Файл для загрузки.</param>
         [HttpPost]
-        public async Task<IActionResult> Upload([Required] IFormFile formFile)
+        public async Task<ActionResult<int>> Upload([Required] IFormFile formFile)
         {
             Storage.Models.File file = null;
             try
@@ -75,7 +78,7 @@ namespace WorkersWages.API.API.Files
             try
             {
                 string path = Path.Combine(_appEnvironment.ContentRootPath, file.Url);
-                FileStream fs = new FileStream(path, FileMode.Open);
+                var fs = new FileStream(path, FileMode.Open);
                 return File(fs, file.MimeType, file.Name);
             }
             catch (FileNotFoundException)
