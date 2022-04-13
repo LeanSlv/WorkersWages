@@ -2096,6 +2096,8 @@ export class AccountUserInfoResponse implements IAccountUserInfoResponse {
     userName!: string;
     /** ����������� �����. */
     email!: string;
+    /** ����� �������������� ������ � ��������. */
+    reloadDataTime?: number | undefined;
 
     constructor(data?: IAccountUserInfoResponse) {
         if (data) {
@@ -2114,6 +2116,7 @@ export class AccountUserInfoResponse implements IAccountUserInfoResponse {
             this.lastName = _data["lastName"];
             this.userName = _data["userName"];
             this.email = _data["email"];
+            this.reloadDataTime = _data["reloadDataTime"];
         }
     }
 
@@ -2132,6 +2135,7 @@ export class AccountUserInfoResponse implements IAccountUserInfoResponse {
         data["lastName"] = this.lastName;
         data["userName"] = this.userName;
         data["email"] = this.email;
+        data["reloadDataTime"] = this.reloadDataTime;
         return data;
     }
 }
@@ -2150,6 +2154,8 @@ export interface IAccountUserInfoResponse {
     userName: string;
     /** ����������� �����. */
     email: string;
+    /** ����� �������������� ������ � ��������. */
+    reloadDataTime?: number | undefined;
 }
 
 /** ������ �� ��������� �������� ������ ������������. */
@@ -2162,6 +2168,8 @@ export class AccountEditMainInfoRequest implements IAccountEditMainInfoRequest {
     lastName!: string;
     /** ����������� �����. */
     email!: string;
+    /** ����� �������������� ������ � ��������. */
+    reloadDataTime?: number | undefined;
 
     constructor(data?: IAccountEditMainInfoRequest) {
         if (data) {
@@ -2178,6 +2186,7 @@ export class AccountEditMainInfoRequest implements IAccountEditMainInfoRequest {
             this.middleName = _data["middleName"];
             this.lastName = _data["lastName"];
             this.email = _data["email"];
+            this.reloadDataTime = _data["reloadDataTime"];
         }
     }
 
@@ -2194,6 +2203,7 @@ export class AccountEditMainInfoRequest implements IAccountEditMainInfoRequest {
         data["middleName"] = this.middleName;
         data["lastName"] = this.lastName;
         data["email"] = this.email;
+        data["reloadDataTime"] = this.reloadDataTime;
         return data;
     }
 }
@@ -2208,6 +2218,8 @@ export interface IAccountEditMainInfoRequest {
     lastName: string;
     /** ����������� �����. */
     email: string;
+    /** ����� �������������� ������ � ��������. */
+    reloadDataTime?: number | undefined;
 }
 
 /** ������ �� ��������� ������� ������. */

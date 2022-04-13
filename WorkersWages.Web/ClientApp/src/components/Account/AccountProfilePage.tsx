@@ -4,7 +4,11 @@ import { AccountUserInfoResponse, WorkersWagesApiClient } from '../../services/W
 import { AccountEditMainCard } from './AccountEditMainCard';
 import { AccountEditCredentialsCard } from './AccountEditCredentialsCard';
 
-export const AccountProfilePage = () => {
+interface Props {
+    onDataChanged: () => void;
+}
+
+export const AccountProfilePage = (props: Props) => {
     const [data, setData] = useState<AccountUserInfoResponse>();
     const loadData = useCallback(() => {
         const apiClient = new WorkersWagesApiClient("/extapi");
@@ -25,11 +29,13 @@ export const AccountProfilePage = () => {
         setShowEditCredentialsForm(true);
     }, [setShowEditMainForm, setShowEditCredentialsForm]);
 
+    const propsOnDataChanged = props.onDataChanged;
     const handleDataChanged = useCallback(() => {
         loadData();
         setShowEditMainForm(false);
         setShowEditCredentialsForm(false);
-    }, [loadData, setShowEditMainForm, setShowEditCredentialsForm]);
+        propsOnDataChanged();
+    }, [loadData, setShowEditMainForm, setShowEditCredentialsForm, propsOnDataChanged]);
 
     if (!data) {
         return (

@@ -1,4 +1,4 @@
-﻿import { useCallback } from "react";
+﻿import { useCallback, useEffect } from "react";
 import { useAisList } from '@ais-gorod/react-ui';
 import { ManufactoryListResponse, WorkersWagesApiClient } from '../../services/WorkersWagesApiClient';
 import { FilterData } from './ManufactoriesListFilter';
@@ -7,6 +7,7 @@ import { ManufactoriesDetailsModal } from './ManufactoriesDetailsModal';
 import { Route } from "react-router-dom";
 import { ManufactoriesCreateModal } from './ManufactoriesCreateModal';
 import { ManufactoriesEditModal } from './ManufactoriesEditModal';
+import { useInterval } from "../../hooks/useInterval";
 
 const apiClient = new WorkersWagesApiClient('/extapi');
 
@@ -32,6 +33,9 @@ export const ManufactoriesContainer = () => {
     const handleDelete = useCallback(async (id: number) => {
         await apiClient.manufactoriesDelete(id).then((_) => reloadData());
     }, [reloadData]);
+
+    const interval = useInterval({ callback: reloadData });
+    useEffect(() => interval(), [interval]);
 
     return (
         <>

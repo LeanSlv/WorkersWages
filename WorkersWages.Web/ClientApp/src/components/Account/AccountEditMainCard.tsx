@@ -12,6 +12,7 @@ const validationSchema = Yup.object().shape({
     middleName: Yup.string(),
     lastName: Yup.string().required(),
     email: Yup.string().email('Электронная почта введена некорректно.').required(),
+    reloadDataTime: Yup.number()
 });
 
 export const AccountEditMainCard = (props: Props) => {
@@ -23,7 +24,8 @@ export const AccountEditMainCard = (props: Props) => {
             firstName: propsData.firstName,
             middleName: propsData.middleName,
             lastName: propsData.lastName,
-            email: propsData.email
+            email: propsData.email,
+            reloadDataTime: propsData.reloadDataTime
         })
     ), [propsData]);
 
@@ -42,6 +44,7 @@ export const AccountEditMainCard = (props: Props) => {
                 <AisFormField.Text label="Имя" name="firstName" />
                 <AisFormField.Text label="Отчество" name="middleName" />
                 <AisFormField.Text label="Электронная почта" name="email" />
+                <AisFormField.Number label="Время автообновления данных в секундах" name="reloadDataTime" />
                 <AisButton type="submit">Сохранить</AisButton>
             </AisForm>
         </AisCard>

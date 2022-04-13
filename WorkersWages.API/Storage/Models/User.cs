@@ -27,6 +27,11 @@ namespace WorkersWages.API.Storage.Models
         public string LastName { get; set; }
 
         /// <summary>
+        /// Время автообновления данных в секундах.
+        /// </summary>
+        public int? ReloadDataTime { get; set; }
+
+        /// <summary>
         /// Дата и время создания записи.
         /// </summary>
         [Required]

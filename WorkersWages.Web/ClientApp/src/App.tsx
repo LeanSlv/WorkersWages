@@ -16,6 +16,7 @@ import { WagesContainer } from './components/Wages/WagesContainer';
 import { AccountProfilePage } from './components/Account/AccountProfilePage';
 
 import './App.scss';
+import { WorkersWagesApiClient } from './services/WorkersWagesApiClient';
 
 function App() {
     const history = useHistory();
@@ -23,9 +24,15 @@ function App() {
 
     const [userInfo, setUserInfo] = useState<UserInfo>();
     const loadUserInfo = useCallback(() => {
-        const apiClient = new WorkersWagesWebLocalApiClient();
-        apiClient.userInfo().then((data) => setUserInfo(data));
-    }, [setUserInfo])
+        const apiClient = new WorkersWagesApiClient('/extapi');
+        apiClient.accountUserInfo().then((data) => setUserInfo(
+            {
+                displayName: `${data.lastName} ${data.firstName} ${data.middleName ?? ''}`.trim(),
+                email: data.email,
+                reloadDataTime: data.reloadDataTime
+            })
+        );
+    }, [setUserInfo]);
 
     useEffect(() => loadUserInfo(), []);
 
@@ -46,7 +53,9 @@ function App() {
                         <Route path="/schedules" component={SchedulesContainer} />
                         <Route path="/manufactories" component={ManufactoriesContainer} />
                         <Route path="/wages" component={WagesContainer} />
-                        <Route path="/profile" component={AccountProfilePage} />
+                        <Route path="/profile">
+                            <AccountProfilePage onDataChanged={loadUserInfo} />
+                        </Route>
                     </>
                 ) : (
                     <>

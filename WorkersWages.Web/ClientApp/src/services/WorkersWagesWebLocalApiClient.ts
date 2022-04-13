@@ -262,6 +262,7 @@ export interface IAccountRegisterRequest {
 export class AuthorizationUserInfoResponse implements IAuthorizationUserInfoResponse {
     displayName?: string | undefined;
     email?: string | undefined;
+    reloadDataTime?: number | undefined;
 
     constructor(data?: IAuthorizationUserInfoResponse) {
         if (data) {
@@ -276,6 +277,7 @@ export class AuthorizationUserInfoResponse implements IAuthorizationUserInfoResp
         if (_data) {
             this.displayName = _data["displayName"];
             this.email = _data["email"];
+            this.reloadDataTime = _data["reloadDataTime"];
         }
     }
 
@@ -290,6 +292,7 @@ export class AuthorizationUserInfoResponse implements IAuthorizationUserInfoResp
         data = typeof data === 'object' ? data : {};
         data["displayName"] = this.displayName;
         data["email"] = this.email;
+        data["reloadDataTime"] = this.reloadDataTime;
         return data;
     }
 }
@@ -297,6 +300,7 @@ export class AuthorizationUserInfoResponse implements IAuthorizationUserInfoResp
 export interface IAuthorizationUserInfoResponse {
     displayName?: string | undefined;
     email?: string | undefined;
+    reloadDataTime?: number | undefined;
 }
 
 export class ApiException extends Error {

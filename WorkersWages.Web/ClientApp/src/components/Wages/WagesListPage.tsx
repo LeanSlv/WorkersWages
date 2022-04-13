@@ -2,9 +2,10 @@
 import { WagesListFilter, FilterData } from './WagesListFilter';
 import { Link } from 'react-router-dom';
 import { WageListResponse, WorkersWagesApiClient } from '../../services/WorkersWagesApiClient';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { WagesCreateModal } from './WagesCreateModal';
 import { WagesEditModal } from './WagesEditModal';
+import { useInterval } from '../../hooks/useInterval';
 
 const apiClient = new WorkersWagesApiClient('/extapi');
 
@@ -39,6 +40,9 @@ export const WagesListPage = () => {
         await apiClient.wagesDelete(deleteId).then((_) => reloadData());
         setDeleteId(undefined);
     }, [deleteId, setDeleteId, reloadData]);
+
+    const interval = useInterval({ callback: reloadData });
+    useEffect(() => interval(), [interval]);
 
     return (
         <>

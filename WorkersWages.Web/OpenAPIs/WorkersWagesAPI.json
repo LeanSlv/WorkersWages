@@ -2258,6 +2258,12 @@
           "email": {
             "type": "string",
             "description": "Ёлектронна€ почта."
+          },
+          "reloadDataTime": {
+            "type": "integer",
+            "description": "¬рем€ автообновлени€ данных в секундах.",
+            "format": "int32",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -2287,6 +2293,12 @@
           "email": {
             "type": "string",
             "description": "Ёлектронна€ почта."
+          },
+          "reloadDataTime": {
+            "type": "integer",
+            "description": "¬рем€ автообновлени€ данных в секундах.",
+            "format": "int32",
+            "nullable": true
           }
         },
         "additionalProperties": false,

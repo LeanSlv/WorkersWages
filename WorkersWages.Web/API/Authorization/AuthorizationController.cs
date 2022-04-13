@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -76,20 +75,6 @@ namespace WorkersWages.Web.API.Authorization
             };
             Response.Cookies.Append("access_token", response.Token, cookieOptions);
             return;
-        }
-
-        /// <summary>
-        /// Получение информации об авторизованном пользователе.
-        /// </summary>
-        [HttpGet("UserInfo")]
-        [Authorize]
-        public AuthorizationUserInfoResponse UserInfo()
-        {
-            return new AuthorizationUserInfoResponse
-            {
-                DisplayName = User.Identity.Name,
-                Email = User.Claims.FirstOrDefault(i => i.Type == ClaimTypes.Email)?.Value
-            };
         }
 
         /// <summary>

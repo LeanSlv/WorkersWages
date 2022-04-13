@@ -1,5 +1,8 @@
 ﻿import { createContext } from 'react';
-import { AuthorizationUserInfoResponse } from '../services/WorkersWagesWebLocalApiClient';
 
-export class UserInfo extends AuthorizationUserInfoResponse {}
+export class UserInfo {
+    displayName?: string | undefined;
+    email?: string | undefined;
+    reloadDataTime?: number | undefined;
+}
 export const UserInfoContext = createContext<UserInfo | undefined>(undefined);
