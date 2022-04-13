@@ -55,7 +55,7 @@ namespace WorkersWages.API.API.Account
                 {
                     new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, fullName),
-                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Email, user.Email)
                 };
 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authOptions.Value.SecretKey));
@@ -124,7 +124,8 @@ namespace WorkersWages.API.API.Account
                 MiddleName = user.MiddleName,
                 LastName = user.LastName,
                 UserName = user.UserName,
-                Email = user.Email
+                Email = user.Email,
+                ReloadDataTime = user.ReloadDataTime
             };
         }
 
@@ -151,6 +152,7 @@ namespace WorkersWages.API.API.Account
             user.MiddleName = request.MiddleName;
             user.LastName = request.LastName;
             user.Email = request.Email;
+            user.ReloadDataTime = request.ReloadDataTime;
 
             var result = await _userManager.UpdateAsync(user);
             result.EnsureSucceeded<ApiException>("Обновление основных данных пользователя.");

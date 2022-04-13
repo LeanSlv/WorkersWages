@@ -29,5 +29,10 @@ namespace WorkersWages.API.API.Account
         /// </summary>
         [Required]
         public string Email { get; set; }
+
+        /// <summary>
+        /// Время автообновления данных в секундах.
+        /// </summary>
+        public int? ReloadDataTime { get; set; }
     }
 }
