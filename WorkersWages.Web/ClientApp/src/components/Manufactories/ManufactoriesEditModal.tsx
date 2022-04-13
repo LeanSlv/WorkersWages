@@ -24,8 +24,7 @@ export const ManufactoriesEditModal = (props: Props) => {
             new ManufactoryEditRequest({
                 name: r.name,
                 number: r.number,
-                headFIO: r.headFIO,
-                headPhotoId: r.headPhotoId
+                headFIO: r.headFIO
             })
         ));
     }, [id])

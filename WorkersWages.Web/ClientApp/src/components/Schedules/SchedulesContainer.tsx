@@ -1,4 +1,4 @@
-﻿import { useCallback } from "react";
+﻿import { useCallback, useEffect } from "react";
 import { useAisList } from '@ais-gorod/react-ui';
 import { ScheduleListResponse, WorkersWagesApiClient } from '../../services/WorkersWagesApiClient';
 import { FilterData } from './SchedulesListFilter';
@@ -6,6 +6,7 @@ import { SchedulesListPage } from './SchedulesListPage';
 import { Route } from "react-router-dom";
 import { SchedulesCreateModal } from './SchedulesCreateModal';
 import { SchedulesEditModal } from './SchedulesEditModal';
+import { useInterval } from "../../hooks/useInterval";
 
 const apiClient = new WorkersWagesApiClient('/extapi');
 
@@ -31,6 +32,9 @@ export const SchedulesContainer = () => {
     const handleDelete = useCallback(async (id: number) => {
         await apiClient.schedulesDelete(id).then((_) => reloadData());
     }, [reloadData]);
+
+    const interval = useInterval({ callback: reloadData });
+    useEffect(() => interval(), [interval]);
 
     return (
         <>

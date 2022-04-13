@@ -3916,6 +3916,12 @@ namespace WorkersWages.Web.Services
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Email { get; set; }
 
+        /// <summary>
+        /// ����� �������������� ������ � ��������.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("reloadDataTime", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? ReloadDataTime { get; set; }
+
     }
 
     /// <summary>
@@ -3950,6 +3956,12 @@ namespace WorkersWages.Web.Services
         [Newtonsoft.Json.JsonProperty("email", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Email { get; set; }
+
+        /// <summary>
+        /// ����� �������������� ������ � ��������.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("reloadDataTime", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? ReloadDataTime { get; set; }
 
     }
 
