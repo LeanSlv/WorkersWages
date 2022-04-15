@@ -18,6 +18,15 @@ import { AccountProfilePage } from './components/Account/AccountProfilePage';
 import './App.scss';
 import { WorkersWagesApiClient } from './services/WorkersWagesApiClient';
 
+const authorizeRoutes = [
+    '/professions',
+    '/salaries',
+    '/schedules',
+    '/manufactories',
+    '/wages',
+    '/profile',
+];
+
 function App() {
     const history = useHistory();
     const location = useLocation();
@@ -34,11 +43,11 @@ function App() {
         );
     }, [setUserInfo]);
 
-    useEffect(() => loadUserInfo(), []);
+    useEffect(() => loadUserInfo(), [loadUserInfo]);
 
     useEffect(() => {
-        if (!userInfo?.displayName && !(location.pathname.toString() === '/' || location.pathname.startsWith('/login') || location.pathname.startsWith('/register'))) {
-            history.replace({ ...location, pathname: '/' });
+        if (!userInfo?.displayName && authorizeRoutes.some((route) => location.pathname.startsWith(route))) {
+            history.replace({ ...location, pathname: '/login' });
         }
     }, [userInfo, history, location]);
 
