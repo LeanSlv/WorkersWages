@@ -130,8 +130,6 @@ namespace WorkersWages.Web
 
                 endpoints.Map("/extapi/{**catch-all}", async httpContext =>
                 {
-                    //var result = await httpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                    //var token = result.Properties.Items.FirstOrDefault(i => i.Key.StartsWith("access_token")).Value;
                     var token = httpContext.Request.Cookies["access_token"];
                     httpContext.Request.Cookies = null;
                     httpContext.Request.Headers.Add("Authorization", $"Bearer {token}");
