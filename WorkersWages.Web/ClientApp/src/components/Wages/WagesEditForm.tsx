@@ -34,10 +34,10 @@ const professionIdOptions = async (inputValue: string, value: string | number | 
 export const WagesEditForm = (props: Props) => {
     return (
         <AisForm onSubmit={props.onSubmit} validationSchema={validationSchema} initialValues={props.data}>
-            <AisFormField.Text label="Фамилия рабочего" name="workerLastName" />
-            <AisFormField.SelectAsync label="Цех" name="manufactoryId" loadOptions={manufactoryIdOptions} />
-            <AisFormField.SelectAsync label="Профессия" name="professionId" loadOptions={professionIdOptions} />
-            <AisFormField.Number label="Разряд" name="rank" />
+            <AisFormField.Text label="Фамилия рабочего *" name="workerLastName" />
+            <AisFormField.SelectAsync label="Цех *" name="manufactoryId" loadOptions={manufactoryIdOptions} />
+            <AisFormField.SelectAsync label="Профессия *" name="professionId" loadOptions={professionIdOptions} />
+            <AisFormField.Number label="Разряд *" name="rank" />
             <AisButton type="submit">Сохранить</AisButton>
         </AisForm>
     );

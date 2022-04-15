@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,7 @@ namespace WorkersWages.API.API.Wages
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class WagesController : ControllerBase
     {
         private readonly DataContext _dataContext;

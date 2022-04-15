@@ -43,9 +43,9 @@ export const ManufactoriesEditForm = (props: Props) => {
 
     return (
         <AisForm onSubmit={handleSubmit} validationSchema={validationSchema} initialValues={props.data}>
-            <AisFormField.Text label="Название" name="name" />
-            <AisFormField.Text label="Номер" name="number" />
-            <AisFormField.Text label="ФИО начальника" name="headFIO" />
+            <AisFormField.Text label="Название *" name="name" />
+            <AisFormField.Text label="Номер *" name="number" />
+            <AisFormField.Text label="ФИО начальника *" name="headFIO" />
             <AisFormField.File label="Фото начальника" name="headPhoto" onChange={saveFile} />
             <AisButton type="submit">Сохранить</AisButton>
         </AisForm>

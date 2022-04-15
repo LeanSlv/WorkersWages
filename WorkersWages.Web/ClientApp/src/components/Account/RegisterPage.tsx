@@ -20,6 +20,7 @@ interface RegisterData {
 const FormValuesSchema = Yup.object().shape({
     firstName: Yup.string().required(),
     lastName: Yup.string().required(),
+    middleName: Yup.string(),
     email: Yup.string().email('Электронная почта введена некорректно.').required(),
     userName: Yup.string().required(),
     password: Yup.string().required(),
@@ -53,13 +54,13 @@ export const RegisterPage = (props: Props) => {
             <AisGrid.Col md={8} lg={4}>
                 <AisCard header="Регистрация" headerClassName="text-center">
                     <AisForm onSubmit={handleSubmit} validationSchema={FormValuesSchema}>
-                        <AisFormField.Text label="Имя" name="firstName" />
-                        <AisFormField.Text label="Фамилия" name="lastName" />
+                        <AisFormField.Text label="Имя *" name="firstName" />
+                        <AisFormField.Text label="Фамилия *" name="lastName" />
                         <AisFormField.Text label="Отчество" name="middleName" />
-                        <AisFormField.Text label="Электронная почта" name="email" />
-                        <AisFormField.Text label="Логин" name="userName" />
-                        <AisFormField.Text label="Пароль" name="password" type="password" />
-                        <AisFormField.Text label="Повторите пароль" name="confirmPassword" type="password" />
+                        <AisFormField.Text label="Электронная почта *" name="email" />
+                        <AisFormField.Text label="Логин *" name="userName" />
+                        <AisFormField.Text label="Пароль *" name="password" type="password" />
+                        <AisFormField.Text label="Повторите пароль *" name="confirmPassword" type="password" />
                         <AisButton type="submit" variant="primary">
                             Зарегистрироваться
                         </AisButton>
