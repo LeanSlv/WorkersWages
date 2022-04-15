@@ -13,7 +13,7 @@ const validationSchema = Yup.object().shape({
 export const ProfessionsEditForm = (props: Props) => {
     return (
         <AisForm onSubmit={props.onSubmit} validationSchema={validationSchema} initialValues={props.data}>
-            <AisFormField.Text label="Название" name="name" />
+            <AisFormField.Text label="Название *" name="name" />
             <AisButton type="submit">Сохранить</AisButton>
         </AisForm>
     );

@@ -47,8 +47,8 @@ const weekDayOptions = [
 export const SchedulesEditForm = (props: Props) => {
     return (
         <AisForm onSubmit={props.onSubmit} validationSchema={validationSchema} initialValues={props.data}>
-            <AisFormField.SelectAsync label="Цех" name="manufactoryId" loadOptions={manufactoryIdOptions} />
-            <AisFormField.Select label="День недели" name="weekDay" options={weekDayOptions} />
+            <AisFormField.SelectAsync label="Цех *" name="manufactoryId" loadOptions={manufactoryIdOptions} />
+            <AisFormField.Select label="День недели *" name="weekDay" options={weekDayOptions} />
             <AisGrid.Row>
                 <AisGrid.Col>
                     <FormFieldTimePicker label="Время начала работы" name="workingStart" />
